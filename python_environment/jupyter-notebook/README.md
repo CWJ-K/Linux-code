@@ -7,10 +7,11 @@ pipenv shell
 python -m ipykernel install --user --name=my-virtualenv-name
 
 # install jupyter notebook excetions
-pipenv install jupyter_contrib_nbextensions
-pipenv run jupyter contrib nbextension install --user
+install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
 
-#pipenv run jupyter notebook --allow-root
+# run jupyter notebook in pipenv
+jupyter notebook --allow-root
 
 
 # When IOPub data rate exceeded in Jupyter notebook (when viewing image)
