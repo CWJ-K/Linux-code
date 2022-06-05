@@ -31,3 +31,9 @@ Advantages:
 docker network inspect my_network
 docker network disconnect -f my_network container_name # only one container
 docker network rm my_network
+
+
+
+
+Docker provides a host network which lets containers share your host's networking stack. This approach means localhost inside a container resolves to the physical host, instead of the container itself. Now your container can reference localhost or 127.0. 0.1 directly.
+https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/

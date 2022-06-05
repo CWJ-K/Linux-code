@@ -27,3 +27,10 @@ pipenv sync
 ### issue
 * still can not update version of numpy to 1.2.1 in VM
 
+
+
+# ERROR: Pipfile.lock not found! You need to run $ pipenv lock before you can continue.
+when build docker image
+1. go to directory with the Dockerfile
+2. pipenv lock
+3. docker build .....  (in the same directory with the Dockerfiel because . (the current directory))
