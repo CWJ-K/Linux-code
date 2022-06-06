@@ -1,10 +1,14 @@
+<!-- omit in toc -->
+# Introduction
 
+<br />
 
+<!-- omit in toc -->
+# Table of Contents
+- [Example](#example)
+  - [Explanation](#explanation)
 
-
-https://docs.docker.com/compose/compose-file/#extension
-starts with the x- character sequence
-
+# Example
     x-logging: &default-logging
         options:
         max-size: "12m"
@@ -18,3 +22,15 @@ starts with the x- character sequence
         backend:
             image: awesome/database
             logging: *default-logging
+## Explanation
+- extension starts with the **x- character** sequence
+
+        x-logging => x-<name>
+
+- `&` (ampersand): a YAML feature - anchor. Anchors can be used to duplicate/inherit properties 
+        &default-logging
+- `*` (Asterisk, star): refer back to the anchor
+
+
+
+    
