@@ -6,7 +6,6 @@ Note the usage of Docker in Linux to solve questions below
 3. how to use swarm
 
 <br />
-<br />
 
 # Table of Contents
 - [Docker-Compose](https://github.com/CWJ-K/Linux_Note/tree/main/Docker/docker-compose)
@@ -16,7 +15,6 @@ Note the usage of Docker in Linux to solve questions below
   - [dockerfile](#dockerfile)
   - [docker-compose](#docker-compose)
 
-<br />
 <br />
 
 # Install on Linux (Ubuntu)
