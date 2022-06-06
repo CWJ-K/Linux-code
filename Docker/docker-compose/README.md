@@ -9,6 +9,7 @@ Take note of the components of docker-compose
 <!-- omit in toc -->
 # Table of Contents
 - [Linux Commands](#linux-commands)
+  - [Create and start containers](#create-and-start-containers)
 - [Components](#components)
   - [Extension](#extension)
   - [Network](#network)
@@ -18,7 +19,8 @@ Take note of the components of docker-compose
 <br />
 
 # Linux Commands
-**TODO**
+## Create and start containers
+    docker-compose up -d --build
 
 <br />
 
