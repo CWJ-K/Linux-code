@@ -1,5 +1,6 @@
 <!-- omit in toc -->
-# Introduction
+# Purpose of Extensions
+To improve readability of reused fragments
 
 <br />
 
@@ -7,6 +8,11 @@
 # Table of Contents
 - [Example](#example)
   - [Explanation](#explanation)
+    - [x- character](#x-character)
+    - [`&` (ampersand)](#-ampersand)
+    - [`*` (Asterisk, star)](#-asterisk-star)
+
+<br />
 
 # Example
     x-logging: &default-logging
@@ -23,13 +29,16 @@
             image: awesome/database
             logging: *default-logging
 ## Explanation
-- extension starts with the **x- character** sequence
+### x- character 
+extension starts with the **x- character** sequence
 
         x-logging => x-<name>
 
-- `&` (ampersand): a YAML feature - anchor. Anchors can be used to duplicate/inherit properties 
+### `&` (ampersand)
+a YAML feature - anchor. Anchors can be used to duplicate/inherit properties 
         &default-logging
-- `*` (Asterisk, star): refer back to the anchor
+### `*` (Asterisk, star)
+refer back to the anchor
 
 
 
