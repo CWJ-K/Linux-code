@@ -10,8 +10,6 @@ Take notes of how to set jupyer-notebook environment on Linux
   - [ipykernel](#ipykernel)
   - [Virtualenv](#virtualenv)
   - [Pipenv](#pipenv)
-    - [Pipfile](#pipfile)
-    - [Pipfile.lock](#pipfilelock)
 - [Install on Linux](#install-on-linux)
   - [1. Install Ipykernel in virtualenv for jupyter](#1-install-ipykernel-in-virtualenv-for-jupyter)
   - [2. **Activate/ Enter Virtualenv**](#2-activate-enter-virtualenv)
@@ -36,21 +34,7 @@ Take notes of how to set jupyer-notebook environment on Linux
 ## Pipenv 
 * automatically creates and manages a virtualenv for your projects
 * is both a package and virtual environment management tool that uses the Pipfile and Pipfile.lock files to achieve these goals
-### Pipfile 
-* for people to add or remove packages in virtualenv
-  
 
-        pipenv install <package>
-        pipenv uninstall <package>
-        pipenv install --dev <package>
-
-
-### Pipfile.lock
-* for machines to store detailed environment
-* automatically generated; should not be modified users
-
-        # create a Pipfile. lock to declare the environment of projects
-        pipenv lock
 
 # Install on Linux
 ## 1. Install [Ipykernel](https://ipython.readthedocs.io/en/stable/install/kernel_install.html) in virtualenv for jupyter

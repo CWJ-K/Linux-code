@@ -1,3 +1,49 @@
+<!-- omit in toc -->
+# Introduction
+Take notes of pipenv. Pipenv is a higher-level tool to manage packages with virtual environment, which helps to manage Python environment.
+
+
+<br />
+
+<!-- omit in toc -->
+# Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+  - [Pipenv](#pipenv)
+    - [Pipfile](#pipfile)
+    - [Pipfile.lock](#pipfilelock)
+    - [update pipenv:  it wil run pipenv lock then pipenv sync](#update-pipenv--it-wil-run-pipenv-lock-then-pipenv-sync)
+    - [activate pipenv](#activate-pipenv)
+    - [check versions of packages after activating pipenv](#check-versions-of-packages-after-activating-pipenv)
+- [module: make directory into package](#module-make-directory-into-package)
+- [sync](#sync)
+    - [issue](#issue)
+- [ERROR: Pipfile.lock not found! You need to run $ pipenv lock before you can continue.](#error-pipfilelock-not-found-you-need-to-run--pipenv-lock-before-you-can-continue)
+
+
+<br />
+
+# Fundamental Concepts
+
+## Pipenv 
+* automatically creates and manages a virtualenv for your projects
+* is both a package and virtual environment management tool that uses the Pipfile and Pipfile.lock files to achieve these goals
+### Pipfile 
+* for people to add or remove packages in virtualenv
+  
+
+        pipenv install <package>
+        pipenv uninstall <package>
+        pipenv install --dev <package>
+
+
+### Pipfile.lock
+* for machines to store detailed environment
+* automatically generated; should not be modified users
+
+        # create a Pipfile. lock to declare the environment of projects
+        pipenv lock
+
+
 
 
 ### update pipenv:  it wil run pipenv lock then pipenv sync
