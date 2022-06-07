@@ -7,71 +7,111 @@ Take note of concepts of computer network and docker network
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
-  - [Network Terms](#network-terms)
-    - [Namespace](#namespace)
-  - [Socket](#socket)
-    - [Socket Address](#socket-address)
-  - [Three Kinds of Networks](#three-kinds-of-networks)
-    - [Docker Network Host](#docker-network-host)
-  - [top-level networks key](#top-level-networks-key)
+  - [**Namespaces**](#namespaces)
+    - [**What is the goal of namespace?**](#what-is-the-goal-of-namespace)
+    - [**How namespace achieves the goal?**](#how-namespace-achieves-the-goal)
+    - [**Image a namespace**](#image-a-namespace)
+  - [**Socket**](#socket)
+    - [**Socket Address**](#socket-address)
+- [Docker Networks](#docker-networks)
+  - [Types of Docker Network](#types-of-docker-network)
+    - [Bridge Networking](#bridge-networking)
+    - [Host Networking](#host-networking)
+    - [Set Network](#set-network)
+  - [Top-Level Networks Key](#top-level-networks-key)
   - [topologies](#topologies)
-- [Networks](#networks)
+- [Service Networks](#service-networks)
+  - [Example 1](#example-1)
+    - [Explanation](#explanation)
+- [Example 2](#example-2)
 
 <br />
 
 
 # Fundamental Concepts
-## Network Terms
-### [Namespace](https://www.youtube.com/watch?v=-YnMr1lj4Z8)
 
+<br />
 
+## [**Namespaces**](https://www.youtube.com/watch?v=-YnMr1lj4Z8)
 
+Docker uses a Linux technology, namespaces.
 
+<br />
 
-Docker uses a technology called namespaces to provide the isolated workspace called the container. When you run a container, Docker creates a set of namespaces for that container.
+### **What is the goal of namespace?**
+[To isolate workspaces](https://docs.docker.com/engine/security/userns-remap/)
 
-These namespaces provide a layer of isolation. Each aspect of a container runs in a separate namespace and its access is limited to that namespace.
+### **How namespace achieves the goal?**
+* When running a container, Docker creates a set of namespaces for the container
+* A namespace enables to place a bunch of code under a name
+* Each namespace has an unique name to avoid naming conflicts between classes, functions and constants
+  
+  > like same scripts name in different directories
+* Each namespace has its own IP address, network interfaces, routing tables ... etc.
 
+### **Image a namespace**
+* like a directory/drawer. Files can be put in it. You label the directory/drawer to make it clear to identify.
 
+<br />
 
-Linux namespaces provide isolation for running processes, limiting their access to system resources without the running process being aware of the limitations.
-https://docs.docker.com/engine/security/userns-remap/
-think of a namespace as a person's surname
-
-A namespace allows you to place a bunch of code under a name and not have any naming conflicts with classes, functions and constants.
-
-It allows your code to live in that namespace.
-
-A Namespace works like a directory. You know how you can put files in a directory with the same names as files in the parent (or any other) directory? Well, a namespace lets you do that within an application for variables, functions and classes.
-
-Namespace is like packaging many things into a single pack. Imagine a namespace as a drawer in which you can put all kinds of things: a pencil, a ruler, a piece of paper and so forth. To avoid using each other's items, you decide to label the drawers so it's clear what belongs to whom.
-
-You can use namespace to avoid name collisions between code you create, and internal PHP classes/functions/constants or third-party classes/functions/constants. 
-
-Each namespace has its own IP addresses, network interfaces, routing tables, and so forth.
-
-
-
-## [Socket](https://www.youtube.com/watch?v=-utm73RxNo4)
+## [**Socket**](https://www.youtube.com/watch?v=-utm73RxNo4)
 an end-point of communication between two devices
-### Socket Address
+
+> each device has a socket to communicate to other device
+
+<br />
+
+### **Socket Address**
 IP address + port
 
+<br />
 
-## Three Kinds of Networks
-https://k21academy.com/docker-kubernetes/docker-networking-different-types-of-networking-overview-for-beginners/
+# Docker Networks
 
-### Docker Network Host
-a networking mode in which a Docker container shares its network namespace with the host machine
-        # to run a container in host networking mode
-        docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
-can offer performance improvements and optimizations over other Docker networking modes, e.g., "none" and "bridge" modes.
+<br />
 
-does not require network address translation (NAT), making it easier to handle a large number of ports simultaneously
+## [Types of Docker Network](https://k21academy.com/docker-kubernetes/docker-networking-different-types-of-networking-overview-for-beginners/)
 
-avoid port conflicts while working in Docker host networking mode
+Below introduces two networking. However, Docker has many other network modes.
 
-## [top-level networks key](https://docs.docker.com/compose/compose-file/compose-file-v2/#network-configuration-reference)
+<br />
+
+### Bridge Networking
+* default network in docker
+* docker **automatically** creates a network for the current directory when running a container 
+
+  <bt />
+  services in the container by default join the network to connect other services.
+
+* Good time to use bridge networking ?
+  
+  If you want to customize networks
+
+<bt />
+
+### Host Networking
+* container shares host's networking namespace
+  * container does not have its own IP address, but using host's IP address
+  * aware of **port conflicts** while working in Docker host networking mode
+  
+
+* performance optimizations over other Docker networking modes, e.g., "none" and "bridge" modes.
+  * does not require network address translation (NAT), making it easier to handle a large number of ports simultaneously
+  
+
+
+### Set Network
+  > --net=host
+
+    docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
+
+
+
+
+
+## [Top-Level Networks Key](https://docs.docker.com/compose/compose-file/compose-file-v2/#network-configuration-reference)
+
+
 1. Instead of just using the default app network, you can specify your own networks
 2. create more complex topologies and specify custom network drivers and options
 3. connect services to externally-created networks which aren’t managed by Compose
@@ -86,10 +126,31 @@ The different arrangements of computer connections and devices
 
 
 
-# Networks
-https://docs.docker.com/compose/networking/
-https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode
-=> default mode: bridge. automaticall create my_network and all services connect to it
+# Service Networks
+
+## [Example 1](https://docs.docker.com/compose/networking/)
+
+
+    # services all connect to the network, automatically generated 
+
+    version: "3.9"
+    services:
+      web:
+        build: .
+        ports:
+          - "8000:8000"
+      db:
+        image: postgres
+        ports:
+          - "8001:5432"
+### Explanation
+* default networking: host (you may not see the networking field)
+
+* port
+  **TODO**
+
+# Example 2
+* each service can connect to each other by [alias/hostname](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode)
 
 Note: in docker, services connect to each other by host name/ Service name instead of IP
 Advantages:
@@ -99,9 +160,9 @@ Advantages:
 * for loading balance...
 
 #
-* default: Compose sets up a single network base on a directory
-* when running ```docker-compose up```, each container for a service will join the default network
-* each service can connect to each other by alias/hostname
+
+
+
 * Networked service-to-service communication uses the CONTAINER_PORT
     db:
         image: postgres
