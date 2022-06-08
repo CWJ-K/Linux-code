@@ -21,10 +21,12 @@ Take note of concepts of computer network and docker network
 - [Service Networks](#service-networks)
   - [Example](#example)
     - [Explanation](#explanation)
+      - [**Default Networking**](#default-networking)
+      - [**Port**](#port)
 - [Top-Level Networks Key](#top-level-networks-key)
   - [Example](#example-1)
 - [Commands](#commands)
-- [Reference:](#reference)
+- [Reference](#reference)
 
 <br />
 
@@ -135,9 +137,11 @@ Below introduces two networking. However, Docker has many other network modes. N
         # network_mode: "bridge"
   
 ### Explanation
-* default networking: bridge (you may not see the network_mode field)
+#### **Default Networking**
+  * bridge (you may not see the network_mode field)
 
-* port
+#### **Port**
+  * Image Network is a hotel and port is each room in the hotel
   * HOST_PORT : CONTAINER_PORT
 
     * HOST_PORT: How host machine connects the service
@@ -217,7 +221,7 @@ Top-level networks key helps:
 <br />
 
 ---
-# Reference:
+# Reference
 [Practical Design Patterns in Docker Networking](https://www.youtube.com/watch?v=PpyPa92r44s)
 
 
