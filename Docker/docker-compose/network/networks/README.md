@@ -13,17 +13,18 @@ Take note of concepts of computer network and docker network
     - [**Image a namespace**](#image-a-namespace)
   - [**Socket**](#socket)
     - [**Socket Address**](#socket-address)
-- [Docker Networks](#docker-networks)
+  - [**Topologies**](#topologies)
+- [**Docker Networks**](#docker-networks)
   - [Types of Docker Network](#types-of-docker-network)
-    - [Bridge Networking](#bridge-networking)
-    - [Host Networking](#host-networking)
-    - [Set Network](#set-network)
-  - [Top-Level Networks Key](#top-level-networks-key)
-  - [topologies](#topologies)
+    - [**Bridge Networking**](#bridge-networking)
+    - [**Host Networking**](#host-networking)
 - [Service Networks](#service-networks)
-  - [Example 1](#example-1)
+  - [Example](#example)
     - [Explanation](#explanation)
-- [Example 2](#example-2)
+- [Top-Level Networks Key](#top-level-networks-key)
+  - [Example](#example-1)
+- [Commands](#commands)
+- [Reference:](#reference)
 
 <br />
 
@@ -66,18 +67,25 @@ IP address + port
 
 <br />
 
-# Docker Networks
+
+## **Topologies**
+The different arrangements of computer connections and devices 
+
+<br />
+
+# **Docker Networks**
 
 <br />
 
 ## [Types of Docker Network](https://k21academy.com/docker-kubernetes/docker-networking-different-types-of-networking-overview-for-beginners/)
 
-Below introduces two networking. However, Docker has many other network modes.
+Below introduces two networking. However, Docker has many other network modes. Network provides Docker network isolation.
+
 
 <br />
 
-### Bridge Networking
-* default network in docker
+### **Bridge Networking**
+* **default** network in docker
 * docker **automatically** creates a network for the current directory when running a container 
 
   <bt />
@@ -87,9 +95,11 @@ Below introduces two networking. However, Docker has many other network modes.
   
   If you want to customize networks
 
+* with **docker0** as a bridge
+
 <bt />
 
-### Host Networking
+### **Host Networking**
 * container shares host's networking namespace
   * container does not have its own IP address, but using host's IP address
   * aware of **port conflicts** while working in Docker host networking mode
@@ -97,38 +107,16 @@ Below introduces two networking. However, Docker has many other network modes.
 
 * performance optimizations over other Docker networking modes, e.g., "none" and "bridge" modes.
   * does not require network address translation (NAT), making it easier to handle a large number of ports simultaneously
+  * breaks the isolation model of Docker containers
   
+* **localhost** inside a container means the **host of host machine**, instead of the container itself
+  * can [reference](https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/) **localhost** or **127.0. 0.1**
 
-
-### Set Network
-  > --net=host
-
-    docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
-
-
-
-
-
-## [Top-Level Networks Key](https://docs.docker.com/compose/compose-file/compose-file-v2/#network-configuration-reference)
-
-
-1. Instead of just using the default app network, you can specify your own networks
-2. create more complex topologies and specify custom network drivers and options
-3. connect services to externally-created networks which aren’t managed by Compose
-
-
-Each service can specify what networks to connect to with the service-level networks key, which is a list of names referencing entries under the top-level networks key.
-
-## topologies
-The different arrangements of computer connections and devices 
-
-
-
-
+<br />
 
 # Service Networks
 
-## [Example 1](https://docs.docker.com/compose/networking/)
+## [Example](https://docs.docker.com/compose/networking/)
 
 
     # services all connect to the network, automatically generated 
@@ -139,65 +127,103 @@ The different arrangements of computer connections and devices
         build: .
         ports:
           - "8000:8000"
+        # network_mode: "bridge"
       db:
         image: postgres
         ports:
           - "8001:5432"
+        # network_mode: "bridge"
+  
 ### Explanation
-* default networking: host (you may not see the networking field)
+* default networking: bridge (you may not see the network_mode field)
 
 * port
-  **TODO**
+  * HOST_PORT : CONTAINER_PORT
 
-# Example 2
-* each service can connect to each other by [alias/hostname](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode)
+    * HOST_PORT: How host machine connects the service
+    
+          postgres://{DOCKER_IP}:8001
 
-Note: in docker, services connect to each other by host name/ Service name instead of IP
-Advantages:
-* docker can be deployed in differenct environments without the limitation of static ip
-* if machine maintanence, servers will change to other machines. Use ip, you need to change ip at the same time. Use service name, you will not change anything
-* For security, it is best to not let other people know your service ip.
-* for loading balance...
+    * CONTAINER_PORT: how services connect other ones in the container
+      * connect services based on their [alias](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode), instead of IP
 
-#
+            postgres://db:5432
 
+        * Advantages
 
+          1. docker can be deployed in different environments without the limitation of static ip
+          2. If machine maintenance, servers change to other machines. Use ip, you need to change ip at the same time. Use service name, you do not change anything
+          3. For security, it is best to not let other people know your service ip
 
-* Networked service-to-service communication uses the CONTAINER_PORT
-    db:
-        image: postgres
-        ports:
-        - "8001:5432"
+<br />
 
-    * HOST_PORT: 8001
-        * from the host machine, connection string: postgres://{DOCKER_IP}:8001
-    * container port: 5432 (postgres default)
-        * Within the web container, connection string to db: postgres://db:5432
+# [Top-Level Networks Key](https://docs.docker.com/compose/compose-file/compose-file-v2/#network-configuration-reference)
 
-
-[Referrence](https://www.itread01.com/article/1538012515.html)
+Top-level networks key helps:
+1. Instead of just using the default app network, you can specify your own networks
+2. create more complex topologies and specify custom network drivers and options
+3. connect services to externally-created networks which aren’t managed by Compose
+4. Each service can specify what networks to connect to with the service-level networks key, which is a list of names referencing entries under the top-level networks key.
 
 
+## Example
+    version: "2.4"
+
+    services:
+      proxy:
+        build: ./proxy
+        networks:
+          - outside
+          - default
+      app:
+        build: ./app
+        networks:
+          - default
+
+    networks:
+      outside:
+        external: true
+
+<br />
+
+# Commands
+
+  > --net=host => host networking
+  
+    # Set Network
+    docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
 
 
-docker network inspect my_network
-docker network disconnect -f my_network container_name # only one container
-docker network rm my_network
+    docker network inspect my_network
+
+    # only disconnect one container at once
+    docker network disconnect -f my_network container_name 
+
+
+    docker network rm my_network
+
+    # show bridge IP address
+    ip addr show docker0
 
 
 
 
-Docker provides a host network which lets containers share your host's networking stack. This approach means localhost inside a container resolves to the physical host, instead of the container itself. Now your container can reference localhost or 127.0. 0.1 directly.
-https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/
 
 
 
 
+<br />
+<br />
+<br />
 
------
-Reference:
-Practical Design Patterns in Docker Networking
-https://www.youtube.com/watch?v=PpyPa92r44s
+---
+# Reference:
+[Practical Design Patterns in Docker Networking](https://www.youtube.com/watch?v=PpyPa92r44s)
 
-Network Keywords
-https://www.ibm.com/cloud/learn/networking-a-complete-guide
+
+[Network Keywords](https://www.ibm.com/cloud/learn/networking-a-complete-guide)
+
+
+
+[How does it work? Docker! Part 3: Load balancing, service discovery and security!](https://blog.octo.com/en/how-does-it-work-docker-part-3-load-balancing-service-discovery-and-security/)
+
