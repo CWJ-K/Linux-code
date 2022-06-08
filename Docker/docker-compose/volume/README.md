@@ -18,6 +18,7 @@ To persist data in the container
   - [Explanation](#explanation)
     - [fields](#fields)
     - [external](#external)
+- [execute files when building docker-compose](#execute-files-when-building-docker-compose)
 
 <br />
 
@@ -81,3 +82,10 @@ volumes are stored in the local location below:
 ### [external](https://docs.docker.com/compose/compose-file/compose-file-v3/#external:~:text=%3A/docker/example%22-,external,-%F0%9F%94%97)
 * true:<br />
   compose will look for existing volume and mount it, instead of creating a new volume
+
+
+# execute files when building docker-compose 
+put .sql or .sh in the folder - **docker-entrypoint-initdb.d**
+
+    volumes:
+          - ./scripts/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
