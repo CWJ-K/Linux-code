@@ -46,8 +46,6 @@ To accomplish queue, Celery system is developed.
 * Celery is written in **Python**
 
 
-
-
 ## Flower
   * a web-based tool for monitoring and administrating Celery clusters
 

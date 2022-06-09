@@ -1,1 +1,7 @@
-https://medium.com/@tonywangcn/how-to-build-docker-cluster-with-celery-and-rabbitmq-in-10-minutes-13fc74d21730
+
+# Fundamental Concepts
+## asynchronously 
+no need to wait for a task to be done. Instead, you can do other things while waiting for the task to be done.
+
+## synchronously 
+need to wait for a task to be finished and then you can do other things 
