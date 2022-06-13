@@ -20,6 +20,7 @@ Take notes of how to set jupyer-notebook environment on Linux
 - [Issues](#issues)
   - [IOPub data rate exceeded in Jupyter notebook (when viewing image)](#iopub-data-rate-exceeded-in-jupyter-notebook-when-viewing-image)
     - [Solution: expand limitation of data rate in jupyter](#solution-expand-limitation-of-data-rate-in-jupyter)
+  - [ModuleNotFoundError: No module named 'distutils.cmd'](#modulenotfounderror-no-module-named-distutilscmd)
 
 
 <br />
@@ -58,7 +59,10 @@ Take notes of how to set jupyer-notebook environment on Linux
 ## (Optional) Install Jupyter Notebook Extensions
 > --user: use root
 
-    install jupyter_contrib_nbextensions
+    # before activating pipenv
+    pipenv install jupyter_contrib_nbextensions
+
+    # after activating pipenv
     jupyter contrib nbextension install --user
 
 # Activate Jupyter Notebook
@@ -72,3 +76,13 @@ Take notes of how to set jupyer-notebook environment on Linux
 ### Solution: expand limitation of data rate in jupyter
 > --allow-root: use root
 jupyter notebook --NotebookApp.iopub_data_rate_limit=1.0e10 --allow-root
+
+## ModuleNotFoundError: No module named 'distutils.cmd'
+when `pipenv install ipykernel`, the issue occurs.
+It implies the packages aren't installed.
+
+    # get all available versions of distutils
+    apt-cache search distutils
+
+    # install appropriate version based on python version
+    sudo apt-get install python<version>-distutils

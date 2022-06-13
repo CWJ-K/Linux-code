@@ -18,14 +18,15 @@ To accomplish queue, Celery system is developed.
 - [Commands](#commands)
   - [Install Celery](#install-celery)
   - [**TODO**](#todo)
-  - [Create an entry point of Celery, which is called Celery application/app](#create-an-entry-point-of-celery-which-is-called-celery-applicationapp)
-    - [include](#include)
-  - [Register as a Celery Task](#register-as-a-celery-task)
-  - [Call Tasks](#call-tasks)
+  - [Celery Flow](#celery-flow)
+    - [1. Create an **entry point** of Celery, which is called Celery application/app](#1-create-an-entry-point-of-celery-which-is-called-celery-applicationapp)
+      - [include](#include)
+    - [2. Register as a Celery **Task**](#2-register-as-a-celery-task)
+    - [3. Call **Tasks**](#3-call-tasks)
     - [apply_scync](#apply_scync)
-    - [delay](#delay)
-    - [signature](#signature)
-      - [opposite signature: immutable signature](#opposite-signature-immutable-signature)
+      - [delay](#delay)
+      - [signature](#signature)
+        - [opposite signature: immutable signature](#opposite-signature-immutable-signature)
   - [Help](#help)
   - [Run Celery Worker](#run-celery-worker)
     - [Parameters](#parameters)
@@ -58,32 +59,42 @@ To accomplish queue, Celery system is developed.
 ## **TODO** 
     apt install python-celery-common
 
-## Create an entry point of Celery, which is called Celery application/app
+
+
+## Celery Flow
+```mermaid
+graph LR;
+  Workers__create_a_celery_entry_point --> Tasks__register_modules_as_celery_tasks;
+  Tasks__register_modules_as_celery_tasks --> Producers__call_celery_tasks;
+```
+
+
+### 1. Create an **entry point** of Celery, which is called Celery application/app
         app = Celery('<current_module_name>', include=[''], broker='<message_broker_URL>')
 
-### include
+#### include
 * path of modules to import, so Celery workers can find tasks
 * relative path depends on where to run celery workers by CLI
 
 
-## Register as a Celery Task
+### 2. Register as a Celery **Task**
     @app.task
     def function():
         ...
 
-## [Call Tasks](https://docs.celeryq.dev/en/stable/userguide/calling.html#guide-calling)
+### [3. Call **Tasks**](https://docs.celeryq.dev/en/stable/userguide/calling.html#guide-calling)
 ### apply_scync
 * can set set **additional execution options**
 
         task.apply_async(args=[arg1, arg2], kwargs={'kwarg1': 'x', 'kwarg2': 'y'})  
 
-### delay
+#### delay
 * a more **convenient** way to call task than apply_scync
         
         task.delay(arg1, arg2, kwarg1='x', kwarg2='y')
 
 
-### signature
+#### signature
 * as the parameters of other functions
 * used with chain to create a workflow
 * use ".s", means that the result or return value of the front task will be pass to the next one
@@ -93,7 +104,7 @@ To accomplish queue, Celery system is developed.
         >> 16
 
 
-#### opposite signature: immutable signature
+##### opposite signature: immutable signature
 * every task is independent
 * .si = .signature(..., immutable=True)
   

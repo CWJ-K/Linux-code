@@ -15,6 +15,7 @@ Take notes of pipenv. Pipenv is a higher-level tool to manage packages with virt
     - [Site-Packages](#site-packages)
     - [pip/pip3](#pippip3)
 - [Commands](#commands)
+  - [Install Pipenv](#install-pipenv)
   - [Update Pipenv](#update-pipenv)
   - [Create a Pipfile.lock](#create-a-pipfilelock)
   - [Activate Pipenv](#activate-pipenv)
@@ -67,6 +68,15 @@ Take notes of pipenv. Pipenv is a higher-level tool to manage packages with virt
 <br />
 
 # Commands
+
+## Install Pipenv
+> e.g. use miniconda to install python environment
+
+        pyenv install miniconda3-4.3.30
+        
+        pyenv global miniconda3-4.3.30
+
+        pip install pipenv
 
 ## Update Pipenv
 > it wil run pipenv lock then pipenv sync
