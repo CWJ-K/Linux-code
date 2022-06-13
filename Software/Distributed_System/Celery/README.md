@@ -14,6 +14,7 @@ To accomplish queue, Celery system is developed.
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
   - [Celery](#celery)
+  - [Queues](#queues)
   - [Flower](#flower)
 - [Commands](#commands)
   - [Install Celery](#install-celery)
@@ -24,9 +25,9 @@ To accomplish queue, Celery system is developed.
     - [2. Register as a Celery **Task**](#2-register-as-a-celery-task)
     - [3. Call **Tasks**](#3-call-tasks)
     - [apply_scync](#apply_scync)
-      - [delay](#delay)
-      - [signature](#signature)
-        - [opposite signature: immutable signature](#opposite-signature-immutable-signature)
+    - [delay](#delay)
+    - [signature](#signature)
+      - [opposite signature: immutable signature](#opposite-signature-immutable-signature)
   - [Help](#help)
   - [Run Celery Worker](#run-celery-worker)
     - [Parameters](#parameters)
@@ -45,6 +46,11 @@ To accomplish queue, Celery system is developed.
 * uses a **broker** to mediate (send/receive messages) between clients and workers
   * broker: RabbitMQ, Redis, Amazon SQS ... etc.
 * Celery is written in **Python**
+
+## [Queues](https://docs.celeryq.dev/en/stable/userguide/routing.html)
+* Automatic routing
+  * by default:  task_create_missing_queues
+  * a named queue not defined in task_queues will be created automatically
 
 
 ## Flower
@@ -86,15 +92,17 @@ graph LR;
 ### apply_scync
 * can set set **additional execution options**
 
-        task.apply_async(args=[arg1, arg2], kwargs={'kwarg1': 'x', 'kwarg2': 'y'})  
+        task.apply_async(queue=<queue_name>, args=[arg1, arg2], kwargs={'kwarg1': 'x', 'kwarg2': 'y'})  
 
-#### delay
+
+
+### delay
 * a more **convenient** way to call task than apply_scync
         
         task.delay(arg1, arg2, kwarg1='x', kwarg2='y')
 
 
-#### signature
+### signature
 * as the parameters of other functions
 * used with chain to create a workflow
 * use ".s", means that the result or return value of the front task will be pass to the next one
@@ -104,7 +112,7 @@ graph LR;
         >> 16
 
 
-##### opposite signature: immutable signature
+#### opposite signature: immutable signature
 * every task is independent
 * .si = .signature(..., immutable=True)
   
@@ -119,6 +127,8 @@ graph LR;
 ## Help
         celery --help
         celery worker --help
+
+
 
 ## Run Celery Worker
 * run the worker in the directory above folder with any celery-related scripts
@@ -139,4 +149,3 @@ graph LR;
         celery inspect registered
 
     
-  
