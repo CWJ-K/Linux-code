@@ -20,7 +20,7 @@ Take note of the components of docker-compose
 
 # Linux Commands
 ## Create and start containers
-    docker-compose up -d --build
+    docker-compose (-f docker-compose.yml) up -d --build
 
 <br />
 

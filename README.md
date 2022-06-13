@@ -18,3 +18,5 @@ I believe note-taking helps me learn more about software. Therefore, I create th
 # TODO
 * [cli](Docker/docker-compose/cli/README.md)
 * [Journalctl](Language/Journalctl/README.md)
+* [command](Docker/docker-compose/command/README.md)
+* [ssh](Linux/ssh/README.md)

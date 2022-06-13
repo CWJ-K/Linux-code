@@ -29,12 +29,16 @@ Take notes of RabbitMQ
 
 ![Structure of AMBQ](./AMBQ.JPG)
 
+<br />
+
 ## Virtual Host
 * a [namespace](https://www.rabbitmq.com/uri-spec.html) for objects like Exchanges, Queues and Bindings
 * [Vhosts](https://stackoverflow.com/a/66587594) are to Rabbit; virtual machines are to physical servers
 * allow to run data for **multiple applications** safely and securely by providing **logical separation** between instances
 * to avoiding **naming collisions** on queues and exchanges when running multiple Rabbits
 * Each vhost is essentially a **mini-RabbitMQ server** with its own queues, exchanges, and bindings ... etc, more important, with its own **permissions**.
+<br />
+
 <br />
 
 # RabbitMQ
@@ -64,6 +68,8 @@ Take notes of RabbitMQ
       * fanout: send to all queues
 ### Binding
   * a relationship between an exchange and a queue
+
+<br />
 
 ## [port](https://stackoverflow.com/questions/12792856/what-ports-does-rabbitmq-use)
   * 15672: 

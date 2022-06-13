@@ -32,6 +32,7 @@ To accomplish queue, Celery system is developed.
   - [Run Celery Worker](#run-celery-worker)
     - [Parameters](#parameters)
   - [Monitor registered tasks](#monitor-registered-tasks)
+  - [Start flower](#start-flower)
 
 
 
@@ -149,3 +150,8 @@ graph LR;
         celery inspect registered
 
     
+
+## Start flower
+              # broker url                        # flower port      
+    flower --broker=amqp://worker:worker@rabbitmq --port=8888
+
