@@ -21,6 +21,7 @@ To accomplish queue, Celery system is developed.
   - [**TODO**](#todo)
   - [Celery Flow](#celery-flow)
     - [1. Create an **entry point** of Celery, which is called Celery application/app](#1-create-an-entry-point-of-celery-which-is-called-celery-applicationapp)
+      - [current_module_name](#current_module_name)
       - [include](#include)
     - [2. Register as a Celery **Task**](#2-register-as-a-celery-task)
     - [3. Call **Tasks**](#3-call-tasks)
@@ -49,6 +50,7 @@ To accomplish queue, Celery system is developed.
 * Celery is written in **Python**
 
 ## [Queues](https://docs.celeryq.dev/en/stable/userguide/routing.html)
+* **add queues through flower UI**
 * Automatic routing
   * by default:  task_create_missing_queues
   * a named queue not defined in task_queues will be created automatically
@@ -78,6 +80,12 @@ graph LR;
 
 ### 1. Create an **entry point** of Celery, which is called Celery application/app
         app = Celery('<current_module_name>', include=[''], broker='<message_broker_URL>')
+
+#### current_module_name
+* might be the name of the current repository/module
+> used to execute Celery worker
+
+    celery -A <current_module_name> worker -l info 
 
 #### include
 * path of modules to import, so Celery workers can find tasks
