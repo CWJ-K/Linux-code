@@ -34,6 +34,7 @@ To accomplish queue, Celery system is developed.
     - [Parameters](#parameters)
   - [Monitor registered tasks](#monitor-registered-tasks)
   - [Start flower](#start-flower)
+  - [Celery and RabbitMQ in different machines?](#celery-and-rabbitmq-in-different-machines)
 
 
 
@@ -163,3 +164,6 @@ graph LR;
               # broker url                        # flower port      
     flower --broker=amqp://worker:worker@rabbitmq --port=8888
 
+
+## Celery and RabbitMQ in different machines?
+**TODO**

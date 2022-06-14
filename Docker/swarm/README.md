@@ -66,7 +66,11 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 * a description of tasks or the state
 * Modes
   * global: run on every Swarm node
-  * replicated: manager node distribute tasks to worker nodes
+  * replicated: 
+    * manager node distribute tasks to worker nodes
+    >  replication: the process of sharing information so as to ensure consistency between redundant resources  
+  
+    
   
 <br />
 
@@ -103,13 +107,14 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 <br />
 
 ## Activate Portainer
-
+* [portainer.yml](https://github.com/portainer/portainer-compose/blob/master/docker-stack.yml) 
 
         docker stack deploy -c portainer.yml por
 
 <br />
 
 ## Create Network
+> make sure there is no existing network with same name. If there is, remove the existing network first.
 
     docker network create --scope=swarm --driver=overlay my_network
 
@@ -147,16 +152,18 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 * replicas
 * placement
 * constraints
-    First go to Portainer UI to add labels for manager swarm, so manager swarm can identify the service
+    * Purpose: to assign services to different nodes if there are multiple nodes 
+    * First go to Portainer UI to add labels, so nodes can identify the service assigned to them
+      > Portainer UI: Swarm -> Nodes -> click a specific node -> Node Labels -> add the label of the service
 
 <br />
 
 ## Deploy Services
+
     docker stack deploy --with-registry-auth -c <service.yml> <stack_name>
 
-    # -c, --compose-file strings   Path to a Compose file, or "-" to read from stdin
-    # stack_name => stack ?
-    what does it mean some services in the same stack
+* -c, --compose-file strings   Path to a Compose file, or "-" to read from stdin
+*  --with-registry-auth
 
 <br />
 

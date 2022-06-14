@@ -16,7 +16,7 @@ Take notes of dockerfile
 
 ## Build Image
 
-    docker build -f Dockerfile -t web_crawler:1.0.1 .
+    docker build -f dockerfile -t <image_name>:1.0.1 .
 
  
   * -f:<br />
