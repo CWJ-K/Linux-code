@@ -2,7 +2,7 @@
 
 <!-- omit in toc -->
 # Introduction
-Take note of the components of docker-compose
+Take note of the components of docker-compose in the view of docker-compose since I often use docker-compose.
 
 <br />
 
