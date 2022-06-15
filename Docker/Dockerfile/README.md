@@ -10,6 +10,7 @@ Take notes of dockerfile
   - [Docker image](#docker-image)
 - [Commands](#commands)
   - [Build Image](#build-image)
+  - [tag image](#tag-image)
   - [Push Image to DockerHub](#push-image-to-dockerhub)
     - [Issue: can not login DockerHub](#issue-can-not-login-dockerhub)
 
@@ -32,6 +33,11 @@ Take notes of dockerfile
   * -f:<br />
   * -t:  <br />
   * . : dockerfile in the current directory
+
+
+## tag image
+
+  docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 
 ## Push Image to DockerHub
 ### Issue: can not login DockerHub
