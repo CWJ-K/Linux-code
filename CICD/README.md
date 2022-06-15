@@ -39,6 +39,10 @@ sudo gitlab-runner register \
 
 
 
+
+
+
+
 # Issue
 https://stackoverflow.com/a/62152265
 
@@ -46,3 +50,9 @@ https://stackoverflow.com/a/62152265
 # issue
 not find make
 => install make in vm
+
+# docker runner
+why need => database firewall
+
+docker runners are generally safe* because every build runs in a new container, so there's nothing to worry.
+

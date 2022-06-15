@@ -27,6 +27,8 @@ Take notes of Swarm
   - [Deploy Services](#deploy-services)
 - [Issue](#issue)
   - [Mysql Continuously Crashes in Stack](#mysql-continuously-crashes-in-stack)
+  - [portainer delete old image serveice automaticall?](#portainer-delete-old-image-serveice-automaticall)
+  - [if existing deploy api failed, and test api used api connection](#if-existing-deploy-api-failed-and-test-api-used-api-connection)
 
 
 
@@ -176,3 +178,17 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
   2. ```ps -ef | grep mysqld```
   3. ```sudo kill -9 <mysqld_id>```
   4. Run the container again
+
+## portainer delete old image serveice automaticall?
+
+## if existing deploy api failed, and test api used api connection
+use different environment for development
+
+develop code in test env (test api), and use cicd for test environment (x),
+use make to test all codes in test env.  >> before merging branch
+
+ when all scccuess,merge branch
+
+
+
+=> it is important to write a flow of cicd settings, if only production environment
