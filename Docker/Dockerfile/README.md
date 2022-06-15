@@ -6,10 +6,20 @@ Take notes of dockerfile
 
 <!-- omit in toc -->
 # Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+  - [Docker image](#docker-image)
 - [Commands](#commands)
   - [Build Image](#build-image)
   - [Push Image to DockerHub](#push-image-to-dockerhub)
     - [Issue: can not login DockerHub](#issue-can-not-login-dockerhub)
+
+
+# Fundamental Concepts
+## Docker image
+* Docker images are immutable; once you create an image you can never change it again
+  * if want to modify the existing images 
+    1. delete the current image
+    2. build the image again
 
 
 # Commands
