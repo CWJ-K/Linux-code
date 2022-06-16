@@ -8,12 +8,14 @@ Take notes of dockerfile
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
   - [Docker image](#docker-image)
+  - [Multi-stage builds](#multi-stage-builds)
 - [Commands](#commands)
   - [Build Image](#build-image)
   - [tag image](#tag-image)
   - [Push Image to DockerHub](#push-image-to-dockerhub)
     - [Issue: can not login DockerHub](#issue-can-not-login-dockerhub)
 
+<br />
 
 # Fundamental Concepts
 ## Docker image
@@ -21,7 +23,19 @@ Take notes of dockerfile
   * if want to modify the existing images 
     1. delete the current image
     2. build the image again
+  
+<br />
 
+## [Multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)
+* Goal: to write an efficient docker image
+* How: 
+  1. use shell
+  2. ensure each layer is as small as possible by using the artifacts it needs from the previous layer and nothing else 
+
+
+
+
+<br />
 
 # Commands
 
@@ -48,3 +62,4 @@ Take notes of dockerfile
 
     sudo apt install gnupg2 pass
     docker login --username <username>
+
