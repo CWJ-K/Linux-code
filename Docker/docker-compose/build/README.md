@@ -35,3 +35,15 @@ Configuration options that are applied at build time
 ## args
 * Add build arguments, which are environment variables accessible only during the build process.
 
+
+
+## relative path
+compared with volume, which uses the folder in the same directory
+> docker and data are at the same level of the directory. however, they have different meanings
+* build: docker/test
+  * to get the file in this path
+* volume: ./data:/tmp/data
+  * to get the files in the current directory
+> without `./` means [specific location](https://stackoverflow.com/questions/34269027/why-do-i-need-to-put-dot-forward-slash-when-running-a-sh-command-in-linux) in the path
+> with `./` means files in the current directory
+
