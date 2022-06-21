@@ -112,7 +112,7 @@ Below introduces two networking. However, Docker has many other network modes. N
   * breaks the isolation model of Docker containers
   
 * **localhost** inside a container means the **host of host machine**, instead of the container itself
-  * can [reference](https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/) **localhost** or **127.0. 0.1**  => I tried to use localhost in python scripts to connect mysql, but it connects slowly or maybe failed
+  * can [reference](https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/) **localhost** or **127.0.0.1**  => I tried to use localhost in python scripts to connect mysql, but it connects slowly or maybe failed
 
 <br />
 

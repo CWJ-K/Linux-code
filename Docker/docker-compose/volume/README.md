@@ -20,6 +20,9 @@ To persist data in the container
     - [fields](#fields)
     - [external](#external)
 - [execute files when building docker-compose](#execute-files-when-building-docker-compose)
+  - [directory: docker-entrypoint-initdb.d](#directory-docker-entrypoint-initdbd)
+- [Issue:](#issue)
+  - [mount jupyter notebook](#mount-jupyter-notebook)
 
 <br />
 
@@ -89,8 +92,18 @@ volumes are stored in the local location below:
   compose will look for existing volume and mount it, instead of creating a new volume
 
 # execute files when building docker-compose 
-put .sql or .sh in the folder - **docker-entrypoint-initdb.d**
+## directory: docker-entrypoint-initdb.d
+* the directory will be executed while booting the container, which enables to initialize database structure and data
+* put `*.sql`, `*.sql.gz` or `*.sh` in the folder - **docker-entrypoint-initdb.d**
 
     volumes:
           - ./scripts/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
 
+
+
+# Issue:
+## mount jupyter notebook
+not simply /work, but /home/jovyan/work/
+
+    volumes:
+      - ./:/home/jovyan/work/
