@@ -9,6 +9,7 @@ To persist data in the container
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
+  - [Alternative methods of volumes](#alternative-methods-of-volumes)
   - [**volumes** vs **bind mounts**](#volumes-vs-bind-mounts)
   - [create volumes](#create-volumes)
   - [inspect volumes](#inspect-volumes)
@@ -27,6 +28,10 @@ To persist data in the container
 <br />
 
 # Fundamental Concepts
+
+## Alternative methods of volumes
+* read/write files using storage can be accessed via the internet. e.g. Amazon S3 storage
+
 ## **volumes** vs **bind mounts**
   * **volumes** have more advantages than mounts
   * **mounts** has been used around in the early days of Docker
