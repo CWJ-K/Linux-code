@@ -39,6 +39,10 @@ Take notes of Swarm
 
 ![Docker Architecture](./docker_structure.JPG)
 
+> Docker client contacts docker dameon. Docker dameon pulls images from registry and creates a new container with the image. The container executes commands in the image inside the container. Docker dameon streams the output from the command to the Docker client in the terminal. 
+
+
+
 ### Docker Daemon
 
 * Docker Daemon interacts with the operating system to create or manage containers 
