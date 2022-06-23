@@ -56,6 +56,7 @@ I believe note-taking helps me learn more. Therefore, I create this repository t
   * concepts without commands
   * pictures
 * Commands 
+  * how to install
 
 <br />
 
