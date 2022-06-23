@@ -16,6 +16,8 @@ I believe note-taking helps me learn more. Therefore, I create this repository t
 > The topics are generally categorized.
 
 * CICD
+  * GitHub
+  * GitLab
 * Makefile
 * Journal
   * Journalctl
@@ -36,6 +38,9 @@ I believe note-taking helps me learn more. Therefore, I create this repository t
 * Virtualization
   * Virtual Machine
   * Docker
+    * docker-compose
+    * Dockerfile
+    * Swarm
 
 
 
