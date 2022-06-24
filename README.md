@@ -41,7 +41,8 @@ I believe note-taking helps me learn more. Therefore, I create this repository t
     * docker-compose
     * Dockerfile
     * Swarm
-
+* Cloud
+  * AWS
 
 
 <br />

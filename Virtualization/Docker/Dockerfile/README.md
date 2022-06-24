@@ -20,6 +20,8 @@ Take notes of dockerfile
 - [PATH](#path)
 - [Reference](#reference)
 - [:$](#)
+- [Issue](#issue)
+  - [standard_init_linux.go:190: exec user process caused "no such file or directory"](#standard_init_linuxgo190-exec-user-process-caused-no-such-file-or-directory)
 
 <br />
 
@@ -113,3 +115,14 @@ However, if there are multiple CMD, only the last one will be executed.
 # :$
 related to bash
 https://stackoverflow.com/questions/32342841/colon-at-the-beginning-of-line-in-docker-entrypoint-bash-script
+
+
+
+# Issue
+## standard_init_linux.go:190: exec user process caused "no such file or directory"
+> change `ENTRYPOINT`, instead of `ENTRYPOINT ["/entrypoint.sh"]`. Use below
+
+```linux
+  ENTRYPOINT ["sh", "/entrypoint.sh"]
+
+```

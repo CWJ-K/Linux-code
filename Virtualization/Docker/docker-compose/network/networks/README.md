@@ -26,6 +26,7 @@ Take note of concepts of computer network and docker network
 - [Top-Level Networks Key](#top-level-networks-key)
   - [Example](#example-1)
 - [Commands](#commands)
+  - [show all mapped ports](#show-all-mapped-ports)
 - [Reference](#reference)
 
 <br />
@@ -209,6 +210,10 @@ Top-level networks key helps:
     # show bridge IP address
     ip addr show docker0
 
+## show all mapped ports
+```linux
+  docker ps
+```
 
 
 

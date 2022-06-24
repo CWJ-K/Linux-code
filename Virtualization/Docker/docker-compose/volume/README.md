@@ -70,6 +70,10 @@ volumes are stored in the local location below:
  
     docker volume rm volumn_name
 
+> remove all unused volumes
+  
+    docker volume prune
+
 ## cover existing data
 **TODO: is it possible ?**
 
