@@ -1,32 +1,36 @@
 <!-- omit in toc -->
+
 # Introduction
 Take note of concepts of computer network and docker network
 
 <br />
 
 <!-- omit in toc -->
+
 # Table of Contents
+- [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
 - [Fundamental Concepts](#fundamental-concepts)
-  - [**Namespaces**](#namespaces)
-    - [**What is the goal of namespace?**](#what-is-the-goal-of-namespace)
-    - [**How namespace achieves the goal?**](#how-namespace-achieves-the-goal)
-    - [**Image a namespace**](#image-a-namespace)
-  - [**Socket**](#socket)
-    - [**Socket Address**](#socket-address)
-  - [**Topologies**](#topologies)
+  - [1. **Namespaces**](#1-namespaces)
+    - [1.1. **What is the goal of namespace?**](#11-what-is-the-goal-of-namespace)
+    - [1.2. **How namespace achieves the goal?**](#12-how-namespace-achieves-the-goal)
+    - [1.3. **Image a namespace**](#13-image-a-namespace)
+  - [2. **Socket**](#2-socket)
+    - [2.1. **Socket Address**](#21-socket-address)
+  - [3. **Topologies**](#3-topologies)
 - [**Docker Networks**](#docker-networks)
-  - [Types of Docker Network](#types-of-docker-network)
-    - [**Bridge Networking**](#bridge-networking)
-    - [**Host Networking**](#host-networking)
+  - [1. Types of Docker Network](#1-types-of-docker-network)
+    - [1.1. **Bridge Networking**](#11-bridge-networking)
+    - [1.2. **Host Networking**](#12-host-networking)
 - [Service Networks](#service-networks)
-  - [Example](#example)
-    - [Explanation](#explanation)
-      - [**Default Networking**](#default-networking)
-      - [**Port**](#port)
+  - [1. Example](#1-example)
+    - [1.1. Explanation](#11-explanation)
+      - [1.1.1. **Default Networking**](#111-default-networking)
 - [Top-Level Networks Key](#top-level-networks-key)
-  - [Example](#example-1)
+  - [1. Example](#1-example-1)
+- [Port](#port)
 - [Commands](#commands)
-  - [show all mapped ports](#show-all-mapped-ports)
+  - [1. show all mapped ports](#1-show-all-mapped-ports)
 - [Reference](#reference)
 
 <br />
@@ -36,16 +40,16 @@ Take note of concepts of computer network and docker network
 
 <br />
 
-## [**Namespaces**](https://www.youtube.com/watch?v=-YnMr1lj4Z8)
+## 1. [**Namespaces**](https://www.youtube.com/watch?v=-YnMr1lj4Z8)
 
 Docker uses a Linux technology, namespaces.
 
 <br />
 
-### **What is the goal of namespace?**
+### 1.1. **What is the goal of namespace?**
 [To isolate workspaces](https://docs.docker.com/engine/security/userns-remap/)
 
-### **How namespace achieves the goal?**
+### 1.2. **How namespace achieves the goal?**
 * When running a container, Docker creates a set of namespaces for the container
 * A namespace enables to place a bunch of code under a name
 * Each namespace has an unique name to avoid naming conflicts between classes, functions and constants
@@ -53,25 +57,25 @@ Docker uses a Linux technology, namespaces.
   > like same scripts name in different directories
 * Each namespace has its own IP address, network interfaces, routing tables ... etc.
 
-### **Image a namespace**
+### 1.3. **Image a namespace**
 * like a directory/drawer. Files can be put in it. You label the directory/drawer to make it clear to identify.
 
 <br />
 
-## [**Socket**](https://www.youtube.com/watch?v=-utm73RxNo4)
+## 2. [**Socket**](https://www.youtube.com/watch?v=-utm73RxNo4)
 an end-point of communication between two devices
 
 > each device has a socket to communicate to other device
 
 <br />
 
-### **Socket Address**
+### 2.1. **Socket Address**
 IP address + port
 
 <br />
 
 
-## **Topologies**
+## 3. **Topologies**
 The different arrangements of computer connections and devices 
 
 <br />
@@ -80,14 +84,14 @@ The different arrangements of computer connections and devices
 
 <br />
 
-## [Types of Docker Network](https://k21academy.com/docker-kubernetes/docker-networking-different-types-of-networking-overview-for-beginners/)
+## 1. [Types of Docker Network](https://k21academy.com/docker-kubernetes/docker-networking-different-types-of-networking-overview-for-beginners/)
 
 Below introduces two networking. However, Docker has many other network modes. Network provides Docker network isolation.
 
 
 <br />
 
-### **Bridge Networking**
+### 1.1. **Bridge Networking**
 * **default** network in docker
 * docker **automatically** creates a network for the current directory when running a container 
 
@@ -102,7 +106,7 @@ Below introduces two networking. However, Docker has many other network modes. N
 
 <bt />
 
-### **Host Networking**
+### 1.2. **Host Networking**
 * container shares host's networking namespace
   * container does not have its own IP address, but using host's IP address
   * aware of **port conflicts** while working in Docker host networking mode
@@ -113,13 +117,13 @@ Below introduces two networking. However, Docker has many other network modes. N
   * breaks the isolation model of Docker containers
   
 * **localhost** inside a container means the **host of host machine**, instead of the container itself
-  * can [reference](https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/) **localhost** or **127.0.0.1**  => I tried to use localhost in python scripts to connect mysql, but it connects slowly or maybe failed
+  * can [reference](https://www.howtogeek.com/devops/how-to-connect-to-localhost-within-a-docker-container/) **localhost** or **127.0.0.1**  => I tried to use **localhost** in python scripts to connect mysql, but it connects slowly or maybe failed
 
 <br />
 
 # Service Networks
 
-## [Example](https://docs.docker.com/compose/networking/)
+## 1. [Example](https://docs.docker.com/compose/networking/)
 
 
     # services all connect to the network, automatically generated 
@@ -137,28 +141,10 @@ Below introduces two networking. However, Docker has many other network modes. N
           - "8001:5432"
         # network_mode: "bridge"
   
-### Explanation
-#### **Default Networking**
+### 1.1. Explanation
+
+#### 1.1.1. **Default Networking**
   * bridge (you may not see the network_mode field)
-
-#### **Port**
-  * Image Network is a hotel and port is each room in the hotel
-  * HOST_PORT : CONTAINER_PORT
-
-    * HOST_PORT: How host machine connects the service
-    
-          postgres://{DOCKER_IP}:8001
-
-    * CONTAINER_PORT: how services connect other ones in the container
-      * connect services based on their [alias](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode), instead of IP
-
-            postgres://db:5432
-
-        * Advantages
-
-          1. docker can be deployed in different environments without the limitation of static ip
-          2. If machine maintenance, servers change to other machines. Use ip, you need to change ip at the same time. Use service name, you do not change anything
-          3. For security, it is best to not let other people know your service ip
 
 <br />
 
@@ -171,7 +157,7 @@ Top-level networks key helps:
 4. Each service can specify what networks to connect to with the service-level networks key, which is a list of names referencing entries under the top-level networks key.
 
 
-## Example
+## 1. Example
     version: "2.4"
 
     services:
@@ -190,6 +176,30 @@ Top-level networks key helps:
         external: true
 
 <br />
+
+# Port
+  * Image Network is a hotel and port is each room in the hotel
+  * HOST_PORT : CONTAINER_PORT
+
+    * HOST_PORT: How host machine connects the service
+    
+          postgres://{DOCKER_IP}:8001
+
+    * CONTAINER_PORT: how services connect other ones in the container
+      * connect services based on their [alias](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode), instead of IP
+
+            postgres://db:5432
+
+        * Advantages
+
+          1. docker can be deployed in different environments without the limitation of static ip
+          2. If machine maintenance, servers change to other machines. Use ip, you need to change ip at the same time. Use service name, you do not change anything
+          3. For security, it is best to not let other people know your service ip
+  * mode:
+    * host
+
+<br />
+
 
 # Commands
 
@@ -210,7 +220,7 @@ Top-level networks key helps:
     # show bridge IP address
     ip addr show docker0
 
-## show all mapped ports
+## 1. show all mapped ports
 ```linux
   docker ps
 ```
@@ -226,6 +236,7 @@ Top-level networks key helps:
 <br />
 
 ---
+
 # Reference
 [Practical Design Patterns in Docker Networking](https://www.youtube.com/watch?v=PpyPa92r44s)
 

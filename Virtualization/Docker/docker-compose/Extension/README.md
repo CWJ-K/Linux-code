@@ -8,7 +8,7 @@ To improve readability of reused fragments
 # Table of Contents
 - [Example](#example)
   - [Explanation](#explanation)
-    - [x- character](#x-character)
+    - [x-character](#x-character)
     - [`&` (ampersand)](#-ampersand)
     - [`*` (Asterisk, star)](#-asterisk-star)
 
@@ -28,11 +28,30 @@ To improve readability of reused fragments
         backend:
             image: awesome/database
             logging: *default-logging
-## Explanation
-### x- character 
-extension starts with the **x- character** sequence
 
-        x-logging => x-<name>
+
+## Explanation
+### x-character 
+extension starts with the **x-character** sequence
+
+    ```yml
+    x-common-argument: &custom_argument_name
+        arguments: xx
+    
+    x-common-argument-env: &custom_env_name
+        arguments: xx
+
+    services:
+        service:
+        <<: *custom_argument_name
+        uncommon-argument: argument_value
+        environment:
+            <<: *custom_env_name
+            uncommon-env: env_value
+
+    ```
+
+  
 
 ### `&` (ampersand)
 a YAML feature - anchor. Anchors can be used to duplicate/inherit properties 
