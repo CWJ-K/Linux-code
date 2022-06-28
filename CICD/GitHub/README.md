@@ -1,3 +1,16 @@
+<!-- omit in toc -->
+# Introduction
+
+How to build CI/CD pipelines in GitHub?
+
+<br />
+
+<!-- omit in toc -->
+# Table of Contents
+- [GitHub Action](#github-action)
+
+<br />
+
 # GitHub Action
 * requires YAML files stored in `.githun/workflows`
   * the name of YAML file does not matter
