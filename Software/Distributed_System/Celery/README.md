@@ -13,23 +13,23 @@ To accomplish queue, Celery system is developed.
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
-  - [Celery](#celery)
-  - [Queues](#queues)
-  - [Flower](#flower)
+  - [1. Celery](#1-celery)
+  - [2. Queues](#2-queues)
+  - [3. Flower](#3-flower)
 - [Commands](#commands)
-  - [Install Celery](#install-celery)
-  - [**TODO**](#todo)
-  - [Help](#help)
-  - [Run Celery Worker](#run-celery-worker)
-    - [Parameters](#parameters)
-  - [Monitor registered tasks](#monitor-registered-tasks)
-  - [Start flower](#start-flower)
-  - [Celery and RabbitMQ in different machines?](#celery-and-rabbitmq-in-different-machines)
+  - [1. Install Celery](#1-install-celery)
+  - [2. **TODO**](#2-todo)
+  - [3. Help](#3-help)
+  - [4. Run Celery Worker](#4-run-celery-worker)
+    - [4.1. Parameters](#41-parameters)
+  - [5. Monitor registered tasks](#5-monitor-registered-tasks)
+  - [6. Start flower](#6-start-flower)
+  - [7. Celery and RabbitMQ in different machines?](#7-celery-and-rabbitmq-in-different-machines)
 
-
+<br />
 
 # Fundamental Concepts
-## Celery
+## 1. Celery
 ![celery architecture](./celery_architecture.png)
 * **Task queue systems**
   1. input: a unit of work, called a task
@@ -40,56 +40,79 @@ To accomplish queue, Celery system is developed.
   * broker: RabbitMQ, Redis, Amazon SQS ... etc.
 * Celery is written in **Python**
 
-## [Queues](https://docs.celeryq.dev/en/stable/userguide/routing.html)
+<br />
+
+## 2. [Queues](https://docs.celeryq.dev/en/stable/userguide/routing.html)
 * **add queues through flower UI**
 * Automatic routing
   * by default:  task_create_missing_queues
   * a named queue not defined in task_queues will be created automatically
 
+<br />
 
-## Flower
+## 3. Flower
   * a web-based tool for monitoring and administrating Celery clusters
 
+<br />
 
 # Commands
 
-## Install Celery
-        pip install celery
+<br />
 
-## **TODO** 
-    apt install python-celery-common
+## 1. Install Celery
+  ```linux
+  pip install celery
+  ```
+
+<br />
+
+## 2. **TODO** 
+  ```linux
+  apt install python-celery-common
+  ```
+
+<br />
+
+## 3. Help
+  ```linux
+  celery --help
+  celery worker --help
+  ```
 
 
-## Help
-        celery --help
-        celery worker --help
 
-
-
-## Run Celery Worker
+## 4. Run Celery Worker
 * run the worker in the directory above folder with any celery-related scripts
     
-        pipenv run celery -A proj worker --loglevel=INFO --concurrency=10 -n worker1@%h
+  ```linux
+  pipenv run celery -A proj worker --loglevel=INFO --concurrency=10 -n worker1@%h
+  ```
 
-### Parameters
+<br />
+
+### 4.1. Parameters
   * start multiple workers on the same machine
     * %h: hostname including domain name => worker1@george.example.com
     * %n: Hostname only => worker1@george
     * %d: Domain name only => worker1@example.com
 
+<br />
 
+## 5. [Monitor registered tasks](https://docs.celeryq.dev/en/stable/userguide/monitoring.html)
 
+  ```linux
+  celery inspect registered
+  ```
 
-## [Monitor registered tasks](https://docs.celeryq.dev/en/stable/userguide/monitoring.html)
+<br />
 
-        celery inspect registered
+## 6. Start flower
+  ```linux
+          # broker url                        # flower port      
+  flower --broker=amqp://worker:worker@rabbitmq --port=8888
+  ```
 
-    
+<br />
 
-## Start flower
-              # broker url                        # flower port      
-    flower --broker=amqp://worker:worker@rabbitmq --port=8888
-
-
-## Celery and RabbitMQ in different machines?
+## 7. Celery and RabbitMQ in different machines?
 **TODO**

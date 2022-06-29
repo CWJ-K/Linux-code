@@ -1,6 +1,31 @@
-curl -o [Options] <URL>
+<!-- omit in toc -->
+# Introduction
 
-* cURL
+TODO
+
+<br />
+
+<!-- omit in toc -->
+# Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+- [Commands](#commands)
+
+<br />
+
+# Fundamental Concepts
+* [cURL](https://www.scribd.com/document/90229628/Curl-Manual)
 * Write output to <file> instead of stdout
+  
+<br />
 
-https://www.scribd.com/document/90229628/Curl-Manual
+# Commands 
+
+```linux
+    curl -o [Options] <URL>
+```
+
+
+
+
+
+

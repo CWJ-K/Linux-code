@@ -1,43 +1,46 @@
 <!-- omit in toc -->
 # Introduction
-Take notes of how to set jupyer-notebook environment on Linux
+How to set the jupyer-notebook environment on Linux?
 
 <br />
 
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
-  - [ipykernel](#ipykernel)
-  - [Virtualenv](#virtualenv)
-  - [Pipenv](#pipenv)
+  - [1. ipykernel](#1-ipykernel)
+  - [2. Virtualenv](#2-virtualenv)
+  - [3. Pipenv](#3-pipenv)
 - [Install on Linux](#install-on-linux)
   - [1. Install Ipykernel in virtualenv for jupyter](#1-install-ipykernel-in-virtualenv-for-jupyter)
   - [2. **Activate/ Enter Virtualenv**](#2-activate-enter-virtualenv)
   - [3. Install Jupyter Package](#3-install-jupyter-package)
   - [4. Add Your Virtualenv into Ipykernel](#4-add-your-virtualenv-into-ipykernel)
-  - [(Optional) Install Jupyter Notebook Extensions](#optional-install-jupyter-notebook-extensions)
+  - [5. (Optional) Install Jupyter Notebook Extensions](#5-optional-install-jupyter-notebook-extensions)
 - [Activate Jupyter Notebook](#activate-jupyter-notebook)
 - [Issues](#issues)
-  - [IOPub data rate exceeded in Jupyter notebook (when viewing image)](#iopub-data-rate-exceeded-in-jupyter-notebook-when-viewing-image)
-    - [Solution: expand limitation of data rate in jupyter](#solution-expand-limitation-of-data-rate-in-jupyter)
-  - [ModuleNotFoundError: No module named 'distutils.cmd'](#modulenotfounderror-no-module-named-distutilscmd)
+  - [1. IOPub data rate exceeded in Jupyter notebook (when viewing image)](#1-iopub-data-rate-exceeded-in-jupyter-notebook-when-viewing-image)
+    - [1.1. Solution: expand limitation of data rate in jupyter](#11-solution-expand-limitation-of-data-rate-in-jupyter)
+  - [2. ModuleNotFoundError: No module named 'distutils.cmd'](#2-modulenotfounderror-no-module-named-distutilscmd)
 
 
 <br />
 
 # Fundamental Concepts
-## ipykernel
+
+## 1. ipykernel
 * IPython kernel
 * Python execution backend for Jupyter
-## Virtualenv 
+
+## 2. Virtualenv 
 * a tool to create isolated Python environments
     
-## Pipenv 
+## 3. Pipenv 
 * automatically creates and manages a virtualenv for your projects
 * is both a package and virtual environment management tool that uses the Pipfile and Pipfile.lock files to achieve these goals
 
 
 # Install on Linux
+
 ## 1. Install [Ipykernel](https://ipython.readthedocs.io/en/stable/install/kernel_install.html) in virtualenv for jupyter
 > change directory to project directory
 
@@ -56,7 +59,7 @@ Take notes of how to set jupyer-notebook environment on Linux
 
     python -m ipykernel install --user --name=my_virtualenv_name
 
-## (Optional) Install Jupyter Notebook Extensions
+## 5. (Optional) Install Jupyter Notebook Extensions
 > --user: use root
 
     # before activating pipenv
@@ -72,12 +75,13 @@ Take notes of how to set jupyer-notebook environment on Linux
 
 # Issues
 
-## IOPub data rate exceeded in Jupyter notebook (when viewing image)
-### Solution: expand limitation of data rate in jupyter
+## 1. IOPub data rate exceeded in Jupyter notebook (when viewing image)
+
+### 1.1. Solution: expand limitation of data rate in jupyter
 > --allow-root: use root
 jupyter notebook --NotebookApp.iopub_data_rate_limit=1.0e10 --allow-root
 
-## ModuleNotFoundError: No module named 'distutils.cmd'
+## 2. ModuleNotFoundError: No module named 'distutils.cmd'
 when `pipenv install ipykernel`, the issue occurs.
 It implies the packages aren't installed.
 

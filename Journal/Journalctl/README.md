@@ -1,5 +1,24 @@
+<!-- omit in toc -->
+# Introduction
+WIP
+<br />
+
+<!-- omit in toc -->
+# Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+- [Commands](#commands)
+  
+<br />
+
+# Fundamental Concepts
+
+<br />
+
+# Commands 
 
 
-journalctl --system
+```linux
+    journalctl --system
 
-sudo journalctl --system | grep rabbitmq
+    sudo journalctl --system | grep rabbitmq
+```

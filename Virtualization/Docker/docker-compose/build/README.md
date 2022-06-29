@@ -1,19 +1,25 @@
 <!-- omit in toc -->
-# Purpose of Build
+# Introduction
 
-Configuration options that are applied at build time
+How does `build` enable to execute configuration options that are applied at build time?
 
 
 <br />
 
 <!-- omit in toc -->
 # Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+  - [1. Build](#1-build)
+  - [2. context](#2-context)
+  - [3. dockerfile](#3-dockerfile)
+  - [4. args](#4-args)
+  - [5. relative path](#5-relative-path)
 
+# Fundamental Concepts
 
-
-
-# Build
-
+## 1. Build
+  * example in docker-compose.yml
+  ```yml
   version: "3.9"
   services:
     webapp:
@@ -22,22 +28,23 @@ Configuration options that are applied at build time
         dockerfile: Dockerfile-alternate
         args:
           buildno: 1
+  ```
 
-## context
+## 2. context
 * a path where contains dockerfile
 * if relative path, it is interpreted as relative to **the location of the Compose file**
 
-## dockerfile
+## 3. dockerfile
 * Compose uses an alternate dockerfile to build with
 * name of dockerfile
 * without the field, docker-compose will look for any Dockerfile in the path of context
   
-## args
+## 4. args
 * Add build arguments, which are environment variables accessible only during the build process.
 
 
 
-## relative path
+## 5. relative path
 compared with volume, which uses the folder in the same directory
 > docker and data are at the same level of the directory. however, they have different meanings
 * build: docker/test

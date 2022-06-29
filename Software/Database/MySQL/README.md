@@ -1,62 +1,70 @@
 <!-- omit in toc -->
 # Introduction
-Take note of relational database
+How to deploy a database by docker-compose.yml?
 
 
 <br />
 
 <!-- omit in toc -->
 # Table of Contents
-
 - [Fundamental Concepts](#fundamental-concepts)
-  - [Mysql](#mysql)
-    - [mysqld](#mysqld)
-    - [mysql](#mysql-1)
-    - [docker-compose for mysql](#docker-compose-for-mysql)
-  - [phpMyadmin](#phpmyadmin)
-  - [Types of Database](#types-of-database)
+  - [1. Mysql](#1-mysql)
+    - [1.1. mysqld](#11-mysqld)
+    - [1.2. mysql](#12-mysql)
+    - [1.3. docker-compose for mysql](#13-docker-compose-for-mysql)
+  - [2. phpMyadmin](#2-phpmyadmin)
+  - [3. Types of Database](#3-types-of-database)
 - [Commands](#commands)
-  - [create volume for Mysql](#create-volume-for-mysql)
+  - [1. create volume for Mysql](#1-create-volume-for-mysql)
 
 <br />
 
 # Fundamental Concepts
 
-## Mysql
-### mysqld
+<br />
 
-        # part docker-compose about mysql
-        version: '3.3'
-        services:
-        mysql:
-            image: mysql:8.0
-            command: mysqld --default-authentication-plugin=mysql_native_password
+## 1. Mysql
+<br />
+
+### 1.1. mysqld
+
+  ```yml
+  # part docker-compose about mysql
+  version: '3.3'
+  services:
+  mysql:
+    image: mysql:8.0
+    command: mysqld --default-authentication-plugin=mysql_native_password
+  ```
 
   * a server daemon. this is the database server's main binary (executable)
   * To execute Mysql client-server
 
-### mysql
+### 1.2. mysql
   * a command-line (administration) tool
 
-### [docker-compose for mysql](https://hub.docker.com/_/mysql)
+### 1.3. [docker-compose for mysql](https://hub.docker.com/_/mysql)
 
 <br />
 
-## phpMyadmin
+## 2. phpMyadmin
 * handles the administration of MySQL over the Web
 * supports a wide range of operations on MySQL and MariaDB
 
 <br />
 
-## Types of Database
+## 3. Types of Database
 |Type|Relation Database|Time Series Database|
 |:---:|:---:|:---:|
 ||MySQL|InfluxDB, kdb+, TimescaleDB, DolphinDB|
 
+<br />
 
 # Commands
 
-## create volume for Mysql
+<br />
+
+## 1. create volume for Mysql
 
     docker volume create mysql
 

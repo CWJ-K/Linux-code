@@ -3,18 +3,17 @@
 Introduce permission of files and directories and methods to change permission.
 
 <br />
-<!-- omit in toc -->
 
+<!-- omit in toc -->
 # Table Of Contents
-- [Table Of Contents](#table-of-contents)
-  - [Display permission <a name="Displaypermission"></a>](#display-permission-)
-  - [Outputs of Permission <a name="Introductionofpermission"></a>](#outputs-of-permission-)
-    - [1. Full information <a name="Fullinformation"></a>](#1-full-information-)
-    - [2. Permission <a name="Informationofpermission"></a>](#2-permission-)
-      - [Meaning of Symbol](#meaning-of-symbol)
-      - [Meaning of Permission](#meaning-of-permission)
-    - [3. Root](#3-root)
-  - [How to change permission](#how-to-change-permission)
+- [Display permission <a name="Displaypermission"></a>](#display-permission-)
+- [Outputs of Permission <a name="Introductionofpermission"></a>](#outputs-of-permission-)
+  - [1. Full information <a name="Fullinformation"></a>](#1-full-information-)
+  - [2. Permission <a name="Informationofpermission"></a>](#2-permission-)
+    - [Meaning of Symbol](#meaning-of-symbol)
+    - [Meaning of Permission](#meaning-of-permission)
+  - [3. Root](#3-root)
+- [How to change permission](#how-to-change-permission)
 
 <br />
 
