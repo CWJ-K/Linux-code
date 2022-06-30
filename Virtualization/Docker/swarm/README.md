@@ -109,7 +109,7 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 * Creates two random tokens, a worker token and a manager token
 > when deploy a docker swarm, at least one node must be deployed
 
-  ```sh
+  ```s
   docker swarm init 
   ```
 
@@ -118,7 +118,7 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 ## 2. Make Other Machines as Workers
 * generate worker token for machines to be workers
   
-  ```sh
+  ```s
   # in manager machine 
   docker swarm join-token worker 
   ```
@@ -130,7 +130,7 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 ## 3. Activate Portainer
 * [portainer.yml](https://github.com/portainer/portainer-compose/blob/master/docker-stack.yml) 
 
-  ```sh
+  ```s
   docker stack deploy -c portainer.yml por
   ```
 
@@ -139,7 +139,7 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 ## 4. Create Network
 > make sure there is no existing network with same name. If there is, remove the existing network first.
 
-  ```sh
+  ```s
   docker network create --scope=swarm --driver=overlay my_network
   ```
 
@@ -190,7 +190,7 @@ docker nodes/containers communicate Docker Swarm by RESTful API over HTTP
 
 ## 6. Deploy Services
 
-  ```sh
+  ```s
   docker stack deploy --with-registry-auth -c <service.yml> <stack_name>
   ```
 

@@ -17,7 +17,7 @@ WIP
 # Commands 
 
 
-```sh
+```s
     journalctl --system
 
     sudo journalctl --system | grep rabbitmq

@@ -60,21 +60,21 @@ To accomplish queue, Celery system is developed.
 <br />
 
 ## 1. Install Celery
-  ```sh
+  ```s
   pip install celery
   ```
 
 <br />
 
 ## 2. **TODO** 
-  ```sh
+  ```s
   apt install python-celery-common
   ```
 
 <br />
 
 ## 3. Help
-  ```sh
+  ```s
   celery --help
   celery worker --help
   ```
@@ -84,7 +84,7 @@ To accomplish queue, Celery system is developed.
 ## 4. Run Celery Worker
 * run the worker in the directory above folder with any celery-related scripts
     
-  ```sh
+  ```s
   pipenv run celery -A proj worker --loglevel=INFO --concurrency=10 -n worker1@%h
   ```
 
@@ -100,14 +100,14 @@ To accomplish queue, Celery system is developed.
 
 ## 5. [Monitor registered tasks](https://docs.celeryq.dev/en/stable/userguide/monitoring.html)
 
-  ```sh
+  ```s
   celery inspect registered
   ```
 
 <br />
 
 ## 6. Start flower
-  ```sh
+  ```s
           # broker url                        # flower port      
   flower --broker=amqp://worker:worker@rabbitmq --port=8888
   ```

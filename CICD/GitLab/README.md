@@ -38,7 +38,7 @@ https://docs.gitlab.com/ee/development/cicd/templates.html#template-directories
 ## 1. Install gitlab-runner in VM
 * https://docs.gitlab.com/runner/install/linux-manually.html
   
-```sh
+```s
   sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
 
   sudo chmod +x /usr/local/bin/gitlab-runner
@@ -65,7 +65,7 @@ https://docs.gitlab.com/ee/development/cicd/templates.html#template-directories
 
 * docker 
 
-```sh
+```s
   sudo gitlab-runner register \
     --non-interactive \
     --url "https://gitlab.com/" \

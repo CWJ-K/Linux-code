@@ -20,7 +20,7 @@ TODO
 
 # Commands 
 
-```sh
+```s
     curl -o [Options] <URL>
 ```
 

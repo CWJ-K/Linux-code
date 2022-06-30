@@ -41,7 +41,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 * for people to add or remove packages in virtualenv
   
 
-  ```sh
+  ```s
   pipenv install <package>
   pipenv uninstall <package>
   pipenv install --dev <package>
@@ -70,7 +70,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 * to import packages in site-packages
 * see which site-packages is used
 
-  ```sh
+  ```s
   pip --version
   ```
 
@@ -81,7 +81,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 ## 1. Install Pipenv
 > e.g. use miniconda to install python environment
 
-  ```sh
+  ```s
   pyenv install miniconda3-4.3.30
   
   pyenv global miniconda3-4.3.30
@@ -94,7 +94,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 ## 2. Update Pipenv
 > it wil run pipenv lock then pipenv sync
 
-  ```sh
+  ```s
   pipenv update
   ```
 
@@ -103,7 +103,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 ## 3. Create a Pipfile.lock
 > create a Pipfile.lock , which declares all dependencies (and sub-dependencies) of your project
 
-  ```sh
+  ```s
   pipenv lock
   ```
 
@@ -111,7 +111,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 ## 4. Activate Pipenv
 
-  ```sh
+  ```s
   pipenv shell
   ```
 
@@ -119,7 +119,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 ## 5. Check Versions of Packages in Pipenv
 
-  ```sh
+  ```s
   # after activating pipenv
   pip freeze
   ```
@@ -129,7 +129,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 ## 6. Module: Make the Current Directory into Package
 > **setup.py** is required
 
-  ```sh
+  ```s
   pipenv install -e .
   ```
 
@@ -140,7 +140,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 ## 7. Install the Exact Versions Specified in Pipfile.Lock
         
-  ```sh
+  ```s
   pipenv sync
   ```
 

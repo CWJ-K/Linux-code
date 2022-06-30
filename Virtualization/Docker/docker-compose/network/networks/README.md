@@ -209,7 +209,7 @@ Top-level networks key helps:
 
   > --net=host => host networking
   
-  ```sh
+  ```s
   # Set Network
   docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
 
@@ -227,7 +227,7 @@ Top-level networks key helps:
   ```
 
 ## 1. show all mapped ports
-```sh
+```s
   docker ps
 ```
 

@@ -48,7 +48,7 @@ How to use dockerfile to build images?
 
 ## 1. Build Image
 
-  ```sh
+  ```s
   docker build -f dockerfile -t <image_name>:1.0.1 .
   ```
   * -f:<br />
@@ -59,7 +59,7 @@ How to use dockerfile to build images?
 
 ## 2. tag image
 
-  ```sh
+  ```s
   docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
   ```
 
@@ -73,7 +73,7 @@ How to use dockerfile to build images?
 
 **Solution:**
 
-  ```sh
+  ```s
   sudo apt install gnupg2 pass
   docker login --username <username>
   ```
@@ -130,7 +130,7 @@ https://stackoverflow.com/questions/32342841/colon-at-the-beginning-of-line-in-d
 ## 1. standard_init_linux.go:190: exec user process caused "no such file or directory"
 > change `ENTRYPOINT`, instead of `ENTRYPOINT ["/entrypoint.sh"]`. Use below
 
-```sh
+```s
   ENTRYPOINT ["sh", "/entrypoint.sh"]
 ```
 

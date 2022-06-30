@@ -25,13 +25,13 @@ WIP
 
 ## 1. Install make
 
-```sh
+```s
     sudo apt install make
 ```
 
 ## 2. Execute the command of makefile
 
-```sh
+```s
     make <makefile_command>
 ```
 

@@ -20,7 +20,7 @@ Take note of the usage of Docker in Linux to solve questions below
 
 # Log in docker hub
 
-  ```sh
+  ```s
   docker login --username <usename>
   ```
 
@@ -31,7 +31,7 @@ Take note of the usage of Docker in Linux to solve questions below
 > Remote error from secret service: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files
 Error saving credentials: error storing credentials - err: exit status 1, out: `The name org.freedesktop.secrets was not provided by any .service files`
 
-  ```sh
+  ```s
   apt install gnupg2 pass
   ```
     
@@ -42,7 +42,7 @@ Error saving credentials: error storing credentials - err: exit status 1, out: `
 
 # Install on Linux (Ubuntu)
 ## dockerfile
-  ```sh
+  ```s
   apt install docker
   ```
 
@@ -50,7 +50,7 @@ Error saving credentials: error storing credentials - err: exit status 1, out: `
 
 ## docker-compose
 
-  ```sh
+  ```s
   apt install docker-compose
   ```
 
@@ -59,7 +59,7 @@ Error saving credentials: error storing credentials - err: exit status 1, out: `
 # Linux Commands
 ## Format terminal output
 
-  ```sh
+  ```s
   docker ps --format "table {{.Names}}\t{{.ID}}"
   ```
 

@@ -51,7 +51,7 @@ To persist data in the container
 * volumes will be referenced inside by **docker-compose**
 
 
-  ```sh
+  ```s
   docker volume create volume_name
   ```
 
@@ -60,14 +60,14 @@ To persist data in the container
 ## 4. inspect volumes
 volumes are stored in the local location below:
 
-  ```sh
+  ```s
   /var/lib/docker/volume
   ```
 
 <br />
 
 ### 4.1. see Mountpoint
-  ```sh
+  ```s
   docker volume inspect <volumn_name>
   ```
 
@@ -75,7 +75,7 @@ volumes are stored in the local location below:
 
 ## 5. list volumes
   
-  ```sh
+  ```s
   docker volume ls
   ```
 
@@ -88,13 +88,13 @@ volumes are stored in the local location below:
 
 > **Remove service will not remove volumes**
 
-  ```sh
+  ```s
   docker volume rm volumn_name
   ```
 
 > remove all unused volumes
 
-  ```sh
+  ```s
   docker volume prune
   ```
 
