@@ -1,9 +1,9 @@
 
 # Introduction
 Take note of the usage of Docker in Linux to solve questions below
-1. how to write docker-compose
-2. how to write dockerfile
-3. how to use swarm
+1. how to write docker-compose?
+2. how to write dockerfile?
+3. how to use Swarm?
 
 <br />
 
@@ -20,30 +20,48 @@ Take note of the usage of Docker in Linux to solve questions below
 
 # Log in docker hub
 
-    docker login --username <usename>
+  ```sh
+  docker login --username <usename>
+  ```
+
+<br />
 
 ## Issue: Remote error from secret service
 * the bug only in Ubuntu when using Docker
 > Remote error from secret service: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files
 Error saving credentials: error storing credentials - err: exit status 1, out: `The name org.freedesktop.secrets was not provided by any .service files`
 
-        apt install gnupg2 pass
+  ```sh
+  apt install gnupg2 pass
+  ```
     
   * GnuPG2: an encryption tool that includes digital signatures and certificates
   * [pass](https://wiki.archlinux.org/title/Pass): With pass, each password lives inside of a gpg encrypted file whose filename is the title of the website or resource that requires the password
 
+<br />
+
 # Install on Linux (Ubuntu)
 ## dockerfile
-    apt install docker
+  ```sh
+  apt install docker
+  ```
+
+<br />
+
 ## docker-compose
-    apt install docker-compose
+
+  ```sh
+  apt install docker-compose
+  ```
 
 <br />
 
 # Linux Commands
 ## Format terminal output
-    docker ps --format "table {{.Names}}\t{{.ID}}"
 
+  ```sh
+  docker ps --format "table {{.Names}}\t{{.ID}}"
+  ```
 
 >|Placeholder|Description|
 >|:---:|:---:|

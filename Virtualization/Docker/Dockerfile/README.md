@@ -1,32 +1,33 @@
 <!-- omit in toc -->
 # Introduction
-Take notes of dockerfile
+How to use dockerfile to build images?
 
 <br />
 
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
-  - [Docker image](#docker-image)
-  - [Multi-stage builds](#multi-stage-builds)
+  - [1. Docker image](#1-docker-image)
+  - [2. Multi-stage builds](#2-multi-stage-builds)
 - [Commands](#commands)
-  - [Build Image](#build-image)
-  - [tag image](#tag-image)
-  - [Push Image to DockerHub](#push-image-to-dockerhub)
-    - [Issue: can not login DockerHub](#issue-can-not-login-dockerhub)
+  - [1. Build Image](#1-build-image)
+  - [2. tag image](#2-tag-image)
+  - [3. Push Image to DockerHub](#3-push-image-to-dockerhub)
+    - [3.1. Issue: can not login DockerHub](#31-issue-can-not-login-dockerhub)
 - [Arguments](#arguments)
-  - [Entrypoint vs CMD](#entrypoint-vs-cmd)
+  - [1. Entrypoint vs CMD](#1-entrypoint-vs-cmd)
 - [shebang (WIP)](#shebang-wip)
 - [PATH](#path)
-- [Reference](#reference)
 - [:$](#)
 - [Issue](#issue)
-  - [standard_init_linux.go:190: exec user process caused "no such file or directory"](#standard_init_linuxgo190-exec-user-process-caused-no-such-file-or-directory)
+  - [1. standard_init_linux.go:190: exec user process caused "no such file or directory"](#1-standard_init_linuxgo190-exec-user-process-caused-no-such-file-or-directory)
+- [Reference](#reference)
 
 <br />
 
 # Fundamental Concepts
-## Docker image
+
+## 1. Docker image
 * Docker images are immutable; once you create an image you can never change it again
   * if want to modify the existing images 
     1. delete the current image
@@ -34,47 +35,54 @@ Take notes of dockerfile
   
 <br />
 
-## [Multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)
+## 2. [Multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/)
 * Goal: to write an efficient docker image
 * How: 
   1. use shell
   2. ensure each layer is as small as possible by using the artifacts it needs from the previous layer and nothing else 
 
 
-
-
 <br />
 
 # Commands
 
-## Build Image
+## 1. Build Image
 
-    docker build -f dockerfile -t <image_name>:1.0.1 .
-
- 
+  ```sh
+  docker build -f dockerfile -t <image_name>:1.0.1 .
+  ```
   * -f:<br />
   * -t:  <br />
   * . : dockerfile in the current directory
 
+<br />
 
-## tag image
+## 2. tag image
 
+  ```sh
   docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+  ```
 
-## Push Image to DockerHub
-### Issue: can not login DockerHub
+<br />
 
-    error getting credentials - err: exit status 1, out: `GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files
+## 3. Push Image to DockerHub
+
+### 3.1. Issue: can not login DockerHub
+
+  error getting credentials - err: exit status 1, out: `GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.secrets was not provided by any .service files
 
 **Solution:**
 
-    sudo apt install gnupg2 pass
-    docker login --username <username>
+  ```sh
+  sudo apt install gnupg2 pass
+  docker login --username <username>
+  ```
 
-
+<br />
 
 # Arguments
-## [Entrypoint vs CMD](https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/)
+
+## 1. [Entrypoint vs CMD](https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/)
 * There is **at least one entrypoint or CMD** in a dockerfile.
 However, if there are multiple CMD, only the last one will be executed.
 
@@ -90,6 +98,7 @@ However, if there are multiple CMD, only the last one will be executed.
 * Sometimes, the combination of CMD and Entrypoint is required. <br />
   e.g. CMD provides users to change and entrypoint ensures arguments must be executed
 
+<br />
 
 # [shebang (WIP)](https://stackoverflow.com/a/34554506)
 * written in the first line of scripts to tell Linux to execute it using a specific language
@@ -100,29 +109,31 @@ However, if there are multiple CMD, only the last one will be executed.
 
 * (WIP) may work without `entrypoint` and `cmd`, but only `run`. `run` is executed in the intermediate layer of a container (does not finish the container (without `entrypoint` and `cmd`)) and use **shebang** to execute the script (without `entrypoint` and `cmd`) can not execute script) => the process only occurs in the intermediate layers of container. Therefore,  
 
+<br />
 
 # PATH
 * path with brackets implies the [host's PATH](https://stackoverflow.com/a/65119275)
   
     ENV PATH="/usr/local/bin:${PATH}"
 
-
-# Reference
-
-[dockerfile arguments](https://betterprogramming.pub/the-whole-shebang-dockerfiles-5d59ace94d28)
+<br />
 
 
 # :$
 related to bash
 https://stackoverflow.com/questions/32342841/colon-at-the-beginning-of-line-in-docker-entrypoint-bash-script
 
-
+<br />
 
 # Issue
-## standard_init_linux.go:190: exec user process caused "no such file or directory"
+
+## 1. standard_init_linux.go:190: exec user process caused "no such file or directory"
 > change `ENTRYPOINT`, instead of `ENTRYPOINT ["/entrypoint.sh"]`. Use below
 
-```linux
+```sh
   ENTRYPOINT ["sh", "/entrypoint.sh"]
-
 ```
+
+# Reference
+
+[dockerfile arguments](https://betterprogramming.pub/the-whole-shebang-dockerfiles-5d59ace94d28)

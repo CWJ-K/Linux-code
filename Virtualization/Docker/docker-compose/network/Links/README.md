@@ -8,9 +8,24 @@ To define aliases which help a service to be reachable from other service in the
 
 <!-- omit in toc -->
 # Table of Contents
-- [Fundamental Concepts](#fundamental-concepts)
 - [Example](#example)
-  - [Explanation](#explanation)
+- [Fundamental Concepts](#fundamental-concepts)
+
+<br />
+
+# Example
+  ```yml
+  version: "3.9"
+  services:
+
+  web:
+      build: .
+      links:
+      - "db:database" # web service links to database service (postgres)
+      - "db"
+  db:
+      image: postgres
+  ```
 
 <br />
 
@@ -21,28 +36,11 @@ To define aliases which help a service to be reachable from other service in the
   
 * Use either **networks** or **links** at the same time.
 
+* can use **"service:alias"** or **"service_name"** to represent the service
 
 * **Aliases**: alternative hostname for this service 
+
   
-  
-<br />
-
-# Example
-    version: "3.9"
-    services:
-
-    web:
-        build: .
-        links:
-        - "db:database"
-        - "db"
-    db:
-        image: postgres
-
-## Explanation
-* links: web service links to database service (postgres)
-    
->can use **"service:alias"** or **"service_name"** to represent the service
 
 
 

@@ -1,15 +1,11 @@
 <!-- omit in toc -->
-
 # Introduction
 Take note of concepts of computer network and docker network
 
 <br />
 
 <!-- omit in toc -->
-
 # Table of Contents
-- [Introduction](#introduction)
-- [Table of Contents](#table-of-contents)
 - [Fundamental Concepts](#fundamental-concepts)
   - [1. **Namespaces**](#1-namespaces)
     - [1.1. **What is the goal of namespace?**](#11-what-is-the-goal-of-namespace)
@@ -125,22 +121,23 @@ Below introduces two networking. However, Docker has many other network modes. N
 
 ## 1. [Example](https://docs.docker.com/compose/networking/)
 
-
-    # services all connect to the network, automatically generated 
-
-    version: "3.9"
-    services:
-      web:
-        build: .
-        ports:
-          - "8000:8000"
-        # network_mode: "bridge"
-      db:
-        image: postgres
-        ports:
-          - "8001:5432"
-        # network_mode: "bridge"
+  ```yml
+  # services all connect to the network, automatically generated 
   
+  version: "3.9"
+  services:
+    web:
+      build: .
+      ports:
+        - "8000:8000"
+      # network_mode: "bridge"
+    db:
+      image: postgres
+      ports:
+        - "8001:5432"
+      # network_mode: "bridge"
+  ```
+
 ### 1.1. Explanation
 
 #### 1.1.1. **Default Networking**
@@ -158,22 +155,25 @@ Top-level networks key helps:
 
 
 ## 1. Example
-    version: "2.4"
+  ```yml
+  version: "2.4"
 
-    services:
-      proxy:
-        build: ./proxy
-        networks:
-          - outside
-          - default
-      app:
-        build: ./app
-        networks:
-          - default
+  services:
+    proxy:
+      build: ./proxy
+      networks:
+        - outside
+        - default
+    app:
+      build: ./app
+      networks:
+        - default
+  
 
-    networks:
-      outside:
-        external: true
+  networks:
+    outside:
+      external: true
+  ```
 
 <br />
 
@@ -183,19 +183,23 @@ Top-level networks key helps:
 
     * HOST_PORT: How host machine connects the service
     
-          postgres://{DOCKER_IP}:8001
+      ```yml
+      postgres://{DOCKER_IP}:8001
+      ```
 
     * CONTAINER_PORT: how services connect other ones in the container
       * connect services based on their [alias](https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode), instead of IP
 
-            postgres://db:5432
+        ```yml
+        postgres://db:5432
+        ```
 
         * Advantages
 
           1. docker can be deployed in different environments without the limitation of static ip
           2. If machine maintenance, servers change to other machines. Use ip, you need to change ip at the same time. Use service name, you do not change anything
           3. For security, it is best to not let other people know your service ip
-  * mode:
+  * mode: **TODO**
     * host
 
 <br />
@@ -205,23 +209,25 @@ Top-level networks key helps:
 
   > --net=host => host networking
   
-    # Set Network
-    docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
+  ```sh
+  # Set Network
+  docker run -it --name web2 --net=host vaibhavthakur/docker:webinstance2
 
 
-    docker network inspect my_network
+  docker network inspect my_network
 
-    # only disconnect one container at once
-    docker network disconnect -f my_network container_name 
+  # only disconnect one container at once
+  docker network disconnect -f my_network container_name 
 
 
-    docker network rm my_network
+  docker network rm my_network
 
-    # show bridge IP address
-    ip addr show docker0
+  # show bridge IP address
+  ip addr show docker0
+  ```
 
 ## 1. show all mapped ports
-```linux
+```sh
   docker ps
 ```
 

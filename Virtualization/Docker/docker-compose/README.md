@@ -1,5 +1,3 @@
-
-
 <!-- omit in toc -->
 # Introduction
 Take note of the components of docker-compose in the view of docker-compose since I often use docker-compose.
@@ -9,24 +7,26 @@ Take note of the components of docker-compose in the view of docker-compose sinc
 <!-- omit in toc -->
 # Table of Contents
 - [Linux Commands](#linux-commands)
-  - [Create and start containers](#create-and-start-containers)
-- [Components](#components)
-  - [Extension](#extension)
-  - [Network](#network)
-  - [Port](#port)
-  - [Volumes](#volumes)
+  - [1. Create and start containers](#1-create-and-start-containers)
+- [Structure of this Directory](#structure-of-this-directory)
 
 <br />
 
 # Linux Commands
-## Create and start containers
+
+## 1. Create and start containers
     docker-compose (-f docker-compose.yml) up -d --build
 
 <br />
 
-# Components
-## Extension
-## Network
-## Port
-## Volumes
+# Structure of this Directory
+* Extension
+* Network
+  * Links
+  * networks
+* Volume
+* Image
+* Command
+* Build
+* Env
 

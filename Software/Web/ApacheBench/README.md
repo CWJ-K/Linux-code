@@ -47,7 +47,7 @@ How does ApacheBench help websites?
 
 ## 1. install ApacheBench
 
-  ```linux
+  ```sh
   apt-get install apache2-utils -y
   ```
 
@@ -55,7 +55,7 @@ How does ApacheBench help websites?
 
 ## 2. mock requests to a website 
 
-  ```linux
+  ```sh
   ab -n 1000 -c 10 'http://127.0.0.1:8888/'
   ```
 
