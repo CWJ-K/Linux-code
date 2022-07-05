@@ -42,7 +42,7 @@ I believe note-taking helps me learn more. Therefore, I create this repository t
     * Dockerfile
     * Swarm
 * Cloud
-  * AWS
+  * Minio
 
 
 <br />
