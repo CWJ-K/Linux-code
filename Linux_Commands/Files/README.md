@@ -9,6 +9,9 @@ TODO
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
   - [Why are the structures of files in the different Linux distributions almost identical?](#why-are-the-structures-of-files-in-the-different-linux-distributions-almost-identical)
+  - [FHS only defines three directories](#fhs-only-defines-three-directories)
+    - [/](#)
+    - [/usr](#usr)
 - [Commands](#commands)
   - [cURL](#curl)
 
@@ -31,9 +34,63 @@ TODO
   * unshareable: files related to own machine and problems. So, they can not be shared with other machines
   * static: some files are not changed followed by distributions
   * changeable: files are frequently changed
-  * / (root)
-  * /usr (unix software resource)
-  * /var (variable)
+
+<br />
+
+## FHS only defines three directories 
+  |Directory|Meaning|Files related to|
+  |:---:|:---:|:---:|
+  |/|root|boot systems|
+  |/usr|unix software resource|software installation and execution|
+  |/var|variable|operations of systems|
+
+<br />
+
+### /
+* include files related to repair, booting of systems
+* is so important that partition of `/` should be smaller for efficiency (TBC) 
+* `/` and softwares should not be put in the same partition (TBC)
+* required sub-directories should in `/`:
+  > even though the sub-directories do not exist, it is suggested to create them in `/`
+
+  |Directory|Meaning|Note|
+  |:---:|:---:|
+  |/bin||
+  |/boot||
+  |/dev|||
+  |/etc|||
+  |/lib|||
+  |/media|||
+  |/mnt|||
+  |/opt|||
+  |/run|||
+  |/sbin|||
+  |/srv|||
+  |/tmp|||
+  |/usr|||
+  |/var|||
+  |/home||suggested by FHS|
+  |/lib<qual>||suggested by FHS|
+  |/root||suggested by FHS|
+
+* other directories should be known:
+  |Directory|Meaning|Note|
+  |:---:|:---:|
+  |/lost+found||
+  |/proc||
+  |/sys||
+
+<br />
+
+### /usr
+* Unix Software Resource
+* goals:
+  * even if mounting is only read, the systems still can operate
+    * therefore, /sbin, /bin and /lib are moved into /usr for system rescue in some Linux distributions, which breaks the FHS rule.
+* developers should put files into appropriate directories, instead of directories created by themselves
+* the directory may use the most memories
+  
+
 
 
 
