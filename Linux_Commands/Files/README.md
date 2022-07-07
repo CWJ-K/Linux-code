@@ -54,30 +54,30 @@ TODO
   > even though the sub-directories do not exist, it is suggested to create them in `/`
 
   |Directory|Meaning|Note|
-  |:---:|:---:|
-  |/bin||
-  |/boot||
-  |/dev|||
-  |/etc|||
-  |/lib|||
-  |/media|||
-  |/mnt|||
-  |/opt|||
+  |:---:|:---|:---:|
+  |/bin|contains **commands** that are of use to both the system administrator as well as non-privileged users, e.g. cat, chmod, chown, date, mv, mkdir, cp, bash|Binary|
+  |/boot|contains everything required for the **boot process** except for configuration files not needed at boot time and the map installer||
+  |/dev|the location of special or device files, e.g. /dev/null, /dev/zero, /dev/tty, /dev/loop*, /dev/sd*|Device|
+  |/etc|contains all system related configuration files in here or in its sub-directories e.g. /etc/modprobe.d/, /etc/passwd, /etc/fstab, /etc/issue, <br /> /etc/opt(required): for third party software, <br />/etc/X11/(suggested): for X Windows <br /> /etc/sgml/(suggested) <br /> /etc/xml/(suggested)|Editable Text Configuration|
+  |/lib|contains kernel modules and those shared library images needed to boot the system and run the commands in the root filesystem, ie. by binaries in /bin and /sbin|library|
+  |/media|containing removable media, e.g. CD, DVD.. etc. <br /> common files: /media/floppy, /media/cdrom||
+  |/mnt|Mounting is the process by which you make a filesystem available to the system. After mounting your files will be accessible under the mount-point|mount|
+  |/opt|for all the software and add-on packages that are not part of the default installation (third party softwares)|Optional|
   |/run|||
-  |/sbin|||
+  |/sbin|contains binaries that are essential to the working of the system, including system administration as well as maintenance and hardware configuration programs|System Binaries|
   |/srv|||
   |/tmp|||
   |/usr|||
   |/var|||
-  |/home||suggested by FHS|
+  |/home|Linux is a multi-user environment so each user is also assigned a specific directory that is accessible only to them and the system administrator. <br /> contains your personal configuration files|suggested by FHS|
   |/lib<qual>||suggested by FHS|
   |/root||suggested by FHS|
 
 * other directories should be known:
   |Directory|Meaning|Note|
   |:---:|:---:|
-  |/lost+found||
-  |/proc||
+  |/lost+found|Systems might crash or a power failure might take the machine down. Some results before breaking down are stored in the directory and recover when rebooting systems|
+  |/proc|also a virtual filesystem <br />  It doesn't contain 'real' files but runtime system information (e.g. system memory, devices mounted, hardware configuration, etc).  <br /> it is stored in memory, so it does not take disc spaces|Process|
   |/sys||
 
 <br />
