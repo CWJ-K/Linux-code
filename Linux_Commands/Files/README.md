@@ -8,16 +8,21 @@ TODO
 <!-- omit in toc -->
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
+  - [Do not delete files unless you know exactly what you are doing](#do-not-delete-files-unless-you-know-exactly-what-you-are-doing)
   - [Why are the structures of files in the different Linux distributions almost identical?](#why-are-the-structures-of-files-in-the-different-linux-distributions-almost-identical)
   - [FHS only defines three directories](#fhs-only-defines-three-directories)
     - [/](#)
     - [/usr](#usr)
+    - [/var](#var)
 - [Commands](#commands)
   - [cURL](#curl)
 
 <br />
 
 # Fundamental Concepts
+## [Do not delete files unless you know exactly what you are doing](https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/tmp.html)
+* Many of these files are important for currently running programs and deleting them may result in a system crash
+
 ## Why are the structures of files in the different Linux distributions almost identical?
 * Filesystem Hierarchy Standard (FHS) makes sure that users can understand the location of installed software.
 
@@ -63,15 +68,15 @@ TODO
   |/media|containing removable media, e.g. CD, DVD.. etc. <br /> common files: /media/floppy, /media/cdrom||
   |/mnt|Mounting is the process by which you make a filesystem available to the system. After mounting your files will be accessible under the mount-point|mount|
   |/opt|for all the software and add-on packages that are not part of the default installation (third party softwares)|Optional|
-  |/run|||
+  |/run|in the early, all the information about boot is stored in /var/run. Now, new FHS says it is stored in /run||
   |/sbin|contains binaries that are essential to the working of the system, including system administration as well as maintenance and hardware configuration programs|System Binaries|
-  |/srv|||
-  |/tmp|||
-  |/usr|||
-  |/var|||
+  |/srv|contains site-specific data which is served by this system|service|
+  |/tmp|contains mostly files that are required temporarily <br />Many programs use this to create lock files and for temporary storage of data||
+  |/usr|contains by far the largest share of data on a system. <br />contains all the user binaries, their documentation, libraries, header files, etc.|Unix Software Resource|
+  |/var|Contains variable data like system logging files, mail and printer spool directories, and transient and temporary files|variable|
   |/home|Linux is a multi-user environment so each user is also assigned a specific directory that is accessible only to them and the system administrator. <br /> contains your personal configuration files|suggested by FHS|
-  |/lib<qual>||suggested by FHS|
-  |/root||suggested by FHS|
+  |/lib<qual>|contains kernel modules and those shared library images needed to boot the system and run the commands in the root filesystem, ie. by binaries in /bin and /sbin|suggested by FHS|
+  |/root|the home directory of the System Administrator|suggested by FHS|
 
 * other directories should be known:
   |Directory|Meaning|Note|
@@ -83,13 +88,46 @@ TODO
 <br />
 
 ### /usr
-* Unix Software Resource
+* full name: Unix Software Resource
 * goals:
   * even if mounting is only read, the systems still can operate
     * therefore, /sbin, /bin and /lib are moved into /usr for system rescue in some Linux distributions, which breaks the FHS rule.
 * developers should put files into appropriate directories, instead of directories created by themselves
 * the directory may use the most memories
-  
+* directories are required:
+  |Directory|Meaning|Note|
+  |:---:|:---:|:---:|
+  |/usr/bin/|contain all commands users can use<br /> same as /bin. Connect /bin with /usr/bin/ <br />it is not suggested to add sub-directories in this directory ||
+  |/usr/lib/|same as /lib||
+  |/usr/local/|for the system administrator when installing software locally||
+  |/usr/sbin/|same as /bin||
+  |/usr/share/|contains read-only text files. The files can be shared among architecture platforms of a given OS||
+* directories are suggested:
+  |Directory|Meaning|Note|
+  |:---:|:---:|:---:|
+  |/usr/games/|files related to games||
+  |/usr/include/|contains headers and include of c/c++ <br /> We will use the files in this directory if we install *.tar.gz files||
+  |/usr/libexec/|includes internal binaries that are not intended to be executed directly by users or shell scripts||
+  |/usr/lib<qual>/|same as /lib<qual>/||
+  |/usr/src/|contain source codes|source|
+
+
+<br />
+
+### /var
+* will become more after operating systems
+  * files including cache, log file, lock file, run file, MySQL files
+
+* Directories
+  |Directory|Meaning|Note|
+  |:---:|:---:|:---:|
+  |/var/cache/|contains cache files from applications||
+  |/var/lib/|||
+  |/var/lock/|||
+  |/var/log/|||
+  |/var/mail/|||
+  |/var/run/|||
+  |/var/spool/|||
 
 
 
