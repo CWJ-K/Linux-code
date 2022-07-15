@@ -14,8 +14,20 @@ TODO
     - [/](#)
     - [/usr](#usr)
     - [/var](#var)
+  - [directory tree](#directory-tree)
+  - [Path](#path)
+    - [absolute path](#absolute-path)
+    - [relative path](#relative-path)
+  - [Directory Table](#directory-table)
 - [Commands](#commands)
+  - [Directory](#directory)
+    - [cd](#cd)
+    - [pwd](#pwd)
+    - [mkdir](#mkdir)
+    - [rmdir](#rmdir)
   - [cURL](#curl)
+  - [why can we use `ls`?](#why-can-we-use-ls)
+    - [Environment Path](#environment-path)
 
 <br />
 
@@ -122,26 +134,120 @@ TODO
   |Directory|Meaning|Note|
   |:---:|:---:|:---:|
   |/var/cache/|contains cache files from applications||
-  |/var/lib/|||
-  |/var/lock/|||
-  |/var/log/|||
-  |/var/mail/|||
-  |/var/run/|||
-  |/var/spool/|||
+  |/var/lib/|contains the files required for applications||
+  |/var/lock/|lock files for devices and other resources in case they are used by multiple devices at the same time||
+  |/var/log/|contains important log files e.g. /var/log/messages, /var/log/wtmp||
+  |/var/mail/|same as /var/spool/mail/ <bt /> contains the directory of emails||
+  |/var/run/|same as /run <bt /> This directory was once intended for system information data **describing** the system since it was booted||
+  |/var/spool/|contains data which is awaiting some kind of later processing <bt /> after processing, the data will be removed||
 
+<br />
 
+## directory tree
+* the start point of the directory tree is `/`, `root`
+* can mount to filesystem of the Internet by Network File System (NFS)
+* the names of files are identical in the directory tree 
 
+<br />
 
+## Path
+### absolute path
+* start from `/`
+  * e.g. /home/dmtsai/.bashrc
+* use absolute path for accuracy
+  > relative path will change according to working environment  
 
+<br />
 
+### relative path
+* start from `./` (current directory)
+  * e.g. ./home/dmtsai
+* `../`: the layer up one level of the current directory
 
+<br />
 
-
+## Directory Table
+|Symbol|Directory|
+|:---:|:---|
+|`.`|current directory|
+|`..`|the layer up one level of the current directory|
+|`-`|previous working directory|
+|`~`|home directory of the current user|
+|`~account`|home directory of the account|
 
   
 <br />
 
 # Commands 
+* use `tab` in Linux to automatically fill names
+
+<br />
+
+## Directory
+### cd
+* change directory
+
+
+```s
+  cd <path_to_directory>
+```
+
+<br />
+
+### pwd
+* print working directory
+
+```s
+# show the current directory => linking file
+pwd
+
+# show the complete directory
+pwd -P
+
+## see why
+ls -ld <current_directory>
+
+```
+
+<br />
+
+### mkdir
+* make directory
+* `mkdir -p` becomes annoying when there are typos in file names
+
+```s
+# create a file
+mkdir <file_name>
+
+# create new files recursively. Exiting files will be skipped
+
+mkdir -p <file_name1/file_name2..>
+
+# set permission of new file. Without, the permission will be set default property (TBC-umask)
+mkdir -m <number_of_permission> <file_name>
+
+```
+
+<br />
+
+### rmdir
+* remove directories
+  > directory should be **empty**
+```s
+
+rmdir <file_name>
+
+# remove directories not empty
+## use rmdir
+## file name 1 and file name2 are deleted
+rmdir -p <file_name1/file_name2>
+
+## use rm
+rm -r <file_name>
+
+```
+
+<br />
 
 ## [cURL](https://www.scribd.com/document/90229628/Curl-Manual)
 * Write output to <file> instead of stdout
@@ -149,6 +255,22 @@ TODO
     curl -o [Options] <URL>
 ```
 
+
+## why can we use `ls`?
+* the complete file name of `ls` (executable file) is `/bin/ls` 
+* if there are multiple directories with `ls`, `ls` will be called from the file which is searched the first
+* `ls` is an environment variable via `PATH`
+* because of linking files, printing the search path by root or non-root is different
+
+### Environment Path
+* search path follows a **fixed order** and used `:` to separate variables
+* `.` should not be put in the environment path since `.` is not static (we change the current directory to other directory)
+
+```s
+# print the search path; $VARIABLE
+echo $PATH # > /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+
+```
 
 
 
