@@ -28,6 +28,10 @@ TODO
   - [cURL](#curl)
   - [why can we use `ls`?](#why-can-we-use-ls)
     - [Environment Path](#environment-path)
+    - [`ls`](#ls)
+  - [Copy](#copy)
+  - [Remove](#remove)
+  - [Move](#move)
 
 <br />
 
@@ -255,6 +259,7 @@ rm -r <file_name>
     curl -o [Options] <URL>
 ```
 
+<br />
 
 ## why can we use `ls`?
 * the complete file name of `ls` (executable file) is `/bin/ls` 
@@ -266,11 +271,72 @@ rm -r <file_name>
 * search path follows a **fixed order** and used `:` to separate variables
 * `.` should not be put in the environment path since `.` is not static (we change the current directory to other directory)
 
-```s
-# print the search path; $VARIABLE
-echo $PATH # > /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+  ```s
+  # print the search path; $VARIABLE
+  echo $PATH # > /usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 
-```
+  # Add a new path to the PATH variable => reassign the PATH variable with the new path
+  ## at the beginning of the existing PATH variable
+  PATH="/root:${PATH}"
+
+  ## at the bottom of the existing PATH variable
+  PATH="${PATH}:/root"
+
+  ```
+
+<br />
+
+### `ls`
+
+  ```s
+  # print modification time of files
+  ls -alF --full-time ~
+
+  # use a long listing format
+  ls -l
+
+  ```
+
+<br />
+
+## Copy
+* make sure your **role** when using `cp`
+  > copy the property of files
+
+  ```s
+  # copy files to current directory
+  cp <file> .
+
+  # copy files and ask whether to overwrite
+  cp -i <file> .
+
+  # copy files with properties to current directory
+  ## root: for password files, configs
+  cp -a <file> . 
+  cp -p <file> . 
+
+  # copy directory to current directory. Properties may be changed
+  cp -r <directory> .
+
+
+  # build a link file to be copied
+  ## make symbolic links instead of copying => shortcut
+  cp -s <file> <file_link_name>
+
+  ## hard link files instead of copying
+  cp -l <file> <file_link_name>
+
+  ```
+
+<br />
+
+## Remove
+
+<br />
+
+## Move
+
+<br />
 
 
 
