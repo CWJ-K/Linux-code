@@ -19,6 +19,10 @@ TODO
     - [absolute path](#absolute-path)
     - [relative path](#relative-path)
   - [Directory Table](#directory-table)
+  - [file name](#file-name)
+    - [wildcard](#wildcard)
+    - [rules](#rules)
+  - [Guidelines for `cp`](#guidelines-for-cp)
 - [Commands](#commands)
   - [Directory](#directory)
     - [cd](#cd)
@@ -32,6 +36,8 @@ TODO
   - [Copy](#copy)
   - [Remove](#remove)
   - [Move](#move)
+- [Retrieve file name and directory name from a **path**](#retrieve-file-name-and-directory-name-from-a-path)
+- [look up the content of a file](#look-up-the-content-of-a-file)
 
 <br />
 
@@ -179,6 +185,28 @@ TODO
 |`~`|home directory of the current user|
 |`~account`|home directory of the account|
 
+
+<br />
+
+## file name
+### wildcard
+* e.g. hello*.txt
+  > helloa.txt, helloy.txt....
+
+<br />
+
+### rules
+* file name should not start with `-`
+  >`-` causes conflicts with the options of linux commands 
+
+
+<br />
+
+## Guidelines for `cp`
+1. whether the property of a file is kept for other file?
+2. whether the source of files to be copied is a link file?
+3. whether the source of files to be copied is special files, like socket, FIFO?
+4. whether the source of files to be copied is a directory?
   
 <br />
 
@@ -318,6 +346,8 @@ rm -r <file_name>
   # copy directory to current directory. Properties may be changed
   cp -r <directory> .
 
+  # copy multiple files to the specific folder
+  cp <file_1> <file_2> <directory>
 
   # build a link file to be copied
   ## make symbolic links instead of copying => shortcut
@@ -326,18 +356,76 @@ rm -r <file_name>
   ## hard link files instead of copying
   cp -l <file> <file_link_name>
 
+  ## if there is difference between two files, file_2 will be overwritten by file_1
+  ### commonly used for backup
+  cp -u <file_1> <file_2>
+
+  ## with -d, copy the property of the link file to other link file, otherwise, copy the original file
+  cp -d <link_file_1> <link_file_2>
+
   ```
 
 <br />
 
 ## Remove
+* Be careful to use `rm -r`. Make sure all file are needed to be deleted
+```s
+  # f: ignore non-existing files
+  # i: interactive, ask users whether to remove the file => default, if your role is root
+  # r: recursively
+  rm [-fir] <file>
+
+  # if recursively delete a directory without interactive questions
+  ## => use ctrl + c to stop questions and delete all files
+
+  # \ ignore specific options of alias (TBC)
+  \rm <file_name>
+
+
+
+
+```
 
 <br />
 
 ## Move
+* if the destination exists, source will overwrite the destination
+
+```s
+  # f: force, i: interactive
+  # u: update destination if destination exists and source is newer than destination
+  mv [-fiu] source destination
+
+  # rename files
+  mv <file> <new_name_of file>
+
+  # move multiple files to destination. The last file will be identified as destination
+  mv <file1> <file2> ... <destination>
+
+```
+
 
 <br />
 
+# Retrieve file name and directory name from a **path**
+
+```s
+# file name
+basename /etc/sysconfig/network # network
+
+# directory name
+dirname /etc/sysconfig/network # /etc/sysconfig
+
+```
+
+<br />
+
+# look up the content of a file
+```s
+
+
+
+```
 
 
 
