@@ -328,7 +328,7 @@ rm -r <file_name>
   # use a long listing format
   ls -l
 
-  # mtime: modification time
+  # mtime: modification time => important
   # atime: access time
   # ctime: status time
   ls -l --time=<time>
@@ -481,4 +481,23 @@ od <file>
 
 
 ### 8.1. touch
-* 
+* modify the time of file
+  * e.g. Time zone of systems
+* if the file does not exist, the empty file will be created
+* if the file exists, `atime/ctime/mtime` of the file will be updated as current time
+* ctime can not be changed
+
+```s
+  touch <file>
+
+  # check time of files
+  date; ll <file>; ll --time=atime <file>; ll --time=ctime <file>
+
+  # change time to 2 days ago
+  touch -d "2 days ago" <file>
+
+  # change time of files 
+  touch -t 201406150202 <file>
+
+```
+> `;` means executing codes in orders
