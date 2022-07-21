@@ -6,23 +6,23 @@ Introduce permission of files and directories and methods to change permission.
 
 <!-- omit in toc -->
 # Table Of Contents
-- [Display permission <a name="Displaypermission"></a>](#display-permission-)
-- [Outputs of Permission <a name="Introductionofpermission"></a>](#outputs-of-permission-)
-  - [1. Full information <a name="Fullinformation"></a>](#1-full-information-)
-  - [2. Permission <a name="Informationofpermission"></a>](#2-permission-)
-    - [Meaning of Symbol](#meaning-of-symbol)
-    - [Meaning of Permission](#meaning-of-permission)
-  - [3. Root](#3-root)
-- [How to change permission](#how-to-change-permission)
-  - [chgrp](#chgrp)
-  - [chown](#chown)
-- [when to use chgrp, chown?](#when-to-use-chgrp-chown)
-  - [copy](#copy)
-  - [chmod](#chmod)
+- [1. Display permission <a name="Displaypermission"></a>](#1-display-permission-)
+- [2. Outputs of Permission <a name="Introductionofpermission"></a>](#2-outputs-of-permission-)
+  - [2.1. Full information <a name="Fullinformation"></a>](#21-full-information-)
+  - [2.2. Permission <a name="Informationofpermission"></a>](#22-permission-)
+    - [2.2.1. Meaning of Symbol](#221-meaning-of-symbol)
+    - [2.2.2. Meaning of Permission](#222-meaning-of-permission)
+  - [2.3. Root](#23-root)
+- [3. How to change permission](#3-how-to-change-permission)
+  - [3.1. chgrp](#31-chgrp)
+  - [3.2. chown](#32-chown)
+- [4. when to use chgrp, chown?](#4-when-to-use-chgrp-chown)
+  - [4.1. copy](#41-copy)
+  - [4.2. chmod](#42-chmod)
 
 <br />
 
-## Display permission <a name="Displaypermission"></a>
+## 1. Display permission <a name="Displaypermission"></a>
 **ls**
 
   ```s
@@ -32,11 +32,11 @@ Introduce permission of files and directories and methods to change permission.
 
 <br />
 
-## Outputs of Permission <a name="Introductionofpermission"></a>
+## 2. Outputs of Permission <a name="Introductionofpermission"></a>
 
 <br />
 
-### 1. Full information <a name="Fullinformation"></a>
+### 2.1. Full information <a name="Fullinformation"></a>
 **Example: dr-xr-xr-x. 17    root     root    4096  May  4 17:56 ..**
 
 | Permission | Number of Link Files | Owner | Group | Size | Last updated time | Name of Files/Directories
@@ -45,12 +45,12 @@ Introduce permission of files and directories and methods to change permission.
 
 <br />
 
-### 2. Permission <a name="Informationofpermission"></a>
+### 2.2. Permission <a name="Informationofpermission"></a>
 **Example: dr-xr-xr-x.**
 
 <br />
 
-#### Meaning of Symbol
+#### 2.2.1. Meaning of Symbol
 
 ||r|w|x|-|
 |:---:|:---:|:---:|:---:|:---:|
@@ -80,7 +80,7 @@ Introduce permission of files and directories and methods to change permission.
 
 <br />
 
-#### Meaning of Permission
+#### 2.2.2. Meaning of Permission
 
 ||File/Directory| Owner | Group | Other people 
 :---: |:---: |:---:|:---:|:---:
@@ -90,17 +90,17 @@ Introduce permission of files and directories and methods to change permission.
 
 <br />
 
-### 3. Root
+### 2.3. Root
 If there is no permission set for root, root still can have full permission of any files and directories
 
 <br />
 
-## How to change permission
+## 3. How to change permission
 * `[-R]`: recursively change all files in the folder
 
 <br />
 
-### chgrp
+### 3.1. chgrp
 * change group 
 * the name of the group should exist in `/etc/group`
 
@@ -110,7 +110,7 @@ chgrp [-R] <group_name> <dirname/filename>
 
 <br />
 
-### chown
+### 3.2. chown
 * change the owner or the group of a file
 * the name of the user should exist in `/etc/passwd`
 
@@ -124,13 +124,14 @@ chown <user_name>:<group_name> <dirname/filename>
 
 <br />
 
-## when to use chgrp, chown?
-### copy
+## 4. when to use chgrp, chown?
+
+### 4.1. copy
 * when using `copy`, the property of files, e.g. permission of owner, will also be copied. Therefore, it is required to change the permission when coping files to other people.
 
 <br />
 
-### chmod
+### 4.2. chmod
 * change modes of permission of files/directories
 * Two Methods:
   * Use Numbers
@@ -177,8 +178,29 @@ chown <user_name>:<group_name> <dirname/filename>
 <br />
 
 
+# umask
+* assign default permission to files
+* file, the max number is 666 because files are for data storage and they do not need to be executed
+* folder, the max number is 777 because folders to be executed imply users can enter folders
+* when to use
+  * if multiple users use the same machines
+  > annoying to change the permission of folders one by one 
+  > when a file is created, the newly default permission is set
+```s
+  # check default permission by number
+  # means 7 minus number => permission
+  # 0222 => permission: 7555; take off permission of write
+  umask
 
+  # check default permission by strings
+  umask -S
 
+  # set permission
+  umask <number>
+
+```
+
+<br />
 
 
 

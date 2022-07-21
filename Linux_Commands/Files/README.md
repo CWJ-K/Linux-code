@@ -39,6 +39,9 @@ TODO
   - [7. Retrieve file name and directory name from a **path**](#7-retrieve-file-name-and-directory-name-from-a-path)
   - [8. look up the content of a file](#8-look-up-the-content-of-a-file)
     - [8.1. touch](#81-touch)
+  - [chattr](#chattr)
+  - [lsattr](#lsattr)
+  - [file](#file)
 
 <br />
 
@@ -501,3 +504,30 @@ od <file>
 
 ```
 > `;` means executing codes in orders
+
+<br />
+
+## chattr
+* add hidden attributes of a file
+* common attributes to be added
+  * `i`: enable files can not be deleted, modified, copied. Only root can set the attribute
+  * `a`: enable files can be added data, but can not be deleted and modified
+
+```s
+  chattr [+-=][ASacdistu] <file>
+
+```
+
+<br />
+
+## lsattr
+* display the hidden attributes of files
+
+```s
+lsattr [-adR] <file>
+
+```
+
+<br />
+
+## file
