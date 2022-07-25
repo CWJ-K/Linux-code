@@ -6,6 +6,7 @@
   - [1. htop](#1-htop)
   - [2. free -m](#2-free--m)
   - [3. watch -n 1 free -m](#3-watch--n-1-free--m)
+  - [tab](#tab)
 
 <br />
 
@@ -35,3 +36,8 @@ see cpu and memory usage is system
 ## 2. free -m
 
 ## 3. watch -n 1 free -m
+
+
+## tab
+* one tab shows the full name of the files
+* two tabs show the whole commands users can use

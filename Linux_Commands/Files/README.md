@@ -42,6 +42,13 @@ TODO
   - [chattr](#chattr)
   - [lsattr](#lsattr)
   - [file](#file)
+  - [Search for commands](#search-for-commands)
+    - [which](#which)
+    - [type (TODO)](#type-todo)
+  - [Search for files](#search-for-files)
+    - [whereis](#whereis)
+    - [locate](#locate)
+    - [find](#find)
 
 <br />
 
@@ -531,3 +538,104 @@ lsattr [-adR] <file>
 <br />
 
 ## file
+* display the information of files
+
+```s
+  file <file>
+
+```
+
+<br />
+
+## Search for commands
+### which
+* according to PATH, search for executable files (commands)
+
+```s
+  # -a: all commands in PATH
+  which [-a] <command>
+
+```
+
+<br />
+
+### type (TODO)
+
+<br />
+
+## Search for files
+### whereis
+* only search for files under `/bin /sbin` and `/usr/share/man`
+
+```s
+  whereis [-bmsu] <file>
+  # -b: only search for binary files
+  # -m: only search for files under the path of manual
+  # -s: only search for source files
+
+  # -l: display the list whereis search for
+  whereis -l
+
+  whereis passwd
+  whereis -m passwd
+```
+
+<br />
+
+### locate
+* search for files with the part of file names in the database `/var/lib/mlocate/`
+* if the database is not updated, you can not find files
+
+```s
+  locate [-irlS] keyword
+  # i: ignore capital 
+  # r: regular expression
+  # l: the number of columns
+  # S: the information of database used by locate
+
+  # according to /etc/updatedb.conf, search for files and update /var/lib/mlocate
+  updatedb
+
+```
+
+<br />
+
+### find
+* slower than `locate`, `whereis` since `fine` searches the whole disk => do not use frequently or it will damage the disk
+* also search for subdirectories
+
+```s
+  find [PATH] [option] [action]
+
+  find /etc -newer /etc/passwd
+
+  # find files which user is dmtsai under /home
+  find /home -user dmtsai
+
+  find / -perm /7000
+  
+  find /usr/bin /usr/sbin -perm /7000 -exec ls -l {} \;
+  # {} implies the contents from find
+```
+* options
+
+|Type|Options|Meaning|
+|:---:|:---:|:---:|
+|Time|-mtime/atime/ctime n|files modified in the previous n th day|
+|Time|-mtime/atime/ctime +n|files modified over n days (excluding n)|
+|Time|-mtime/atime/ctime -n|files modified in n days (including n)|
+|Time|-newer file|files newer than the other file|
+|User & Group|-uid n|TODO|
+|User & Group|-gid n|TODO|
+|User & Group|-user name|find files by the name of owners|
+|User & Group|-group name|find files by the name of groups|
+|User & Group|-nouser|find files by the name not in `/etc/passwd`|
+|User & Group|-nogroup|find files by the name not in `/etc/group`|
+|Permission|-name filename(or with wildcards)|find files by filename|
+|Permission|-size [+-]SIZE|find files by sizes|
+|Permission|-type TYPE|find files by types|
+|Permission|-perm mode|find files equal to specific permission (chmod)|
+|Permission|-perm -mode|find files includes all files with specific permission (chmod)|
+|Permission|-perm /mode|find files includes any files with specific permission (chmod)|
+|Extra|-exec command \;|print results according to specific commands. \; => ;|
+|Extra|-print|default, print results|
