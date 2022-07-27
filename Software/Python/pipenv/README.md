@@ -16,12 +16,13 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
     - [2.2. pip/pip3](#22-pippip3)
 - [Commands](#commands)
   - [1. Install Pipenv](#1-install-pipenv)
-  - [2. Update Pipenv](#2-update-pipenv)
-  - [3. Create a Pipfile.lock](#3-create-a-pipfilelock)
-  - [4. Activate Pipenv](#4-activate-pipenv)
-  - [5. Check Versions of Packages in Pipenv](#5-check-versions-of-packages-in-pipenv)
-  - [6. Module: Make the Current Directory into Package](#6-module-make-the-current-directory-into-package)
-  - [7. Install the Exact Versions Specified in Pipfile.Lock](#7-install-the-exact-versions-specified-in-pipfilelock)
+  - [2. Install specific python](#2-install-specific-python)
+  - [3. Update Pipenv](#3-update-pipenv)
+  - [4. Create a Pipfile.lock](#4-create-a-pipfilelock)
+  - [5. Activate Pipenv](#5-activate-pipenv)
+  - [6. Check Versions of Packages in Pipenv](#6-check-versions-of-packages-in-pipenv)
+  - [7. Module: Make the Current Directory into Package](#7-module-make-the-current-directory-into-package)
+  - [8. Install the Exact Versions Specified in Pipfile.Lock](#8-install-the-exact-versions-specified-in-pipfilelock)
 - [Issue](#issue)
   - [1. Still Can Not Update Version Of Numpy To 1.2.1 In Vm](#1-still-can-not-update-version-of-numpy-to-121-in-vm)
   - [2. ERROR: Pipfile.lock not found! You need to run $ pipenv lock before you can continue in CICD.](#2-error-pipfilelock-not-found-you-need-to-run--pipenv-lock-before-you-can-continue-in-cicd)
@@ -89,9 +90,21 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
   pip install pipenv
   ```
 
+## 2. Install specific python
+
+  ```s
+  pipenv --two  
+  pipenv --three  
+  pipenv --python 3  
+  pipenv --python 3.6  
+  pipenv --python 2.7.14  
+  
+  ```
+
+
 <br />
 
-## 2. Update Pipenv
+## 3. Update Pipenv
 > it wil run pipenv lock then pipenv sync
 
   ```s
@@ -100,7 +113,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 <br />
 
-## 3. Create a Pipfile.lock
+## 4. Create a Pipfile.lock
 > create a Pipfile.lock , which declares all dependencies (and sub-dependencies) of your project
 
   ```s
@@ -109,7 +122,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 <br />
 
-## 4. Activate Pipenv
+## 5. Activate Pipenv
 
   ```s
   pipenv shell
@@ -117,7 +130,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 <br />
 
-## 5. Check Versions of Packages in Pipenv
+## 6. Check Versions of Packages in Pipenv
 
   ```s
   # after activating pipenv
@@ -126,7 +139,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 <br />
 
-## 6. Module: Make the Current Directory into Package
+## 7. Module: Make the Current Directory into Package
 > **setup.py** is required
 
   ```s
@@ -138,7 +151,7 @@ Pipenv is a higher-level tool to manage packages with virtual environment, which
 
 <br />
 
-## 7. Install the Exact Versions Specified in Pipfile.Lock
+## 8. Install the Exact Versions Specified in Pipfile.Lock
         
   ```s
   pipenv sync
