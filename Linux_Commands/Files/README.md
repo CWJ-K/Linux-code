@@ -49,6 +49,9 @@ TODO
     - [whereis](#whereis)
     - [locate](#locate)
     - [find](#find)
+  - [Disk Space](#disk-space)
+    - [df](#df)
+    - [du](#du)
 
 <br />
 
@@ -622,7 +625,7 @@ lsattr [-adR] <file>
 |Type|Options|Meaning|
 |:---:|:---:|:---:|
 |Time|-mtime/atime/ctime n|files modified in the previous n th day|
-|Time|-mtime/atime/ctime +n|files modified over n days (excluding n)|
+|Time|-mtime/atime/ctime +n|files m%odified over n days (excluding n)|
 |Time|-mtime/atime/ctime -n|files modified in n days (including n)|
 |Time|-newer file|files newer than the other file|
 |User & Group|-uid n|TODO|
@@ -639,3 +642,20 @@ lsattr [-adR] <file>
 |Permission|-perm /mode|find files includes any files with specific permission (chmod)|
 |Extra|-exec command \;|print results according to specific commands. \; => ;|
 |Extra|-print|default, print results|
+
+
+## Disk Space
+### df
+* display the usage of disks
+* pay attention to Use%, if Use% > 90%
+```s
+  df [-ahikHTm] <file/directory>
+  
+  df -h
+
+  # inode usage
+  df -ih
+```
+
+### du
+* evaluate the usage of disks
