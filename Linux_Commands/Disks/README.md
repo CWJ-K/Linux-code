@@ -83,3 +83,7 @@
     umount 
 
 ```
+
+
+## xfs_admin 
+* revise the UUID and label names of xfs systems
