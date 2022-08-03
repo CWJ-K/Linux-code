@@ -30,7 +30,6 @@
 |Down|↓ or `j`|
 |Left|← or `h`|
 |Right|→ or `l`|
-
 |Go to the last line of the file|`G`|
 |Go to the first line of the file|`gg`|
 |Go to the first character of the line|`0` or `home`|
