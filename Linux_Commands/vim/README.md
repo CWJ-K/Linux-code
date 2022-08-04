@@ -39,4 +39,47 @@
 |find keywords|/word|
 |search for keywords in next lines|`n`|
 |search for keywords in previous lines|`N`|
+|delete previous character or later character|`x`; `X`|
+|replace word1 to word2 from the first line to the bottom line and print a confirmation|`:1,$s/word1/word2/gc`|
+|delete the whole line|`dd`|
+|copy the whole line|`yy`|
+|paste the line to the front or the back of the current line|`p`;`P`|
+|undo|`u`|
+|refresh the page|`ctrl+r`|
+|copy the last action|`.`|
+
+
+## Insert Mode
+|Switch to Insert mode|`i`|
+|Insert text at the beginning of the current line|`I`|
+|Append after the cursor's current position|`a`|
+|Append to the end of the line|`A`|
+|Open a new line under the current line|`o`|
+|Open a new line above the current line|`O`|
+|Replace a character at once|`r`|
+|Replace characters until `ESC`|`R`|
+
+## Command Line Mode
+|write|`:w`|
+|force the file to be written|`:w!`|
+|exit|`:q`|
+|force to leave files without saving data|`:q!`|
+|exit and write|`:wq` or `:wq`|
+|leave and save files if files have been modified|`ZZ`|
+|save to other file|`:w [filename]`|
+|read other file|`:r [filename]`|
+|save contents from n1 to n2 to other file|`:n1,n2 w [filename]`|
+|leave file and use command|`:! [command]`|
+|display the number of line|`:set nu`|
+|not displace the number of line|`:set nonu`|
+
+
+## Recover files
+* **recover** first and then **delete** (enable to delete .swap) 
+
+```s
+  # see filename extension is .conf.swp
+  ls -all
+```
+
 
