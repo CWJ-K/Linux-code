@@ -8,6 +8,8 @@ Take note of the components of docker-compose in the view of docker-compose sinc
 # Table of Contents
 - [Linux Commands](#linux-commands)
   - [1. Create and start containers](#1-create-and-start-containers)
+  - [2. pull images](#2-pull-images)
+  - [3. build docker-compose](#3-build-docker-compose)
 - [Structure of this Directory](#structure-of-this-directory)
 
 <br />
@@ -15,7 +17,22 @@ Take note of the components of docker-compose in the view of docker-compose sinc
 # Linux Commands
 
 ## 1. Create and start containers
-    docker-compose (-f docker-compose.yml) up -d --build
+  ```s
+  docker-compose (-f docker-compose.yml) up -d --build
+  ```
+  
+
+## 2. pull images
+  ```s
+  docker-compose -f <docker-compose.yml> pull
+  ```
+
+## 3. build docker-compose
+  ```s
+  docker-compose -f <docker-compose.yml> up
+  
+  ```
+  
 
 <br />
 
