@@ -44,8 +44,27 @@
 
 <br />
 
-# Vim cheat sheet
+## Vim cheat sheet
 ![cheat_sheet](cheat_sheet.JPG)
+
+## Chinese in files
+* garbles in files => encoding issue
+  * **big5** commonly used in chinese files
+  * vim may use **utf8**
+* set linux language
+  * linux languages configuration is stored in `/etc/locale.conf`
+  ```s
+  LANG=zh_TW.big5
+  export LC_ALL=zh_TW.big5
+  
+  # go to terminal tool to choose big5
+  ```
+
+## copy text files in different systems 
+* use `unix2dos` or `dos2unix` to avoid the issue of line ending in Linux and DOS (windows)
+
+## switch encoding
+* use `iconv`
 
 # Commands 
 
