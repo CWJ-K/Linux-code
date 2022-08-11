@@ -52,19 +52,22 @@ How to use shell?
 * shell scripts (TODO)
 * wildcard
 
+## PS1
+* not environment variables
+* to customized your prompt characters|PS1='[\u@\h \w \A #\#]\$ '
+* make your prompt characters with time and other symbols|
+
 ## Environment Variable
 * Use `capital` and `$` to imply environment variables
 * Can be used for obtaining the results of other outputs, shortcuts of commands
 
-### PS1
-* to customized your prompt characters|PS1='[\u@\h \w \A #\#]\$ '
-* make your prompt characters with time and other symbols|
+
 
 ### ?
 * print the return value of the previous command
   * 0: successful
   * not 0: not successful
-* used for debug
+* used for debugging
 
 ```s
   # test a command
@@ -108,9 +111,9 @@ How to use shell?
   |`ctrl` + a; `ctrl` + e|the head or tail of commands|
 
 
-## Environment Variables
+## Environment Variables - command line
+### Read variables
 ```s
-  ## Read variables
   echo $PATH
   echo ${PATH}
 
@@ -137,30 +140,110 @@ How to use shell?
   ## Extend the content of variables by "$VAR" or ${VAR}
   PATH="$PATH":contents 
   PATH=${PATH}:contents
+``` 
+### cancel variable
+  ```s
+    unset variable
+  ```
+### export variables of parent program to child processes
+* child processes only inherit the environment variables from parent processes 
+  * other variables can not be passed to child processes
+* mark variables and functions to be passed to child processes
 
-  ## cancel variable
-  unset variable
-
-  ## export variables of parent program to subprogram
+  ```s
   export variable
 
+  # without variables, export all variables
+  export
+  ```
 
-  # Example 1: go to module directory of your kernel
+### Examples
+  ``` s
+  # 1. go to module directory of your kernel
   cd /lib/modules/$(uname -r)/kernel 
 
-  # Example 2: find crontab files and print their detailed information
+  # 2. find crontab files and print their detailed information
   ls -ld $(locate crontab)
 
-  # Example 3: shortcut of command directories
+  # 3. shortcut of command directories
   work='/path/to/workspace/'
   cd $work
-
-  # print default variables
-  env
-
-  ## Example: default random is from 0 to 32767. if want to limit in the range of 0 to 32768
+  
+  ## 4. default random is from 0 to 32767. if want to limit in the range of 0 to 32768
   declare -i number=$RANDOM*10/32768 ; echo $number
 
   # print all variables 
   set
+  ```
+
+### print default variables
+  ```s
+    env
+  ```
+
+### print all variables 
+  ```s
+    set
+  ```
+
+## Environment Variables - interactive surface
+### Read
+* assign variables
+
+```s
+ read [-pt] <variable>
+ # write the content of the variable
+
+ echo $<variable>
+
+ read -p "Please key in your name: " -t 30 named
+
+```
+
+## locale
+* set `LANG` or `LC_ALL` to change all languages
+  * can combine with `export` for temporary usage
+* change `cat /etc/locale.conf` for specific languages
+```s
+  # see supported languages
+  locale  
+
+```
+
+## Declare types of variables
+* default type is `string`
+```s
+  declare [-aixr] variable
+  # a: array
+  # i: integer => no float
+  # x: export variables
+  # r: read-only => can not unset and modified; only logout can revise
+
+  # declare variables as integer
+  declare -i sum=100+300+50
+
+  # + cancel export
+  declare +x variable
+
+  # print type of a variable
+  declare -p variable
+
+  ## array
+  var[1]="small min"
+  var[2]="big min"
+  var[3]="nice min"
+  echo "${var[1]}, ${var[2]}, ${var[3]}"
+```
+
+## limit users' resources
+* `0` means unlimited
+* if want to recover ulimit
+  * login and logout
+  * if not logout, `unlimit` only decreases limits and can not increase limits
+```s
+  ulimit [-SHacdfltu] [number]
+
+  # print the limit of the current role
+  ulimit -a
+
 ```
