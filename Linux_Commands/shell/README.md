@@ -247,3 +247,97 @@ How to use shell?
   ulimit -a
 
 ```
+
+## Remove Contents in Variables
+
+### delete from the left => short
+* `${variable#/path_to_be_deleted:}`
+
+```shell
+  echo ${path#/*local/bin:}
+```
+
+### delete from the left => long
+* `${variable##/path_to_be_deleted:}`
+
+```shell
+  echo ${path##/*:}
+```
+
+### delete from the right => short
+* `${variable%:path_to_be_deleted}`
+  * `:` until
+
+```shell
+  echo ${path%:*bin}
+
+```
+
+### delete from the right => long
+* `${variable%%:path_to_be_deleted}`
+  * `:` until
+
+```shell
+  echo ${path%%:*bin}
+
+```
+
+### select only the file name
+```shell
+  # variable: MAIL
+  # e.g. /var/spool/mail/dmtsai  => dmtsai
+  echo ${MAIL##/*/}
+
+```
+
+### select without the file name
+```shell
+  # variable: MAIL
+  # e.g. /var/spool/mail/dmtsai  => /var/spool/mail/
+  echo ${MAIL%/*}
+```
+
+## Replace
+* the first one with the same pattern will be replaced
+  * ${variable/string_to_be_replaced/strings_to_replace}
+* all with the same pattern will be replaced
+  * ${variable//string_to_be_replaced/strings_to_replace}
+
+
+```shell
+  echo ${path/sbin/SBIN}
+
+```
+
+## Switch
+* if variables exist, use original contents
+  * if not use new content
+  * if variables are `empty string`, new content will not be used
+* `-`: new content
+```shell
+  # username does not exist, root will be used as the new content
+  username=${username-root} # username = root
+
+  # username exists, the content is the original one 
+  username="hello"
+  username=${username-root} # username = hello
+
+```
+
+* if variables are `empty string`, new content will replace the empty string
+* `:`
+
+```shell
+  # assign empty string
+  username=""
+  username=${username-root} # username = ""
+  username=${username:-root} # username = root
+
+```
+
+### Example
+```shell
+  # see var and str
+  unset str; var=${str-newvar}
+  echo "var=${var}, str=${str}"
+```
