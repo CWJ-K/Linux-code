@@ -87,6 +87,7 @@ How to use shell?
 
 ```
 
+
 <br />
 
 # Commands 
@@ -249,6 +250,7 @@ How to use shell?
 ```
 
 ## Remove Contents in Variables
+* `echo` for calling variable names
 
 ### delete from the left => short
 * `${variable#/path_to_be_deleted:}`
@@ -337,7 +339,92 @@ How to use shell?
 
 ### Example
 ```shell
-  # see var and str
+  # see var and str; if str does not exist
   unset str; var=${str-newvar}
-  echo "var=${var}, str=${str}"
+  echo "var=${var}, str=${str}" # var = newvar, str= 
 ```
+* if the variable does not exist, display messages
+* `?`
+
+```shell
+  # display none if str does not exist
+  unset str; var=${str?None}
+
+```
+
+## alias, unalias => for commands
+* advantages
+  * shortcut of long commands
+  * replace original commands
+* `name='commands'`
+
+```shell
+  alias lm='ls -al | more'
+  alias rm='rm -i'
+
+  # display current alias
+  alias 
+
+  # cancel alias
+  unalias lm
+
+```
+
+## History
+* see history of commands used by users
+* store history in `~/.bash_history `
+  * only store the maximum number: `echo ${HISTSIZE}` => 1000
+  * if more than 1000, old history will be removed
+
+```shell
+  history
+
+  # use commands in history according to the number
+  !<number>
+
+  # execute the last command
+  !!
+
+  # execute the last command starting with al
+  ## !command
+  !al
+
+```
+
+## search order of commands and paths
+* There are different ways to set commands. How to know which way is read first?
+
+```shell
+  # type -a <command>
+  type -a ls
+  ## the first command to be searched for is on the top
+
+```
+
+## Messages of entering bash
+* modified messages of machines in `/etc/issue`
+* `/etc/issue.net` for telnet (remotely login)
+* give messages to every users
+  * e.g. for maintenance time
+  * `vim /etc/motd`
+
+
+```shell
+  # see current messages
+  cat /etc/issue
+  
+  # see commands can used in /etc/issue
+  man agetty # ISSUE ESCAPES
+
+  ## e.g. 
+  ### \d: current date
+```
+
+## Permanently keep configures
+* default: custom configures will be removed when logging out bash
+* `login shell` vs `non-login shell`
+  * the difference is in whether to log in to the shell
+  * login shell: require passwords to log in
+  * non-login shell: already log in to the shell but use other terminals to enter bash without passwords
+  * They used different configures to read configures
+### login shell
