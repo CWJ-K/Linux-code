@@ -428,3 +428,52 @@ How to use shell?
   * non-login shell: already log in to the shell but use other terminals to enter bash without passwords
   * They used different configures to read configures
 ### login shell
+* read configures from only below two files:
+  1. `/etc/profile`: the global setting => do not modify it
+  2. `~/.bash_profile`, `~/.bash_login`, `~/.profile`: users' setting => modify this one
+
+#### /etc/profile
+* use `UID` to identify users' settings => must be read by users logging in shell
+* read other configure files in the following order
+  1. `/etc/profile.d/*.sh`: include the color of bash, commands of `ls`, `ll`, `vi`, `which`
+  2. `/etc/locale.conf`: called by `/etc/profile.d/lang.sh`. Include the setting of languages
+  3. `/usr/share/bash-completion/completions/*`: called by `/etc/profile.d/bash_completion.sh`
+
+#### ~/.bash_profile
+* after reading `/etc/profile`, read `~/.bash_profile` for users' configuration files
+* only read one of below configuration files in the following order. If one exists, the others will not be read
+  1. ~/.bash_profile
+  2. ~/.bash_login
+  3. ~/.profile
+
+### source
+* two methods to read configuration files
+  1. login shell
+  2. use `source` or `.`
+
+```bash
+  # source configuration_files
+  source ~/.bashrc
+  
+  . ~/.bashrc
+```
+
+### non-login shell
+* when non-login shell, it will only read `~/.bashrc`
+#### ~/.bashrc
+* will call `/etc/bashrc` 及 `/etc/profile.d/*.sh`
+  > if you find the command line becomes `-bash-4.2$`, it implies `~/.bashrc` disappears. Solution:
+  1. copy `/etc/skel/.bashrc` to the home directory
+  2. source ~/.bashrc
+
+### Other configuration files
+* `/etc/man_db.conf`: includes the path of `man`
+  * if you can not use man, it may be `man` stored in different directories. Add the path of `man` to `/etc/man_db.conf` 
+
+* `~/.bash_history`: commands of `history`
+* `~/.bash_logout`: when logging out, actions will be taken before exiting shells
+
+## Configurations of terminal
+* e.g. use `back` or `delete` to delete command lines
+### stty
+### set
