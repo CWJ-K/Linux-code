@@ -476,4 +476,77 @@ How to use shell?
 ## Configurations of terminal
 * e.g. use `back` or `delete` to delete command lines
 ### stty
+* configurations of setting tty (terminal)
+```bash
+  # display all terminal commands
+  ## ^: ctrl
+  stty -a
+
+  # set erase as other terminal commands
+  stty erase ^h
+```
 ### set
+* configurations of bash
+```bash
+  # display all configurations
+  set
+
+  # set 
+
+```
+### Useful terminal commands
+* delete current command lines: `ctrl+u` or `ctrl+?`
+
+
+## wildcard
+|Symbol|Meaning|
+|:---:|:---:|
+|`*`|any characters|
+|`?`|must be one character|
+|`[]`|must have characters in brackets|
+|`[-]`|must have characters in the range of letters or number|
+|`[^]`|not characters in brackets|
+
+```bash
+  # only 5 characters
+  ll -d /etc/?????
+
+  ll -d /etc/*[0-9]* 
+  ll -d /etc/[^a-z]*
+```
+
+## Special symbols 
+|Symbol|Meaning|
+|:---:|:---:|
+|`#`|comment|
+|`\`|escape characters to make special characters and wildcards as pure characters|
+|`|`|pipe; return results to other pipes|
+|`;`|separate commands|
+|`~`|home directory|
+|`$`|to represent variables|
+|`&`|job control;  ??|
+|`!`|not|
+|`/`|division of path|
+|`>`, `>>`|output|
+|`<`, `<<`|input|
+|`''`|can not keep `$` as variables|
+|`""`|can keep `$` as variables|
+|`` ``|can point to commands|
+|`()`|the beginning and ending of child processes|
+|`{ }`|the combination of commands|
+
+
+## redirect
+* the result of one command is redirected to other commands
+* standard output (STDOUT)
+* standard error output (STDERR)
+
+### Commands
+|Type|Symbol|Meaning|
+|:---:|:---:|:---:|
+|stdin (0)|`>`, `>>`|output. `>` overwrites existing data; `>>` appends existing data|
+|stdin (0)|`<`, `<<`|input|
+|STDOUT (1)|`1>`, `1>>`|transfer correct data|
+|STDOUT (1)|`1<`, `1<<`||
+|STDERR (2)|`2>`, `2>>`|transfer wrong data|
+|STDERR (2)|`2<`, `2<<`|
