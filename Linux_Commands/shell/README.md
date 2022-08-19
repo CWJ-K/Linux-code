@@ -540,13 +540,87 @@ How to use shell?
 * the result of one command is redirected to other commands
 * standard output (STDOUT)
 * standard error output (STDERR)
+* common usage
+  * use commands to avoid error messages stopping current processes
+  * store logs 
+  * separate correct and wrong messages
 
-### Commands
+### STDOUT
 |Type|Symbol|Meaning|
 |:---:|:---:|:---:|
 |stdin (0)|`>`, `>>`|output. `>` overwrites existing data; `>>` appends existing data|
-|stdin (0)|`<`, `<<`|input|
 |STDOUT (1)|`1>`, `1>>`|transfer correct data|
-|STDOUT (1)|`1<`, `1<<`||
 |STDERR (2)|`2>`, `2>>`|transfer wrong data|
-|STDERR (2)|`2<`, `2<<`|
+
+
+```bash
+  # create a new file and type words in the file
+  cat > file
+
+  # store correct and wrong outputs to different files
+  find /home -name .bashrc > list_right 2> list_error
+
+  # do not store and print wrong outputs => store in /dev/null
+  find /home -name .bashrc 2> /dev/null
+
+  # store correct and wrong outputs in the same file
+  ## 2>&1: redirect 2 to 1 
+  ## &>: all 2 and 1
+  find /home -name .bashrc > list 2>&1
+  find /home -name .bashrc &> list
+
+```
+### STDIN
+* the **content** of files is redirected 
+
+|Symbol|Meaning|
+|:---:|:---:|
+|`<`|need `ctrl+d` to exit|
+|`<<`|use customized characters to exit, instead of `ctrl+d`|
+
+```bash
+  # store the content of files into new files
+  ## like cp
+  cat > catfile < ~/.bashrc
+
+  ## type eof in the end to exit files
+  cat > catfile << "eof"
+
+```
+
+## execute commands once instead of separation
+### commands are independent
+* `;`
+* all commands are independent
+```bash
+  # cmd;cmd
+  sync; sync; shutdown -h now
+
+```
+### commands are dependent
+* use `$?` to return values(0: success; 1: nonsuccess
+#### &&
+* if the previous command **succeeds**, **start** to process the next command
+* if the previous command does **not succeed**, do **not start** to process the next command
+#### ||
+* if the previous command **succeeds**, do **not start** to process the next command
+* if the previous command does **not succeed**, **start** to process the next command
+
+
+```bash 
+  # if files exist, start to touch files
+  ls /tmp/test && touch /tmp/test/hi
+  # make files if files do not exist
+  ls /tmp/test || mkdir /tmp/test
+
+
+  # from left to right !!
+  ## check if the file exist, if not create the file, and then touch the file
+  ls /tmp/test || mkdir /tmp/test && touch /tmp/test/hi
+```
+
+## Pipe
+* input data is passed as in pipelines
+* 
+
+
