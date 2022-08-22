@@ -619,8 +619,78 @@ How to use shell?
   ls /tmp/test || mkdir /tmp/test && touch /tmp/test/hi
 ```
 
+## last 
+* Display the information of user
+
+```bash
+  last
+
+```
+
 ## Pipe
-* input data is passed as in pipelines
-* 
+* input data is passed through in pipelines
+  * only `standard output` can be input data
+
+### capture data
+#### cut
+* from only **one** command line, obtain the desired part
+* not efficient to process data with several spaces => use `awk`
+
+```bash
+  
+  # -d: delimiter
+  # -f: fields (= positions, starting from 1) based on the words separated by delimiters
+  echo ${PATH} | cut -d ':' -f 3,5
+
+  # select characters after the 12th position
+  export | cut -c 12-
+
+```
+#### grep
+* find patterns in one command line
+```bash
+  grep [-acinv] [--color=auto] '<patterns>' <filename>
+
+  last | grep '<words>'
+
+  # -v reverse: select without specific patterns
+  last | grep -v '<words>'
+```
+
+### order data
+#### sort
+
+```bash
+  sort [-fbMnrtuk] [file or stdin]
+
+  # -t: delimiter
+  # -k: sort based on the field
+  cat /etc/passwd | sort -t ':' -k 3 | tail -n 5
+
+  # -n: see string as number to do sort
+  cat /etc/passwd | sort -t ':' -k 3,3 -n | tail -n 5
+```
+
+#### uniq
+* display unique information from duplicated data
+```bash
+  # -c count
+  # -i: ignore case sensitivity
+  uniq [-ic]
+
+  last | cut -d ' ' -f1 | sort | uniq -c
+
+```
+
+
+#### wc
+* display word counts
+
+```bash
+  wc [-lwm]
+  
+
+
+```
 
 
