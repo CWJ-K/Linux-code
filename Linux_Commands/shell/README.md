@@ -569,6 +569,9 @@ How to use shell?
   find /home -name .bashrc > list 2>&1
   find /home -name .bashrc &> list
 
+  # combine all files into one file
+  cat services* >> servicesback
+
 ```
 ### STDIN
 * the **content** of files is redirected 
@@ -683,14 +686,126 @@ How to use shell?
 ```
 
 
-#### wc
+### wc
 * display word counts
 
 ```bash
-  wc [-lwm]
-  
+  wc [-lwm] <file_name>
+  # output: number of columns, words, characters
 
+  cat <file> | wc
+```
+
+### tee
+* reads the standard input and writes it to both the standard output and one or more files
+
+```bash
+  last | tee last.list | cut -d " " -f1
+
+```
+
+### Process Character
+#### tr
+* delete characters or replace charters with other characters
+* can combine with regular expression
+
+```bash
+  # -d: delete
+  # -s: replace
+  tr [-ds] <characters>
+
+  # replace small letters with capitals
+  last | tr '[a-z]' '[A-Z]'
+
+  # remove :
+  cat /etc/passwd | tail -n 5 | tr -d : # or ':'
+
+```
+
+#### col
+* replace `[tab]` with `[space]`
+
+```bash
+  col [-xb]
+
+  # displace all special characters
+  cat -A <file>
+
+  cat <file> | col -x | cat -A | more
+
+```
+
+#### join
+* join files 
+```bash
+  join [-ti12] file1 file2
+  # -t: delimiters
+  join -t ':' /etc/passwd /etc/shadow | head -n 3
+
+  # -1: the first file use the position to join
+  # -2: the second file use the position to join
+  join -t ':' -1 4 /etc/passwd -2 3 /etc/group | head -n 3
+
+```
+
+#### paste
+* combine two files with `tab` to separate them
+
+```bash
+  # -d: delimiter. default = tab
+  # -: means the data of standard input
+  paste [-d] <file> <file>
+
+  # -: /etc/group
+  cat /etc/group|paste /etc/passwd /etc/shadow -|head -n 3
 
 ```
 
 
+#### expand/unexpand
+* use on files with the `tab` or `space` delimiters
+* transfer `tab` to `space` and can adjust the width of `space`
+* transfer `space` to `tab`
+  
+```bash
+  expand [-t] file
+
+  cat /etc/passwd | head -n 3 | expand -t 6 - | cat -A
+
+```
+
+### split
+
+```bash
+  split [-bl] <file> <PREFIX>
+
+  ls -al / | split -l 10 - lsroot
+
+```
+
+### xargs
+* generate arguments for commands
+  * read stdin data as arguments
+* reasons to use `xargs` are some commands do not support `pipeline commands` 
+```bash
+  xargs [-0epn] command
+
+  # -n: one argument one time
+  cut -d ':' -f 1 /etc/passwd | head -n 3 | xargs -n 1 id
+
+  # until the word 'sync'
+  cut -d ':' -f 1 /etc/passwd | xargs -e'sync' -n 1 id
+
+  # find files with special permission by two methods
+  find /usr/sbin -perm /7000 | xargs ls -l
+  ls -l $(find /usr/sbin -perm /7000)
+```
+
+### -
+* can replace `stdin` and `stdout` without using filenames
+
+```bash
+  # -: stdin, content of home ; -: use stdout
+  tar -cvf - /home | tar -xvf - -C /tmp/homeback
+
+```
