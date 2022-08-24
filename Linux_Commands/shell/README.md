@@ -6,11 +6,90 @@ How to use shell?
 
 <!-- omit in toc -->
 # Table of Contents
+- [Fundamental Concepts](#fundamental-concepts)
+  - [1. what is shell](#1-what-is-shell)
+  - [2. Advantages of bash](#2-advantages-of-bash)
+  - [3. PS1](#3-ps1)
+  - [4. Environment Variable](#4-environment-variable)
+    - [4.1. ?](#41-)
+    - [4.2. $](#42-)
+- [Commands](#commands)
+  - [1. display the source of commands](#1-display-the-source-of-commands)
+  - [2. type long commands](#2-type-long-commands)
+  - [3. Environment Variables - command line](#3-environment-variables---command-line)
+    - [3.1. Read variables](#31-read-variables)
+    - [3.2. Assign Value](#32-assign-value)
+    - [3.3. cancel variable](#33-cancel-variable)
+    - [3.4. export variables of parent program to child processes](#34-export-variables-of-parent-program-to-child-processes)
+    - [3.5. Examples](#35-examples)
+    - [3.6. print default variables](#36-print-default-variables)
+    - [3.7. print all variables](#37-print-all-variables)
+  - [4. Environment Variables - interactive surface](#4-environment-variables---interactive-surface)
+    - [4.1. Read](#41-read)
+  - [5. locale](#5-locale)
+  - [6. Declare types of variables](#6-declare-types-of-variables)
+  - [7. limit users' resources](#7-limit-users-resources)
+  - [8. Remove Contents in Variables](#8-remove-contents-in-variables)
+    - [8.1. delete from the left => short](#81-delete-from-the-left--short)
+    - [8.2. delete from the left => long](#82-delete-from-the-left--long)
+    - [8.3. delete from the right => short](#83-delete-from-the-right--short)
+    - [8.4. delete from the right => long](#84-delete-from-the-right--long)
+    - [8.5. select only the file name](#85-select-only-the-file-name)
+    - [8.6. select without the file name](#86-select-without-the-file-name)
+  - [9. Replace](#9-replace)
+  - [10. Switch](#10-switch)
+    - [10.1. Example](#101-example)
+  - [11. alias, unalias => for commands](#11-alias-unalias--for-commands)
+  - [12. History](#12-history)
+  - [13. search order of commands and paths](#13-search-order-of-commands-and-paths)
+  - [14. Messages of entering bash](#14-messages-of-entering-bash)
+  - [15. Permanently keep configures](#15-permanently-keep-configures)
+    - [15.1. login shell](#151-login-shell)
+      - [15.1.1. /etc/profile](#1511-etcprofile)
+      - [15.1.2. ~/.bash_profile](#1512-bash_profile)
+    - [15.2. source](#152-source)
+    - [15.3. non-login shell](#153-non-login-shell)
+      - [15.3.1. ~/.bashrc](#1531-bashrc)
+    - [15.4. Other configuration files](#154-other-configuration-files)
+  - [16. Configurations of terminal](#16-configurations-of-terminal)
+    - [16.1. stty](#161-stty)
+    - [16.2. set](#162-set)
+    - [16.3. Useful terminal commands](#163-useful-terminal-commands)
+  - [17. wildcard](#17-wildcard)
+  - [18. Special symbols](#18-special-symbols)
+  - [19. redirect](#19-redirect)
+    - [19.1. STDOUT](#191-stdout)
+    - [19.2. STDIN](#192-stdin)
+  - [20. execute commands once instead of separation](#20-execute-commands-once-instead-of-separation)
+    - [20.1. commands are independent](#201-commands-are-independent)
+    - [20.2. commands are dependent](#202-commands-are-dependent)
+      - [20.2.1. &&](#2021-)
+      - [20.2.2. ||](#2022-)
+  - [21. last](#21-last)
+  - [22. Pipe](#22-pipe)
+    - [22.1. capture data](#221-capture-data)
+      - [22.1.1. cut](#2211-cut)
+      - [22.1.2. grep](#2212-grep)
+    - [22.2. order data](#222-order-data)
+      - [22.2.1. sort](#2221-sort)
+      - [22.2.2. uniq](#2222-uniq)
+    - [22.3. wc](#223-wc)
+    - [22.4. tee](#224-tee)
+    - [22.5. Process Character](#225-process-character)
+      - [22.5.1. tr](#2251-tr)
+      - [22.5.2. col](#2252-col)
+      - [22.5.3. join](#2253-join)
+      - [22.5.4. paste](#2254-paste)
+      - [22.5.5. expand/unexpand](#2255-expandunexpand)
+    - [22.6. split](#226-split)
+    - [22.7. xargs](#227-xargs)
+    - [22.8. -](#228--)
 
 <br />
 
 # Fundamental Concepts
-## what is shell
+
+## 1. what is shell
 * an interface to control all applications
 * Structure
   ```
@@ -32,7 +111,7 @@ How to use shell?
     
     ```
 
-## Advantages of bash
+## 2. Advantages of bash
 * it can provide the history of commands typed by users
   * stored in `.bash_history`: history of the last logging-in 
   * store current history when logging out machines; if not logging out, the current history is stored in memory
@@ -52,18 +131,18 @@ How to use shell?
 * shell scripts (TODO)
 * wildcard
 
-## PS1
+## 3. PS1
 * not environment variables
 * to customized your prompt characters|PS1='[\u@\h \w \A #\#]\$ '
 * make your prompt characters with time and other symbols|
 
-## Environment Variable
+## 4. Environment Variable
 * Use `capital` and `$` to imply environment variables
 * Can be used for obtaining the results of other outputs, shortcuts of commands
 
 
 
-### ?
+### 4.1. ?
 * print the return value of the previous command
   * 0: successful
   * not 0: not successful
@@ -79,7 +158,7 @@ How to use shell?
   
 ```
 
-### $
+### 4.2. $
 * PID of the shell
 ```s
   # first $ is for variable, next $ is PID
@@ -91,7 +170,8 @@ How to use shell?
 <br />
 
 # Commands 
-## display the source of commands
+
+## 1. display the source of commands
 * search for commands/executable files
 ```s
     type [-tpa] command
@@ -100,7 +180,7 @@ How to use shell?
 
 ```
 
-## type long commands
+## 2. type long commands
 * use `\[Enter]`
   * imply space
   * like `\$`, makes `Enter` is not executable by `\` 
@@ -112,14 +192,16 @@ How to use shell?
   |`ctrl` + a; `ctrl` + e|the head or tail of commands|
 
 
-## Environment Variables - command line
-### Read variables
+## 3. Environment Variables - command line
+
+### 3.1. Read variables
 ```s
   echo $PATH
   echo ${PATH}
 
 ```
-### Assign Value
+
+### 3.2. Assign Value
 ```s
   # no exiting variables. Default is empty
   echo ${my_variables}
@@ -142,11 +224,13 @@ How to use shell?
   PATH="$PATH":contents 
   PATH=${PATH}:contents
 ``` 
-### cancel variable
+
+### 3.3. cancel variable
   ```s
     unset variable
   ```
-### export variables of parent program to child processes
+
+### 3.4. export variables of parent program to child processes
 * child processes only inherit the environment variables from parent processes 
   * other variables can not be passed to child processes
 * mark variables and functions to be passed to child processes
@@ -158,7 +242,7 @@ How to use shell?
   export
   ```
 
-### Examples
+### 3.5. Examples
   ``` s
   # 1. go to module directory of your kernel
   cd /lib/modules/$(uname -r)/kernel 
@@ -177,18 +261,19 @@ How to use shell?
   set
   ```
 
-### print default variables
+### 3.6. print default variables
   ```s
     env
   ```
 
-### print all variables 
+### 3.7. print all variables 
   ```s
     set
   ```
 
-## Environment Variables - interactive surface
-### Read
+## 4. Environment Variables - interactive surface
+
+### 4.1. Read
 * assign variables
 
 ```s
@@ -201,7 +286,7 @@ How to use shell?
 
 ```
 
-## locale
+## 5. locale
 * set `LANG` or `LC_ALL` to change all languages
   * can combine with `export` for temporary usage
 * change `cat /etc/locale.conf` for specific languages
@@ -211,7 +296,7 @@ How to use shell?
 
 ```
 
-## Declare types of variables
+## 6. Declare types of variables
 * default type is `string`
 ```s
   declare [-aixr] variable
@@ -236,7 +321,7 @@ How to use shell?
   echo "${var[1]}, ${var[2]}, ${var[3]}"
 ```
 
-## limit users' resources
+## 7. limit users' resources
 * `0` means unlimited
 * if want to recover ulimit
   * login and logout
@@ -249,24 +334,24 @@ How to use shell?
 
 ```
 
-## Remove Contents in Variables
+## 8. Remove Contents in Variables
 * `echo` for calling variable names
 
-### delete from the left => short
+### 8.1. delete from the left => short
 * `${variable#/path_to_be_deleted:}`
 
 ```shell
   echo ${path#/*local/bin:}
 ```
 
-### delete from the left => long
+### 8.2. delete from the left => long
 * `${variable##/path_to_be_deleted:}`
 
 ```shell
   echo ${path##/*:}
 ```
 
-### delete from the right => short
+### 8.3. delete from the right => short
 * `${variable%:path_to_be_deleted}`
   * `:` until
 
@@ -275,7 +360,7 @@ How to use shell?
 
 ```
 
-### delete from the right => long
+### 8.4. delete from the right => long
 * `${variable%%:path_to_be_deleted}`
   * `:` until
 
@@ -284,7 +369,7 @@ How to use shell?
 
 ```
 
-### select only the file name
+### 8.5. select only the file name
 ```shell
   # variable: MAIL
   # e.g. /var/spool/mail/dmtsai  => dmtsai
@@ -292,14 +377,14 @@ How to use shell?
 
 ```
 
-### select without the file name
+### 8.6. select without the file name
 ```shell
   # variable: MAIL
   # e.g. /var/spool/mail/dmtsai  => /var/spool/mail/
   echo ${MAIL%/*}
 ```
 
-## Replace
+## 9. Replace
 * the first one with the same pattern will be replaced
   * ${variable/string_to_be_replaced/strings_to_replace}
 * all with the same pattern will be replaced
@@ -311,7 +396,7 @@ How to use shell?
 
 ```
 
-## Switch
+## 10. Switch
 * if variables exist, use original contents
   * if not use new content
   * if variables are `empty string`, new content will not be used
@@ -337,7 +422,7 @@ How to use shell?
 
 ```
 
-### Example
+### 10.1. Example
 ```shell
   # see var and str; if str does not exist
   unset str; var=${str-newvar}
@@ -352,7 +437,7 @@ How to use shell?
 
 ```
 
-## alias, unalias => for commands
+## 11. alias, unalias => for commands
 * advantages
   * shortcut of long commands
   * replace original commands
@@ -370,7 +455,7 @@ How to use shell?
 
 ```
 
-## History
+## 12. History
 * see history of commands used by users
 * store history in `~/.bash_history `
   * only store the maximum number: `echo ${HISTSIZE}` => 1000
@@ -391,7 +476,7 @@ How to use shell?
 
 ```
 
-## search order of commands and paths
+## 13. search order of commands and paths
 * There are different ways to set commands. How to know which way is read first?
 
 ```shell
@@ -401,7 +486,7 @@ How to use shell?
 
 ```
 
-## Messages of entering bash
+## 14. Messages of entering bash
 * modified messages of machines in `/etc/issue`
 * `/etc/issue.net` for telnet (remotely login)
 * give messages to every users
@@ -420,33 +505,34 @@ How to use shell?
   ### \d: current date
 ```
 
-## Permanently keep configures
+## 15. Permanently keep configures
 * default: custom configures will be removed when logging out bash
 * `login shell` vs `non-login shell`
   * the difference is in whether to log in to the shell
   * login shell: require passwords to log in
   * non-login shell: already log in to the shell but use other terminals to enter bash without passwords
   * They used different configures to read configures
-### login shell
+
+### 15.1. login shell
 * read configures from only below two files:
   1. `/etc/profile`: the global setting => do not modify it
   2. `~/.bash_profile`, `~/.bash_login`, `~/.profile`: users' setting => modify this one
 
-#### /etc/profile
+#### 15.1.1. /etc/profile
 * use `UID` to identify users' settings => must be read by users logging in shell
 * read other configure files in the following order
   1. `/etc/profile.d/*.sh`: include the color of bash, commands of `ls`, `ll`, `vi`, `which`
   2. `/etc/locale.conf`: called by `/etc/profile.d/lang.sh`. Include the setting of languages
   3. `/usr/share/bash-completion/completions/*`: called by `/etc/profile.d/bash_completion.sh`
 
-#### ~/.bash_profile
+#### 15.1.2. ~/.bash_profile
 * after reading `/etc/profile`, read `~/.bash_profile` for users' configuration files
 * only read one of below configuration files in the following order. If one exists, the others will not be read
   1. ~/.bash_profile
   2. ~/.bash_login
   3. ~/.profile
 
-### source
+### 15.2. source
 * two methods to read configuration files
   1. login shell
   2. use `source` or `.`
@@ -458,24 +544,26 @@ How to use shell?
   . ~/.bashrc
 ```
 
-### non-login shell
+### 15.3. non-login shell
 * when non-login shell, it will only read `~/.bashrc`
-#### ~/.bashrc
+
+#### 15.3.1. ~/.bashrc
 * will call `/etc/bashrc` 及 `/etc/profile.d/*.sh`
   > if you find the command line becomes `-bash-4.2$`, it implies `~/.bashrc` disappears. Solution:
   1. copy `/etc/skel/.bashrc` to the home directory
   2. source ~/.bashrc
 
-### Other configuration files
+### 15.4. Other configuration files
 * `/etc/man_db.conf`: includes the path of `man`
   * if you can not use man, it may be `man` stored in different directories. Add the path of `man` to `/etc/man_db.conf` 
 
 * `~/.bash_history`: commands of `history`
 * `~/.bash_logout`: when logging out, actions will be taken before exiting shells
 
-## Configurations of terminal
+## 16. Configurations of terminal
 * e.g. use `back` or `delete` to delete command lines
-### stty
+
+### 16.1. stty
 * configurations of setting tty (terminal)
 ```bash
   # display all terminal commands
@@ -485,7 +573,8 @@ How to use shell?
   # set erase as other terminal commands
   stty erase ^h
 ```
-### set
+
+### 16.2. set
 * configurations of bash
 ```bash
   # display all configurations
@@ -494,11 +583,12 @@ How to use shell?
   # set 
 
 ```
-### Useful terminal commands
+
+### 16.3. Useful terminal commands
 * delete current command lines: `ctrl+u` or `ctrl+?`
 
 
-## wildcard
+## 17. wildcard
 |Symbol|Meaning|
 |:---:|:---:|
 |`*`|any characters|
@@ -515,7 +605,7 @@ How to use shell?
   ll -d /etc/[^a-z]*
 ```
 
-## Special symbols 
+## 18. Special symbols 
 |Symbol|Meaning|
 |:---:|:---:|
 |`#`|comment|
@@ -536,7 +626,7 @@ How to use shell?
 |`{ }`|the combination of commands|
 
 
-## redirect
+## 19. redirect
 * the result of one command is redirected to other commands
 * standard output (STDOUT)
 * standard error output (STDERR)
@@ -545,7 +635,7 @@ How to use shell?
   * store logs 
   * separate correct and wrong messages
 
-### STDOUT
+### 19.1. STDOUT
 |Type|Symbol|Meaning|
 |:---:|:---:|:---:|
 |stdin (0)|`>`, `>>`|output. `>` overwrites existing data; `>>` appends existing data|
@@ -573,7 +663,8 @@ How to use shell?
   cat services* >> servicesback
 
 ```
-### STDIN
+
+### 19.2. STDIN
 * the **content** of files is redirected 
 
 |Symbol|Meaning|
@@ -591,8 +682,9 @@ How to use shell?
 
 ```
 
-## execute commands once instead of separation
-### commands are independent
+## 20. execute commands once instead of separation
+
+### 20.1. commands are independent
 * `;`
 * all commands are independent
 ```bash
@@ -600,12 +692,15 @@ How to use shell?
   sync; sync; shutdown -h now
 
 ```
-### commands are dependent
+
+### 20.2. commands are dependent
 * use `$?` to return values(0: success; 1: nonsuccess
-#### &&
+
+#### 20.2.1. &&
 * if the previous command **succeeds**, **start** to process the next command
 * if the previous command does **not succeed**, do **not start** to process the next command
-#### ||
+
+#### 20.2.2. ||
 * if the previous command **succeeds**, do **not start** to process the next command
 * if the previous command does **not succeed**, **start** to process the next command
 
@@ -622,7 +717,7 @@ How to use shell?
   ls /tmp/test || mkdir /tmp/test && touch /tmp/test/hi
 ```
 
-## last 
+## 21. last 
 * Display the information of user
 
 ```bash
@@ -630,12 +725,13 @@ How to use shell?
 
 ```
 
-## Pipe
+## 22. Pipe
 * input data is passed through in pipelines
   * only `standard output` can be input data
 
-### capture data
-#### cut
+### 22.1. capture data
+
+#### 22.1.1. cut
 * from only **one** command line, obtain the desired part
 * not efficient to process data with several spaces => use `awk`
 
@@ -649,8 +745,10 @@ How to use shell?
   export | cut -c 12-
 
 ```
-#### grep
+
+#### 22.1.2. grep
 * find patterns in one command line
+* [advanced usage](../Regular_Expression/README.md#grep)
 ```bash
   grep [-acinv] [--color=auto] '<patterns>' <filename>
 
@@ -660,8 +758,9 @@ How to use shell?
   last | grep -v '<words>'
 ```
 
-### order data
-#### sort
+### 22.2. order data
+
+#### 22.2.1. sort
 
 ```bash
   sort [-fbMnrtuk] [file or stdin]
@@ -674,7 +773,7 @@ How to use shell?
   cat /etc/passwd | sort -t ':' -k 3,3 -n | tail -n 5
 ```
 
-#### uniq
+#### 22.2.2. uniq
 * display unique information from duplicated data
 ```bash
   # -c count
@@ -686,7 +785,7 @@ How to use shell?
 ```
 
 
-### wc
+### 22.3. wc
 * display word counts
 
 ```bash
@@ -696,7 +795,7 @@ How to use shell?
   cat <file> | wc
 ```
 
-### tee
+### 22.4. tee
 * reads the standard input and writes it to both the standard output and one or more files
 
 ```bash
@@ -704,8 +803,9 @@ How to use shell?
 
 ```
 
-### Process Character
-#### tr
+### 22.5. Process Character
+
+#### 22.5.1. tr
 * delete characters or replace charters with other characters
 * can combine with regular expression
 
@@ -722,7 +822,7 @@ How to use shell?
 
 ```
 
-#### col
+#### 22.5.2. col
 * replace `[tab]` with `[space]`
 
 ```bash
@@ -735,7 +835,7 @@ How to use shell?
 
 ```
 
-#### join
+#### 22.5.3. join
 * join files 
 ```bash
   join [-ti12] file1 file2
@@ -748,7 +848,7 @@ How to use shell?
 
 ```
 
-#### paste
+#### 22.5.4. paste
 * combine two files with `tab` to separate them
 
 ```bash
@@ -762,7 +862,7 @@ How to use shell?
 ```
 
 
-#### expand/unexpand
+#### 22.5.5. expand/unexpand
 * use on files with the `tab` or `space` delimiters
 * transfer `tab` to `space` and can adjust the width of `space`
 * transfer `space` to `tab`
@@ -774,7 +874,7 @@ How to use shell?
 
 ```
 
-### split
+### 22.6. split
 
 ```bash
   split [-bl] <file> <PREFIX>
@@ -783,7 +883,7 @@ How to use shell?
 
 ```
 
-### xargs
+### 22.7. xargs
 * generate arguments for commands
   * read stdin data as arguments
 * reasons to use `xargs` are some commands do not support `pipeline commands` 
@@ -801,7 +901,7 @@ How to use shell?
   ls -l $(find /usr/sbin -perm /7000)
 ```
 
-### -
+### 22.8. -
 * can replace `stdin` and `stdout` without using filenames
 
 ```bash
