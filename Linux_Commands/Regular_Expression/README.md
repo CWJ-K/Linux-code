@@ -89,3 +89,34 @@
 	grep -v '^$' /etc/rsyslog.conf | grep -v '^#'
 
 ```
+
+#### any characters and repeated characters
+* `.`: must have at least any one  character
+* `*`: repeat the previous number at least one time
+  * `0*`: empty or at least one 0 (optional)
+  * `00*`: must have one 0 or at least two 0s (optional)
+
+```bash
+  
+  grep -n 'g..d' regular_express.txt
+  
+  # at least 2 0s
+  grep -n 'ooo*' regular_express.txt
+
+  # empty or at least one g 
+  grep -n 'g*g' regular_express.txt
+
+  # empty or at least any one character => g...g
+  grep -n 'g.*g' regular_express.txt
+```
+
+#### repeated characters in a range
+* `\{number\}`
+
+```bash
+  # repeat o two to five times
+  grep -n 'go\{2,5\}g' regular_express.txt
+
+  # repeat 0 at least two times
+  grep -n 'go\{2,\}g' regular_express.txt
+```
