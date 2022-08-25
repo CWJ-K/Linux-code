@@ -67,3 +67,25 @@
 ```
 
 #### prefix and suffix
+* `^`
+  * inside `[]`: reversed selection
+  * outside `[]`: select words with a specific prefix
+* `$`
+  * select words with a specific suffix 
+
+```bash
+	grep -n '^[[:lower:]]' regular_express.txt
+
+	grep -n '\.$' regular_express.txt
+
+	# find some sentences with dots are not selected
+	## because of the newline of Windows
+	## use cat -A
+	cat -An regular_express.txt | head -n 10 | tail -n 6
+	
+	# find space 
+	grep -n '^$' regular_express.txt
+
+	grep -v '^$' /etc/rsyslog.conf | grep -v '^#'
+
+```
