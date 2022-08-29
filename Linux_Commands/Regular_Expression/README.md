@@ -190,3 +190,56 @@
   |`|`|or||
   |`()`|group|`g(la|oo)d`: good, glad|
   |`()+`|at least one group|`'A(xyz)+C'`: AxyzxyzxyzxyzC|
+
+## Print in Formats
+* not pipeline commands
+* `%s`: not fixed-length strings
+* `\t`: tab
+* `%10s`: 10-character strings
+* `%5i`: 5-number integers
+* `%8.2f`: 8-character (two for decimals and one for dot) floats => 00000.00
+
+```bash
+  printf 'formats' content_of_files
+
+  printf '%s\t %s\t %s\t %s\t %s\t \n' $(cat files)
+
+  # Hexadecimal System of 45
+  printf '\x45\n'
+```
+
+## awk
+* different from [`sed`](README.md#sed), useful to deal with small-scale data => process columns in a row
+* default delimiter: `space`, `tab` 
+* `$number`: position of data in a column
+  * `$0`: the whole column
+
+```bash
+  awk 'condition_1{action_1} condition2{action_2} ...' filename
+
+  last -n 5 | awk '{print $1 "\t" $3}'
+  
+  # NF: total number of data in a row
+  # NR: current column which awk processes
+  # FS: current delimiter
+  # "": the format of printf 
+  last -n 5| awk '{print $1 "\t lines: " NR "\t columns: " NF "\t delimiter:" FS}'
+
+```
+
+### logic rules
+* `>, <, ==, >=, <=, !=`
+```bash
+  # use : as a delimiter
+  # column 3 less than 10 (row1 ~ row 9) prints column 1 and column 3
+  # the first row is not separated by :
+  cat /etc/passwd | awk '{FS=":"} $3 < 10 {print $1 "\t " $3}'
+
+  # the first row is separated by :
+  cat /etc/passwd | awk 'BEGIN {FS=":"} $3 < 10 {print $1 "\t " $3}'
+  
+  # first column; columns larger than the first columns
+  cat pay.txt | awk 'NR==1{printf "%10s %10s %10s %10s %10s\n",$1,$2,$3,$4,"Total" }
+    NR>=2{total = $2 + $3 + $4
+    printf "%10s %10d %10d %10d %10.2f\n", $1, $2, $3, $4, total}'
+```
