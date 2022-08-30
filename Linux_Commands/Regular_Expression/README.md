@@ -127,6 +127,7 @@
 ## sed
 * pipeline commands 
   * can analyze standard inputs
+  * combine with `>`, `<` ... etc. 
 * useful to modify files with too many columns, which is hard to edit in `vim`
 
 ```bash
@@ -229,6 +230,7 @@
 
 ### logic rules
 * `>, <, ==, >=, <=, !=`
+
 ```bash
   # use : as a delimiter
   # column 3 less than 10 (row1 ~ row 9) prints column 1 and column 3
@@ -243,3 +245,42 @@
     NR>=2{total = $2 + $3 + $4
     printf "%10s %10d %10d %10d %10.2f\n", $1, $2, $3, $4, total}'
 ```
+
+
+## Compare files
+### diff
+* comparison unit: row
+* can compare files with the same name but in different directories
+
+```bash
+  # output: <: right; >: left
+
+  diff [-bBi] from_file to_file
+
+```
+
+### cmp
+* comparison unit: byte
+  * can compare binary files
+
+```bash
+  cmp [-l] file1 file2
+```
+
+### patch
+* update old files based on the patch file 
+  * store the difference between the new and old files into the patch file
+  * use the patch file to update the old file
+
+```bash
+
+  diff -Naur old_file new_file > file.patch
+  # install mount
+  
+  patch -pN < patch_file # update
+  patch -R -pN < patch_file # restore
+```
+
+## Prepare for print
+### pr
+* process the page for print
