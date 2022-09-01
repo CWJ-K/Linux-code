@@ -71,3 +71,11 @@ Error saving credentials: error storing credentials - err: exit status 1, out: `
 >|.Size|	Container disk size|
 >|.Names|	Container names|
 >|.Networks|	Names of the networks attached to this container|
+
+
+## Command Docker commands
+```bash
+  # docker ps format
+  docker ps --format "{{.ID}}\t{{.Names}}\t{{.CreatedAt}}" | sort -k 3 -r | head -n 5
+
+```

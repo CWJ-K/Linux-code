@@ -178,6 +178,9 @@ Top-level networks key helps:
 <br />
 
 # Port
+  * without port in docker-compose, can not connect the service with the port of localhost, but use the port of the host of remote server for outside (different from it own host)
+    * like use dbeaver to connect postgresql
+    * after add port in docker-compose, localhost can be used
   * Image Network is a hotel and port is each room in the hotel
   * HOST_PORT : CONTAINER_PORT
 
