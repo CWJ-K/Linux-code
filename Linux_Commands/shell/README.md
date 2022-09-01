@@ -84,6 +84,8 @@ How to use shell?
     - [22.6. split](#226-split)
     - [22.7. xargs](#227-xargs)
     - [22.8. -](#228--)
+  - [Calculation](#calculation)
+    - [bc](#bc)
 
 <br />
 
@@ -164,6 +166,9 @@ How to use shell?
   # first $ is for variable, next $ is PID
   echo $$
 
+  # calculation
+  ## $((function))
+  total=$((${num1}*${num2}))
 ```
 
 
@@ -907,5 +912,17 @@ How to use shell?
 ```bash
   # -: stdin, content of home ; -: use stdout
   tar -cvf - /home | tar -xvf - -C /tmp/homeback
+
+```
+
+## Calculation
+### bc
+* can calculate the calculation of float
+```bash
+  echo "1.1*1.2" | bc
+
+  #  4*a(1) for pi calculation by bc
+  # scale: the number of decimal
+  echo "scale=${num}; 4*a(1)" | bc -lq
 
 ```
