@@ -9,7 +9,8 @@
   - [Shell script](#shell-script)
 - [Commands](#commands)
   - [Shell Scripts](#shell-scripts)
-    - [How to Execute the Scripts](#how-to-execute-the-scripts)
+  - [How to Execute the Scripts](#how-to-execute-the-scripts)
+    - [difference between source, sh script, ./script](#difference-between-source-sh-script-script)
   - [Conventions](#conventions)
 
 <br />
@@ -32,7 +33,9 @@
 * `Enter`: start to execute the command
 * `\Enter`: commands extend to the next row
 
-### How to Execute the Scripts
+## How to Execute the Scripts
+* when executing the script, a **new bash** will be activated
+  * variables in the children process, scripts, will not be exported to parent processes
 * Commands
   * shell must can be read and executed (rx)
   1.  absolute path: `the_directory/script.sh`
@@ -42,6 +45,17 @@
   1. `bash script.sh`
   2. `sh script.sh` 
     * `/bin/sh` is the linked files of `/bin/bash` 
+
+### difference between source, sh script, ./script
+* `source`
+  * use parent processed to execute scripts
+    * do not need to export variables
+    ```bash
+      source <file>.sh
+
+      # can activate scripts without logout and login
+      source ~/.bashrc
+    ```
 
 ## Conventions
 * Essential contents

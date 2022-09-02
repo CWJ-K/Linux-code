@@ -86,6 +86,7 @@ How to use shell?
     - [22.8. -](#228--)
   - [Calculation](#calculation)
     - [bc](#bc)
+  - [test](#test)
 
 <br />
 
@@ -924,5 +925,53 @@ How to use shell?
   #  4*a(1) for pi calculation by bc
   # scale: the number of decimal
   echo "scale=${num}; 4*a(1)" | bc -lq
+
+```
+
+
+## test
+* test files based on conditions
+  * use `$?` or pipeline commands to return results
+* command arguments
+
+
+
+  |Type|arguments|meaning|
+  |:---|:---:|:---|
+  |test the types of files|`-e`|test if the name exists|
+  ||`-f`|test if the name exists and the type is a file|
+  ||`-d`|test if the name exists and the type is a directory|
+  ||`-b`|test if the name exists and the type is a block device|
+  ||`-c`|test if the name exists and the type is a character device|
+  ||`-S`|test if the name exists and the type is a Socket|
+  ||`-p`|test if the name exists and the type is a FIFO (pipe) file|
+  ||`-L`|test if the name exists and the type is a lined file|
+  |test the permission of files|`-r`|test if the name exists and it can be read|
+  ||`-w`|test if the name exists and it can be written|
+  ||`-x`|test if the name exists and it can be executed|
+  ||`-u`|test if the name exists and it is with SUID|
+  ||`-g`|test if the name exists and it is with SGID|
+  ||`-k`|test if the name exists and it is with Sticky bit|
+  ||`-s`|test if the name exists and it is a non-empty file|
+  |test the two files|`-nt`|test if file1 is newer than file2|
+  ||`-ot`|test if file1 is older than file2|
+  ||`-ef`|test if file1 are file2 the same file based on hard links; they both point to the same inode|
+  |test two integers|`-eq`|test if number1 equals to number2|
+  ||`-ne`|test if number1 does not equal to number2|
+  ||`-gt`|test if number1 is greater than number2|
+  ||`-lt`|test if number1 is less than number2|
+  ||`-ge`|test if number1 is greater than and equal to number2|
+  ||`-le`|test if number1 is less than and equal to number2
+  |test string|`test -z string`|test if the string is empty. if empty, return true|
+  ||`test -n string`|test if the string is empty. if empty,  return false|
+  ||`test str1 == str2`|test if string1 equals to string2. if equal, return true|
+  ||`test str1 != str2`|test if string1 does not equal to string2. if not equal, return false|
+  |multiple conditions|`-a`|(and) if all conditions are satisfied, return true|
+  ||`-o`|(or) if any one condition is satisfied|
+  ||`!`|(not) if no condition not, return false|
+
+
+```bash
+  test -e /test && echo "exist" || echo "Not exist"
 
 ```
