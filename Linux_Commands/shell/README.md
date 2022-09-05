@@ -973,5 +973,5 @@ How to use shell?
 
 ```bash
   test -e /test && echo "exist" || echo "Not exist"
-
+  
 ```

@@ -10,11 +10,11 @@ export PATH
 echo -e "Please input a filename. I will check the filename's type and permissions. \n\n"
 
 read -p "Input a filename:" filename
-read -z ${filename} && echo "You MUST input a file"
+test -z ${filename} && echo "You MUST input a filename" && exit 0
 
 
-read -p "Input a filename : " filename
-test -z ${filename} && echo "You MUST input a filename." && exit 0
+
+
 # 2. 判斷檔案是否存在？若不存在則顯示訊息並結束腳本
 test ! -e ${filename} && echo "The filename '${filename}' DO NOT exist" && exit 0
 # 3. 開始判斷檔案類型與屬性
