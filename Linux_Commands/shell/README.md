@@ -86,7 +86,9 @@ How to use shell?
     - [22.8. -](#228--)
   - [Calculation](#calculation)
     - [bc](#bc)
-  - [test](#test)
+  - [Check](#check)
+    - [test](#test)
+    - [[]](#)
 
 <br />
 
@@ -928,8 +930,8 @@ How to use shell?
 
 ```
 
-
-## test
+## Check
+### test
 * test files based on conditions
   * use `$?` or pipeline commands to return results
 * command arguments
@@ -973,5 +975,24 @@ How to use shell?
 
 ```bash
   test -e /test && echo "exist" || echo "Not exist"
+
+```
+
+### []
+* spaces are required as an checker in shell
+  * `[□"$HOME"□==□"$MAIL"□]`
+  * variables should use `""`
+  * constant should be `'' or ""`
+* commonly used in `if ... then ..`
+* Pay attention to `==`
+  * `==` used in bash instead of sh
+  * remember to call the script with `==` by bash
+
+```bash
   
+  # check if the variable exists  
+  [ -z "${HOME}" ] ; echo $?
+
+  [ "${name}" == 'hi' ] ; echo $?
+
 ```
