@@ -89,6 +89,9 @@ How to use shell?
   - [Check](#check)
     - [test](#test)
     - [[]](#)
+    - [arguments for scripts](#arguments-for-scripts)
+      - [Shift](#shift)
+  - [Conditions](#conditions)
 
 <br />
 
@@ -996,3 +999,44 @@ How to use shell?
   [ "${name}" == 'hi' ] ; echo $?
 
 ```
+
+### arguments for scripts
+* assign arguments to scripts 
+
+  ```bash
+    /path/to/scriptname  argument1  argument2  argument3  argument4 
+  variables         $0                  $1         $2          $3         $4
+  ```
+  ||Meaning|
+  |:---:|:---|
+  |`$#`|the index of variables, e.g. $0 the index of variable is 0|
+  |`$@`|means `"$1" "$2" "$3" "$4`. Use `""` to separate each variable => commonly used|
+  |`$*`|mean `$1c$2c$3c$4` => `$1 $2 $3 $4`. `c` implies delimiters, default is space |
+
+#### Shift
+* shift and remove first `x` variables
+
+```bash
+  # shift one number
+  shift
+  
+  # shift three numbers
+  shift 3
+
+```
+
+## Conditions
+* more complex conditions then using `&&`, `||`
+```bash
+  if [ conditions ]; then
+    ...
+  elif [ conditions ]; then
+  else
+  fi # finish
+
+```
+  * two methods to write conditions:
+    ```bash
+    [ "${yn}" == "Y" -o "${yn}" == "y" ]
+    [ "${yn}" == "Y" ] || [ "${yn}" == "y" ]
+    ```
