@@ -92,6 +92,7 @@ How to use shell?
     - [arguments for scripts](#arguments-for-scripts)
       - [Shift](#shift)
   - [Conditions](#conditions)
+  - [netstat](#netstat)
 
 <br />
 
@@ -1040,3 +1041,26 @@ How to use shell?
     [ "${yn}" == "Y" -o "${yn}" == "y" ]
     [ "${yn}" == "Y" ] || [ "${yn}" == "y" ]
     ```
+
+## netstat
+* look up service ports
+* Local Address
+  * 127.0.0.1: only use in the local machine
+  * 0.0.0.0 or ::: : open to the whole internet
+  * common port
+    |port|meaning|
+    |:---:|:---|
+    |80| www |
+    |22| ssh |
+    |21| ftp |
+    |25| mail |
+    |111| RPC |
+    |631| CUPS |
+
+```bash
+  # look up ports currently used
+  netstat -tuln
+
+  # output the results to other file and use grep to find ports in the script
+```
+
