@@ -91,8 +91,10 @@ How to use shell?
     - [[]](#)
     - [arguments for scripts](#arguments-for-scripts)
       - [Shift](#shift)
-  - [Conditions](#conditions)
   - [netstat](#netstat)
+  - [Conditions](#conditions)
+  - [Conditions by cases](#conditions-by-cases)
+  - [function](#function)
 
 <br />
 
@@ -1026,22 +1028,6 @@ How to use shell?
 
 ```
 
-## Conditions
-* more complex conditions then using `&&`, `||`
-```bash
-  if [ conditions ]; then
-    ...
-  elif [ conditions ]; then
-  else
-  fi # finish
-
-```
-  * two methods to write conditions:
-    ```bash
-    [ "${yn}" == "Y" -o "${yn}" == "y" ]
-    [ "${yn}" == "Y" ] || [ "${yn}" == "y" ]
-    ```
-
 ## netstat
 * look up service ports
 * Local Address
@@ -1064,3 +1050,49 @@ How to use shell?
   # output the results to other file and use grep to find ports in the script
 ```
 
+
+## Conditions
+* more complex conditions then using `&&`, `||`
+```bash
+  if [ conditions ]; then
+    ...
+  elif [ conditions ]; then
+  else
+  fi # finish
+
+```
+  * two methods to write conditions:
+    ```bash
+    [ "${yn}" == "Y" -o "${yn}" == "y" ]
+    [ "${yn}" == "Y" ] || [ "${yn}" == "y" ]
+    ```
+
+
+
+## Conditions by cases
+* commonly used in scripts. Especially, when executing default scripts of linux, you will be asked to give some arguments
+  * e.g. `/etc/init.d/netconsole restart`
+
+```bash
+  case $variable in 
+    "value_1")
+    ... # codes
+    ;;
+      "value_2")
+    ... # codes
+    ;;
+    *) # *: any values
+    ... # codes
+    exit 1
+    ;;
+  esac
+```           
+
+## function
+```bash
+  function name_of_function() {
+    codes
+  }
+
+
+```
