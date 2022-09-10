@@ -91,10 +91,12 @@ How to use shell?
     - [[]](#)
     - [arguments for scripts](#arguments-for-scripts)
       - [Shift](#shift)
+  - [id](#id)
   - [netstat](#netstat)
   - [Conditions](#conditions)
   - [Conditions by cases](#conditions-by-cases)
   - [function](#function)
+  - [loop](#loop)
 
 <br />
 
@@ -1003,6 +1005,8 @@ How to use shell?
 
 ```
 
+
+
 ### arguments for scripts
 * assign arguments to scripts 
 
@@ -1027,6 +1031,9 @@ How to use shell?
   shift 3
 
 ```
+
+## id
+* Prints identity information about the given user
 
 ## netstat
 * look up service ports
@@ -1095,4 +1102,31 @@ How to use shell?
   }
 
 
+```
+
+## loop
+* `while`: when the condition satisfies, the loop starts
+* arguments can be put in while
+```bash
+  while [condition]
+  do
+    codes
+  done
+```
+* `until`: until the condition satisfies, the loop stops
+
+```bash
+  until [ condition ]
+  do
+    codes
+  done
+```
+
+* `for`
+
+```bash
+  for var in value1 value2 value3 ...
+  do
+    codes
+  done
 ```

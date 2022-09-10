@@ -32,6 +32,9 @@
     * load the configures, like `~/.bashrc` of `non-login shell`
 * `Enter`: start to execute the command
 * `\Enter`: commands extend to the next row
+* [`export PATH`](https://askubuntu.com/questions/720678/what-does-export-path-somethingpath-mean)
+  * 
+
 
 ## How to Execute the Scripts
 * when executing the script, a **new bash** will be activated
