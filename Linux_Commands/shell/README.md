@@ -97,6 +97,8 @@ How to use shell?
   - [Conditions by cases](#conditions-by-cases)
   - [function](#function)
   - [loop](#loop)
+  - [ping](#ping)
+  - [List](#list)
 
 <br />
 
@@ -1125,8 +1127,28 @@ How to use shell?
 * `for`
 
 ```bash
+  # values
   for var in value1 value2 value3 ...
   do
     codes
   done
+
+  # range
+  for (( start; end; step ))
+  do
+    codes
+  done
+```
+
+## ping
+* `192.168.1.x`: network of local machines
+
+
+## List
+```bash
+  list[1] = value1
+  list[2] = value2
+
+  echo ${list[1]}
+
 ```
