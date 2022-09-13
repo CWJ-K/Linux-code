@@ -177,3 +177,7 @@
   ctrl + f
 
 ```
+
+## Copy and Paste
+* when pasting texts to vim, the text will be [broken](https://stackoverflow.com/a/21410921)
+  * try `:set paste!`   
