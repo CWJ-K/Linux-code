@@ -99,6 +99,7 @@ How to use shell?
   - [loop](#loop)
   - [ping](#ping)
   - [List](#list)
+  - [debug](#debug)
 
 <br />
 
@@ -1150,5 +1151,11 @@ How to use shell?
   list[2] = value2
 
   echo ${list[1]}
+
+```
+
+## debug
+```bash
+  sh [-nvx] scripts.sh
 
 ```
