@@ -7,11 +7,23 @@
 # Table of Contents
 - [Fundamental Concepts](#fundamental-concepts)
   - [1. UID and GID](#1-uid-and-gid)
-  - [2. etc/passwd](#2-etcpasswd)
-  - [3. /etc/shadow](#3-etcshadow)
+  - [2. Individual](#2-individual)
+    - [2.1. etc/passwd](#21-etcpasswd)
+    - [2.2. /etc/shadow](#22-etcshadow)
+  - [3. Group](#3-group)
+    - [3.1. /etc/group](#31-etcgroup)
+      - [3.1.1. effective group](#311-effective-group)
+      - [3.1.2. initial group](#312-initial-group)
+    - [3.2. /etc/gshadow](#32-etcgshadow)
 - [Commands](#commands)
   - [1. check id](#1-check-id)
-  - [check the hashing functions of passwords](#check-the-hashing-functions-of-passwords)
+  - [2. check the hashing functions of passwords](#2-check-the-hashing-functions-of-passwords)
+  - [3. Groups](#3-groups)
+    - [3.1. check a user's groups](#31-check-a-users-groups)
+    - [3.2. see all groups in which the currently user](#32-see-all-groups-in-which-the-currently-user)
+    - [3.3. switch the effective group](#33-switch-the-effective-group)
+  - [4. Account Management](#4-account-management)
+    - [4.1. add users](#41-add-users)
 
 <br />
 
@@ -28,8 +40,9 @@
     2. go through `etc/shadow`, to map the `account` and `uid` for `passwords`. Check if the password equals the one users type in
     3. log in shell
 
+## 2. Individual
 
-## 2. etc/passwd
+### 2.1. etc/passwd
 * each line represents an account
   * important account should not be removed
     |Import Accounts|
@@ -54,7 +67,7 @@
     |||201-999: users can create accounts for systems|
     |1000-|general users||
  
-## 3. /etc/shadow
+### 2.2. /etc/shadow
 * in the earlier days, passwords were stored in the second column of `etc/passwd`, which is not safe. Therefore, passwords are stored in `etc/shadow` with specific techniques
 * Structure
   
@@ -72,6 +85,35 @@
 
 <br />
 
+## 3. Group
+
+### 3.1. /etc/group
+|Position of Columns|1|2|3|4|
+|:---:|:---|:---|:---|:---|
+|Meaning|Group Name for humans|Group password|Group ID|supported accounts in the group|
+|Note||for system administers. passwords are moved to `/etc/gshadow`||users' accounts in the same group|
+
+#### 3.1.1. effective group
+* when a new file is created, the user's effective group will be given to it 
+
+#### 3.1.2. initial group
+* GID of a user
+* without the fourth column - supported accounts in the group
+
+
+### 3.2. /etc/gshadow
+* Two methods to add a user in different groups
+  1. use `usermod` as `root`
+  2. use `/etc/gshadow` to create a group manager. The group manager can add other people to the group => not commonly used because of `sudo`
+
+|Position of Columns|1|2|3|4|
+|:---:|:---|:---|:---|:---|
+|Meaning|Group Name for humans|Group password|Group ID|supported accounts in the group|
+|Note||for system administers. if `!` or ` `, it implies there is no group manager in the group||users' accounts in the same group|
+
+
+<br />
+
 # Commands 
 
 ## 1. check id
@@ -80,10 +122,63 @@
 
 ```
 
-## check the hashing functions of passwords
+## 2. check the hashing functions of passwords
 
 ```bash
   authconfig --test | grep hashing
   
 
+```
+
+## 3. Groups
+
+### 3.1. check a user's groups
+```bash
+  grep <username> /etc/passwd /etc/group /etc/gshadow
+
+```
+
+### 3.2. see all groups in which the currently user
+```bash
+  # the first group is the effective group
+  groups
+
+```
+
+### 3.3. switch the effective group
+* only switch to other group in which the user is
+* use a new shell to switch the group, so exit the shell 
+```bash
+  newgrp <group_name>
+
+  exit  # exit newgrp
+
+```
+
+## 4. Account Management
+
+### 4.1. add users
+* there are many defaults settings for a new user
+  * `/etc/passwd`: create one line for this account (UID/GID/home directory)
+  * `/etc/shadow`: fill in the arguments of the password, but without the password
+  * `/etc/group`: create a group whose name is same as the new user
+  * `/home`: create a home director whose name is same as the new user. the permission is 700
+
+
+```bash
+  # the initial group is 1000 => /etc/group search for 1000
+  useradd [OPTIONS] USERNAME
+  '''
+  -u: UID
+  -g: initial group
+  -G: secondary group
+  -m: forced. do not create the home directory
+  -M: forced. do create the home directory
+  -c: explanation
+  -d: the absolute path of the home directory
+  -s: shell
+  -e: account invalid date
+  -f:　passwords invalid date
+  '''
+  
 ```
