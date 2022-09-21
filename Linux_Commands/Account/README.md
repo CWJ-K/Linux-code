@@ -39,6 +39,7 @@
       2. if the account is found, go through `etc/group` to map `UID` and `GID` and also return `the home directory` and `the configures of shell`
     2. go through `etc/shadow`, to map the `account` and `uid` for `passwords`. Check if the password equals the one users type in
     3. log in shell
+* default arguments are called from `/etc/login.defs`
 
 ## 2. Individual
 
@@ -161,24 +162,49 @@
 * there are many defaults settings for a new user
   * `/etc/passwd`: create one line for this account (UID/GID/home directory)
   * `/etc/shadow`: fill in the arguments of the password, but without the password
-  * `/etc/group`: create a group whose name is same as the new user
+  * `/etc/group` and `/etc/gshadow`: create a group whose name is same as the new user
   * `/home`: create a home director whose name is same as the new user. the permission is 700
 
+  ```bash
+    # the initial group is 1000 => /etc/group search for 1000
+    useradd [OPTIONS] USERNAME
+    '''
+    -u: UID
+    -g: initial group
+    -G: secondary group
+    -m: forced. do not create the home directory
+    -M: forced. do create the home directory
+    -c: explanation
+    -d: the absolute path of the home directory
+    -s: shell
+    -e: account invalid date
+    -f:　passwords invalid date
+    '''
+
+  ```
+
+* default arguments of users
+  * in CentOS, the default group name is the same as the user's name. Otherwise, it is the same as `users` (GID=100)
+    * Because of two systems
+      1. Private group 
+        * more secured
+        * give the default group name is the same as the user's name
+        * the permission of the home directory is 700 (only myself)
+        * e.g. RHEL, Fedora, CentOS
+      2. Public group
+        * use GROUP=100 as the user's initial group
+          * everyone can share files in the group of `users`
+        * e.g. SuSE
 
 ```bash
-  # the initial group is 1000 => /etc/group search for 1000
-  useradd [OPTIONS] USERNAME
-  '''
-  -u: UID
-  -g: initial group
-  -G: secondary group
-  -m: forced. do not create the home directory
-  -M: forced. do create the home directory
-  -c: explanation
-  -d: the absolute path of the home directory
-  -s: shell
-  -e: account invalid date
-  -f:　passwords invalid date
-  '''
+  # default values of useradd
+  ## call from /etc/default/useradd
+
+  useradd -D
   
+
 ```
+* when creating a new user, the files below are all used:
+  * /etc/default/useradd
+  * /etc/login.defs
+  * /etc/skel/*
