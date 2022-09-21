@@ -24,6 +24,9 @@
     - [3.3. switch the effective group](#33-switch-the-effective-group)
   - [4. Account Management](#4-account-management)
     - [4.1. add users](#41-add-users)
+  - [5. change passwords](#5-change-passwords)
+  - [6. change](#6-change)
+  - [usermod](#usermod)
 
 <br />
 
@@ -208,3 +211,49 @@
   * /etc/default/useradd
   * /etc/login.defs
   * /etc/skel/*
+
+
+## 5. change passwords
+* default: after `useradd`, the account is still blocked. See the second column of `/etc/shadow `
+* assign passwords to users by `root`
+  * be aware of, if `passwd` without account id, it implies using `root` to change root's passwords
+  * recommend to use `passwd account_id`
+* Use `PAM` module to manage passwords `/etc/pam.d/passwd `
+
+```bash
+  passwd [--stdin] [account ID] 
+
+  # use stdin to change password
+  ## advantage: easy to set passwords. Commonly used for users to loging in by default passwords at the first time and change passwords by users
+  ## disadvantage: password will be stored in history => /root/.bash_history
+
+  echo "passwd" | passwd --stdin vbird2
+
+  # display the information of passwords
+  passwd -S
+```
+
+## 6. change
+* display the detailed information of passwords
+
+
+```bash
+  chage [-ldEImMW] account_id
+
+
+  # user login in by their name and change their passwords
+  useradd account_id
+  echo "account_id" | passwd --stdin agetest
+  chage -d 0 account_id
+  chage -l account_id | head -n 3
+```
+
+## usermod
+* change the configurations of useradd by two methods
+  1. usermod
+  2. modify `/etc/passwd` or `/etc/shadow`   
+
+```bash
+  usermod [-cdegGlsuLU] username
+
+```
