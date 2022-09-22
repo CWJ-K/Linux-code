@@ -24,9 +24,21 @@
     - [3.3. switch the effective group](#33-switch-the-effective-group)
   - [4. Account Management](#4-account-management)
     - [4.1. add users](#41-add-users)
-  - [5. change passwords](#5-change-passwords)
-  - [6. change](#6-change)
-  - [usermod](#usermod)
+    - [4.2. change passwords](#42-change-passwords)
+    - [4.3. change](#43-change)
+    - [4.4. usermod](#44-usermod)
+    - [4.5. userdel](#45-userdel)
+  - [5. general users manage accounts](#5-general-users-manage-accounts)
+    - [5.1. id](#51-id)
+    - [5.2. finger](#52-finger)
+    - [chfn](#chfn)
+    - [chsh](#chsh)
+  - [Group Management](#group-management)
+    - [groupadd](#groupadd)
+    - [groupmod](#groupmod)
+    - [groupdel](#groupdel)
+    - [gpasswd](#gpasswd)
+  - [Practice](#practice)
 
 <br />
 
@@ -213,7 +225,7 @@
   * /etc/skel/*
 
 
-## 5. change passwords
+### 4.2. change passwords
 * default: after `useradd`, the account is still blocked. See the second column of `/etc/shadow `
 * assign passwords to users by `root`
   * be aware of, if `passwd` without account id, it implies using `root` to change root's passwords
@@ -233,7 +245,7 @@
   passwd -S
 ```
 
-## 6. change
+### 4.3. change
 * display the detailed information of passwords
 
 
@@ -248,8 +260,8 @@
   chage -l account_id | head -n 3
 ```
 
-## usermod
-* change the configurations of useradd by two methods
+### 4.4. usermod
+* change the configurations of `useradd` by two methods
   1. usermod
   2. modify `/etc/passwd` or `/etc/shadow`   
 
@@ -257,3 +269,106 @@
   usermod [-cdegGlsuLU] username
 
 ```
+
+### 4.5. userdel
+* be aware of, if you do not want the information of the user
+  * if not,
+    * manually remove the account in `/etc/passwd, /etc/shadow`
+    * or make accounts invalid: set the eighth column of `/etc/shadow` to `0`
+* delete the information of users
+  * `/etc/passwd, /etc/shadow`
+  * `/etc/group, /etc/gshadow`
+  * `/home/username, /var/spool/mail/username..`
+
+```bash
+  # before deleting the account, check their files
+  find / -user username 
+
+  userdel [-r] username
+  # -r: include directory
+```
+
+## 5. general users manage accounts
+
+### 5.1. id
+* see the information of accountsID
+
+```bash
+  id [username]
+
+```
+
+### 5.2. finger
+* display the information (`/etc/passwd`) of a user
+* or use `grep <user_name> \etc\passwd`
+
+### chfn
+* change finger
+
+```bash
+  chfn [-foph] [account]
+  '''
+  -f: add full name
+  -o: add office room
+  -p: add office number
+  -h: add home number
+  '''
+
+
+```
+
+### chsh
+* change shell
+
+```bash
+  chsh [-ls]
+  # -l: list the shell of the system, which is the content of /etc/shells 
+  # -s: modify the shell
+
+```
+
+## Group Management
+### groupadd
+
+```bash
+  # GID+1
+  groupadd [-g gid] [-r] group_name
+
+```
+
+### groupmod
+* similar as `usermod`
+
+```bash
+  groupmod [-g gid] [-n group_name] group_name
+  '''
+  -g  ：revise the number of the gid
+  -n  ：revise the name of the group
+  '''
+
+```
+
+### groupdel
+* delete the group if it is not the initial group of users
+  * check the fourth column of `/etc/passwd`
+```bash
+  groupdel [group_name]
+
+```
+
+### gpasswd
+* create a group manager to manage groups instead of `root`
+  * e.g. let other people to add members
+
+```bash
+  # root
+  gpasswd groupname
+  gpasswd [-A user1,...] [-M user3,...] groupname
+  gpasswd [-rR] groupname
+
+  # group manager 
+  gpasswd [-ad] user groupname
+```
+
+
+## Practice
