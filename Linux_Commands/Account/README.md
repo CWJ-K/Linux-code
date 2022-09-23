@@ -15,6 +15,7 @@
       - [3.1.1. effective group](#311-effective-group)
       - [3.1.2. initial group](#312-initial-group)
     - [3.2. /etc/gshadow](#32-etcgshadow)
+  - [ACL](#acl)
 - [Commands](#commands)
   - [1. check id](#1-check-id)
   - [2. check the hashing functions of passwords](#2-check-the-hashing-functions-of-passwords)
@@ -39,6 +40,13 @@
     - [groupdel](#groupdel)
     - [gpasswd](#gpasswd)
   - [Practice](#practice)
+    - [Practice 1](#practice-1)
+    - [Practice 2](#practice-2)
+    - [Practice3](#practice3)
+  - [ACL](#acl-1)
+    - [check if there is ACL in the system](#check-if-there-is-acl-in-the-system)
+    - [setfacl](#setfacl)
+    - [getfacl,](#getfacl)
 
 <br />
 
@@ -127,6 +135,10 @@
 |Meaning|Group Name for humans|Group password|Group ID|supported accounts in the group|
 |Note||for system administers. if `!` or ` `, it implies there is no group manager in the group||users' accounts in the same group|
 
+
+## ACL
+* Access Control List 
+* set more detailed configurations for `owner, group, other`
 
 <br />
 
@@ -372,3 +384,82 @@
 
 
 ## Practice
+### Practice 1
+* Question: make the table realistic 
+  |Account|Account full name|supported sub group|enable to log in systems|password|
+  |:---:|:---:|:---:|:---:|:---:|
+  |myuser1|1st user|mygroup1|Yes|password|
+  |myuser2|2nd user|mygroup1|Yes|password|
+  |myuser3|3rd user|No|No|password|
+
+```bash
+  # Related to accounts
+  groupadd mygroup1
+  useradd -G mygroup1 -c "1st user" myuser1
+  useradd -G mygroup1 -c "2nd user" myuser2
+  useradd -c "3rd user" -s /sbin/nologin myuser3 # because it can not log in systems
+  
+  # Related to passwords
+  echo "password" | passwd --stdin myuser1
+  echo "password" | passwd --stdin myuser2
+  echo "password" | passwd --stdin myuser3
+
+```
+
+
+### Practice 2
+* make three users work in the same directory, but they all have their own home directories and basic private group. Assume they work under /srv/projecta
+
+```bash
+  # add them to the same group
+  groupadd mygroup1
+  useradd -G mygroup1 -c "1st user" myuser1
+  useradd -G mygroup1 -c "2nd user" myuser2
+  useradd -G mygroup1 -c "2nd user" myuser3
+  
+  echo "password" | passwd --stdin myuser1
+  echo "password" | passwd --stdin myuser2
+  echo "password" | passwd --stdin myuser3
+
+  mkdir /src/projecta
+  chgrp mygroup1 /src/projecta
+  chmod 2770 /srv/projecta
+  ll -d /src/projecta
+
+```
+
+### Practice3
+* let one person can access the group of practice2, but the person can not edit 
+  * use `ACL`
+
+
+## ACL
+### check if there is ACL in the system
+
+```bash
+  dmesg | grep -i acl
+
+```
+
+### setfacl
+* set the ACL configurations of a file/ directory
+
+
+```bash
+  setfacl [-bkRd] [{-m|-x} acl arguments ] file/directory
+  
+  # practice
+  touch <file>
+  setfacl -m u:<account>:rx <file>  # + appear
+
+  setfacl -m u::rx <file> # without account, it implies the owner of the files
+
+```
+
+### getfacl, 
+* get the ACL configurations of a file/ directory
+
+```bash
+  getfacl filename
+
+```
