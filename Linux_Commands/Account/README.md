@@ -47,6 +47,10 @@
     - [check if there is ACL in the system](#check-if-there-is-acl-in-the-system)
     - [setfacl](#setfacl)
     - [getfacl,](#getfacl)
+  - [Switch users](#switch-users)
+    - [su](#su)
+    - [sudo](#sudo)
+  - [visudo](#visudo)
 
 <br />
 
@@ -462,4 +466,70 @@
 ```bash
   getfacl filename
 
+```
+
+## Switch users
+* when to use `root`
+  1. manage systems
+  2. update softwares
+* switch to `root` from `general user`
+  1. `su`
+  2. `sudo`
+
+### su
+* require to type in passwords
+```bash
+  # without username => switch to root
+  ## enter `su`. Use `exit` to leave `su`
+  su [-lm] [-c 指令] [username]
+
+  # - : login-shell  # without - => non-login shell
+  su -
+  # -l: login-shell, should add username
+
+  # -c: can execute commands only for one time;
+  # only execute commands as a `root` once
+  su - -c "ls"
+```
+* use non-login to switch to `root`
+  * most arguments do not change for `root`, but keep the same for `general user` e.g. `PATH`, `mail`
+  
+  ```bash
+    su
+    id
+    env | grep `username`
+    exit  # exit su
+  ```
+  * if switch to different users different time, should use `exit` to leave `su` several times
+
+### sudo
+* better than `su` since passwords are not required
+  * you do not need to share `root`'s passwords to other people
+* only users in `/etc/sudoers`, can use `sudo`. require users' passwords
+  * default: only `root` can use `sudo`
+    * since 
+  * use `visudo` to edit `/etc/sudoers`
+    * since `visudo` can check syntax. Errors in `/etc/sudoers` will cause problems, such as users can not use `sudo`
+
+```bash
+  sudo [-b] [-u new_username]
+  # -c: can execute commands only for one time
+```
+
+## visudo
+```bash
+  visudo
+  # add users after the root
+  #    machines; can switch to which users; what commands can be used
+  # ALL: Everything
+  # root   ALL=(ALL)    ALL  
+
+```
+* how to make a group as `root`
+```bash
+  # uncomment this line in /etc/sudoers
+  # %wheel     ALL=(ALL)    ALL  
+
+  # add user into the group, wheel
+  usermod -a -G wheel <username>
 ```
