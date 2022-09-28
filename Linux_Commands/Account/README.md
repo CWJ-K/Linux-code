@@ -16,6 +16,7 @@
       - [3.1.2. initial group](#312-initial-group)
     - [3.2. /etc/gshadow](#32-etcgshadow)
   - [ACL](#acl)
+  - [PAM](#pam)
 - [Commands](#commands)
   - [1. check id](#1-check-id)
   - [2. check the hashing functions of passwords](#2-check-the-hashing-functions-of-passwords)
@@ -51,6 +52,7 @@
     - [su](#su)
     - [sudo](#sudo)
   - [visudo](#visudo)
+  - [This account is currently not available](#this-account-is-currently-not-available)
 
 <br />
 
@@ -143,6 +145,19 @@
 ## ACL
 * Access Control List 
 * set more detailed configurations for `owner, group, other`
+
+<br />
+
+## PAM
+* an API to verify authentication, such as passwords
+* Process of verification:
+  * users type in passwords => start to execute **the program**: `/usr/bin/passwd`
+  * `passwd` called `PAM` API to verify passwords
+  * `PAM` searches for the configuration file with the same name as **the program**
+    * `/etc/pam.d/passwd`
+    * `PAM` starts to verify the password
+  * `PAM` return the result to **the program**: `/usr/bin/passwd`
+  * `/usr/bin/passwd` take next actions, such as passing the verification or retrying passwords
 
 <br />
 
@@ -525,11 +540,64 @@
   # root   ALL=(ALL)    ALL  
 
 ```
+
 * how to make a group as `root`
+  * so you can only add people to th group for `sudo`
+  
 ```bash
   # uncomment this line in /etc/sudoers
+  # can change to other group name
   # %wheel     ALL=(ALL)    ALL  
 
-  # add user into the group, wheel
+  # add user into the group, wheel 
   usermod -a -G wheel <username>
 ```
+
+* how to use `sudo` without passwords
+
+```bash
+  # /etc/sudoers
+  # %wheel     ALL=(ALL)   NOPASSWD: ALL 
+
+```
+* users can revise other people's passwords as `root`
+  * only use `absolute path` in the column of commands
+```bash
+  # /etc/sudoers
+
+  # do not use this one. It will change the passwords of root
+  username      ALL=(root)    /usr/bin/passwd
+
+  # use this one. only can change other users' password, instead of root
+  username ALL=(root)  !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root
+
+```
+
+* what if there are **so many users** to be set for `sudo`?
+  * create an account **(should be capital)** and use **alias**
+    * User_Alias 
+    * Cmnd_Alias
+    * Host_Alias
+```bash
+  # /etc/sudoers
+  ## create an account, named ADMPW, and connects with actual user names
+  User_Alias ADMPW = pro1, pro2, pro3, myuser1, myuser2
+  Cmnd_Alias ADMPWCOM = !/usr/bin/passwd, /usr/bin/passwd [A-Za-z]*, !/usr/bin/passwd root
+  ADMPW   ALL=(root)  ADMPWCOM
+
+```
+
+* after using `sudo`, there are 5 minutes for users not to enter `sudo` with passwords
+
+* how to use `sudo` like su and users do not need to `sudo` every time
+
+```bash
+  # /etc/sudoers
+  User_Alias  ADMINS = pro1, pro2, pro3, myuser1
+  ADMINS ALL=(root)  /bin/su -
+```
+
+## This account is currently not available
+* the account can not log in shell to interact with the system
+  * such as accounts only for receiving mails
+  * if you want to let users know why they can not log in shell, use `/etc/nologin.txt`
