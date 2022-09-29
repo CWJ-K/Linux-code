@@ -17,6 +17,10 @@
     - [3.2. /etc/gshadow](#32-etcgshadow)
   - [ACL](#acl)
   - [PAM](#pam)
+    - [Path of PAM Modules](#path-of-pam-modules)
+      - [limits.conf](#limitsconf)
+      - [/var/log/secure`, `/var/log/messages](#varlogsecure-varlogmessages)
+    - [Common PAM Modules](#common-pam-modules)
 - [Commands](#commands)
   - [1. check id](#1-check-id)
   - [2. check the hashing functions of passwords](#2-check-the-hashing-functions-of-passwords)
@@ -155,9 +159,56 @@
   * `passwd` called `PAM` API to verify passwords
   * `PAM` searches for the configuration file with the same name as **the program**
     * `/etc/pam.d/passwd`
+      * each line implies the step of verification
+        * Order is from the top to the end
+        |Type|Content|Note|
+        |:---:|:---|:---|
+        |Verification|auth|authentication; check the identification of users, so it requires passwords
+        ||account|check if the users have right permission. such as valid passwords|
+        ||session|record the information of login and log out|
+        ||password|revise and change passwords|
+        |control flag|required|return success or fail. Even the program fails, the program still continues to work|
+        ||requisite|return success or fail. Even the program fails, the program does not continue to work|
+        ||sufficient|return success or fail. If the program **successes**, the program does not continue to work|
+        ||optional|Mostly to display the information. Not for verification|
     * `PAM` starts to verify the password
   * `PAM` return the result to **the program**: `/usr/bin/passwd`
   * `/usr/bin/passwd` take next actions, such as passing the verification or retrying passwords
+
+### Path of PAM Modules 
+|Path|Meaning|
+|:---:|:---:|
+|`/etc/pam.d/*`|PAM configurations|
+|`/lib64/security/*`|the path of PAM modules|
+|`/etc/security/*`|other PAM configurations, `limits.conf`, `/var/log/secure`, `/var/log/messages`|
+|`/usr/share/doc/pam-*/`|detailed PAM documentations|
+
+#### limits.conf
+* `ulimit`
+
+```bash
+  cat /etc/security/limits.conf
+  ulimit -a
+
+```
+
+#### /var/log/secure`, `/var/log/messages
+* record the messages of unexpected errors
+
+### Common PAM Modules
+|Module|Meaning|
+|:---:|:---:|
+|pam_securetty.so||
+|pam_nologin.so||
+|pam_selinux.so||
+|pam_console.so||
+|pam_loginuid.so||
+|pam_env.so|see /etc/security/pam_env.conf|
+|pam_unix.so||
+|pam_pwquality.so||
+|pam_limits.so||
+
+
 
 <br />
 
