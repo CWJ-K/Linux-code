@@ -16,6 +16,8 @@ How to deploy a database by docker-compose.yml?
   - [3. Types of Database](#3-types-of-database)
 - [Commands](#commands)
   - [1. create volume for Mysql](#1-create-volume-for-mysql)
+- [Issue](#issue)
+  - [/docker-entrypoint-initdb.d/ does not execute files](#docker-entrypoint-initdbd-does-not-execute-files)
 
 <br />
 
@@ -69,5 +71,8 @@ How to deploy a database by docker-compose.yml?
     docker volume create mysql
 
 
+# Issue
+## /docker-entrypoint-initdb.d/ [does not execute files](https://stackoverflow.com/questions/38504257/mysql-scripts-in-docker-entrypoint-initdb-are-not-executed)
+* recreate the volume of mysql and make sure the volume is empty, but only a directory
 
 
