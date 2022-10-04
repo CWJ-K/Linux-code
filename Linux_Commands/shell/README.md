@@ -100,6 +100,19 @@ How to use shell?
   - [ping](#ping)
   - [List](#list)
   - [debug](#debug)
+  - [Check users](#check-users)
+    - [w, who](#w-who)
+    - [last, lastlog](#last-lastlog)
+  - [how to chat with users](#how-to-chat-with-users)
+    - [write](#write)
+    - [mesg](#mesg)
+    - [wall](#wall)
+  - [mail](#mail)
+  - [check accounts](#check-accounts)
+    - [pwck](#pwck)
+    - [pwconv](#pwconv)
+    - [pwunconv](#pwunconv)
+    - [chpasswd](#chpasswd)
 
 <br />
 
@@ -1159,3 +1172,71 @@ How to use shell?
   sh [-nvx] scripts.sh
 
 ```
+
+
+## Check users
+### w, who
+* check which users use the system now
+
+```bash
+  w
+  who
+
+```
+
+### last, lastlog
+* check users' last log in time
+  * data from `/var/log/lastlog`
+
+```bash
+  lastlog
+
+```
+
+## how to chat with users
+### write
+* write messages to users 
+
+```bash
+  write <user_account>
+```
+
+### mesg
+* if a user runs programs now, the user does not want to receive any messages
+  * but can not avoid messages from roots
+
+```bash
+  mesg n
+
+
+```
+
+### wall
+* broadcast messages to everyone
+
+```bash
+  wall "messages"
+
+```
+
+## mail
+
+
+```bash
+  # type . in the end of the message 
+  mail -s "message title" <user_account>
+
+```
+
+## check accounts
+
+### pwck
+* check the data of `/etc/passwd`
+  * check if what I typed is correct
+
+### pwconv
+
+### pwunconv
+* do not use this one
+
+### chpasswd
