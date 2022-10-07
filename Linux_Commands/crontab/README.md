@@ -106,6 +106,9 @@
 
 
 ## crontab
+* execute files: `/usr/bin/crontab`
+  * text file
+  * read `/etc/crontab` and `/var/spool/cron` every minutes to obtain tasks
 
 ```bash
   crontab [-u username] [-l|-e|-r]
@@ -129,3 +132,36 @@
   |,|divide time. tasks will be executed in the divided time|3,6 => 3:00 and 6:00|
   |-|a range of time|8-12: 8:00~12:00|
   |/n|unit gap|tasks run every x minutes.  0-59/5 = */5: every 5 minutes|
+
+
+### crontab of systems
+#### /etc/crontab
+* for system management
+* `/usr/bin/crontab` reads `/etc/crontab` and `/var/spool/cron` every minutes to obtain tasks
+* `MAILTO`: when errors happen, send messages to an email or `root`
+  * but root can not receive emails by **POP3**
+
+#### /etc/cron.d/*
+* users can set cronjobs when they build software
+  * better to have a new configuration file
+
+
+### crontab of users
+#### /var/spool/cron
+
+
+## anacron 
+* when Linux does not execute for 24 hours or tasks are not executed as expected
+* anacron are executed by `crond` **hourly**. anacron will check which tasks are not executed and execute them
+  * anacron is in ` etc/cron.hourly`
+    * `cat /etc/cron.hourly/0anacron`
+      * 0 (as a timestamp) makes anacron is executed first
+
+```bash
+  anacron [-sfn] [job]..
+  anacron -u [job]..
+
+```
+
+### configuration files of anacron
+* `/etc/anacrontab`
