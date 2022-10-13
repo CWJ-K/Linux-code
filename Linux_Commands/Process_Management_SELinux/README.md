@@ -74,3 +74,71 @@
     ## the second column is PID
 
 ```
+
+## Stop the current task => throw tasks to the daemon 
+* `ctrl + Z`
+  * the first column of output is the job number
+    * `+`: the latest job
+    * `-`: the oldest job
+* stop the current tasks to make them wait in the daemon
+* use `jobs` to see the status of the current tasks
+
+```bash
+  jobs [-lrs]
+
+```
+
+
+## throw tasks from the daemon to the foreground
+* will change the symbol `+` to the job processed by `fg`
+
+
+```bash
+  #  job number is the first column of jobs
+  ## %: optional, without %, it takes the job with `+`
+
+  fg %<job_number>
+
+```
+
+## run the job in the daemon
+
+```bash
+  bg %<number_job>
+
+  # check the change
+  jobs; bg; jobs
+
+  ## the command of the job with + ends with & 
+```
+
+## remove the job in the daemon
+* signal: 15 vs 9
+  * 15 (normal process to kill a job): if use vim, .<file name>.swp is created. kill the `vim <file name>` will also remove .<file name>.swp
+    * in fact, `vim` can not be ended by `kill`
+  * 9 (abnormal process to kill a job): will not remove .<file name>.swp
+* signal: 9
+  * when you do not know how to stop a process
+
+```bash
+  kill -<signal> %<number_job>
+  
+  # signal
+  ## 1: reload
+  ## 2: same as ctrl + z
+  ## 9: force to delete jobs
+  ## 15: stop a job by normal processes
+
+  # without %, default is PID
+
+  # list all available signals
+  kill -l
+
+```
+
+## Offline management
+* Notes above all make jobs run in the daemon of bash, instead of a system
+  * if the system becomes offline, jobs in daemon will stop
+* makes tasks run in the system
+  * [`at`](/Linux_Commands/crontab/README.md)
+  * `nohup` 
