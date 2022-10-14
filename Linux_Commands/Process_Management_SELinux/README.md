@@ -138,7 +138,71 @@
 
 ## Offline management
 * Notes above all make jobs run in the daemon of bash, instead of a system
-  * if the system becomes offline, jobs in daemon will stop
+  * if the system becomes offline, jobs in the daemon will stop
 * makes tasks run in the system
   * [`at`](/Linux_Commands/crontab/README.md)
   * `nohup` 
+
+### nohup
+* does not support the internal commands of bash
+  * execute .sh files
+* even if you leave the system, the jobs still run
+
+```bash
+  nohup <commands or arguments>
+
+  # execute in the daemon
+  nohup <commands or arguments> &
+
+```
+
+## Process Management
+### Check the status
+#### ps
+* inactive. capture the process at a specific time
+
+```bash
+  # check your own bash
+  ps -l
+  # check all processes in the system
+  ps aux
+
+```
+* Table of outputs: `ps -l`
+  |Column Name|Meaning|Note|
+  |:---:|:---:|:---:|
+  |F|process flags. It implies the permission of processes|4: root; 1: subprogram only forks, no executes|
+  |S|the status of processes|R: running; S: sleep; D: sleep but can not be wakened. e.g. waiting for I/O , T: stop, Z: zombie|
+  |UID/PID/PPID|||
+  |C|the usage of CPU|Unit is %|
+  |PRI/NI|Priority/Nice. The priority of processes|the smaller it is, the higher the possibility of the process can be first executed by CPU is|
+  |ADDR/SZ/WCHAN|ADDR: the location of the process in the memory; SZ: the usage memory of process; WCHAN: if the process is running|-: the process is running|
+  |TTY|the location of the terminal|remote login is `pts/n`|
+  |TIME|the actual running time of the process ||
+  |CMD|commands||
+
+* Table of outputs: `ps aux`
+  |Column Name|Meaning|Note|
+  |:---:|:---:|:---:|
+  |USER|the process execute by which user||
+  |PID|ID of the process||
+  |%CPU|the rate of CPU usage||
+  |%MEM|the rate of CPU memory usage||
+  |VSZ|the amount of virtual CPU usage||
+  |RSS|the amount of Resident Set Size||
+  |TTY|the location of the terminal|?: unrelated to terminals. pts/n: connect the terminals by the internet|
+  |STAT||same as `ps -l`|
+  |START|the start time of the process to be activated||
+  |TIME||same as `ps -l`|
+  |COMMAND||same as `ps -l`|
+
+##### Zombie
+* COMMAND with `<defunct>`
+
+#### top
+* continuously check the processes
+
+```bash
+
+
+```
