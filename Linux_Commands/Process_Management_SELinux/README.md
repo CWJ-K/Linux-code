@@ -201,8 +201,76 @@
 
 #### top
 * continuously check the processes
+* can use `?` to find more arguments when using top
+  * type `1` to switch to other cores
+* swap should be less. If not, it implies the actual disk memory is not enough
+  * the process of swap: if the disk memory is not enough, systems prioritize tasks and switch some tasks in swap to wait for systems, and then systems start to execute tasks in memory
 
 ```bash
+  top [-d number] | top [-bnp]
+
+  # update the information every two seconds
+  ## default 5 seconds
+  top -d 2
+
+```
+* the output of top
+  |Symbol|Meaning|Note|
+  |:---:|:---|:---|
+  |PR|Priority|the smaller the number is, the earlier the task is executed|
+  |NI|Nice|the smaller the number is, the earlier the task is executed|
+  |TIME+|the accumulates time of CPU usage||
+
+* sort top
+  * type the first letter of the column
+    * type `M`: sort %MEM
+    * type `T`: sort TIME+
+    * type `P`: sort %CPU
+    * type `q`: leave
+    * type `r`: assign values to nice
+
+* check the current PID
+  
+  ```bash
+    # look into the PID of the bash PID
+    echo $$
+
+    top -d 2 -p <PID>
+  
+  ```
+
+#### pstree
+* find the relationships between processes
+  * e.g. find the all processes of a specific bash PID (from a user). so you kill its all processes 
+
+```bash
+  pstree [-A|U] [-up]
+
+```
 
 
+### Manage processes
+* give a signal to manage processes
+  * list all available signals: `kill -k`
+  * common signals
+    |Signals|Name|Meaning|
+    |:---:|:---:|:---|
+    |1|SIGHUP|make the PID reread it's configurations = restart|
+    |9|SIGKILL|force the PID to stop. `.filename.swp` will be kept|
+    |15|SIGTERM|stop the PID in a normal way. However, if there are issues in the process, the signal will not work out |
+
+#### kill -signal PID
+* pass the signal to processes
+* if `kill %<job number>`, see [remove jobs](README.md#remove-the-job-in-the-daemon)
+
+```bash
+  kill -signal PID
+
+  ## important!!
+  # ps aux | grep 'rsyslogd' | grep -v 'grep'| awk '{print $2}'
+
+  kill -SIGHUP $(ps aux | grep 'rsyslogd' | grep -v 'grep'| awk '{print $2}')
+
+  # check if the process restarts
+  tail -5 /var/log/messages
 ```
