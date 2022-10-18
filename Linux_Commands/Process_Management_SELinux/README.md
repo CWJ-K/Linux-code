@@ -61,6 +61,19 @@
 
 <br />
 
+## Priority
+### PRI
+* determined by kernal. So it can not be manually modified by users
+
+### NICE
+* If users want to affect the priority, NICE can be used
+  * PRI(new) = PRI(old) + nice
+    * the range of nice determined by root:  -20 ~ 19
+    * the range of nice determined by general users: 0 ~ 19
+      * only can increase the value in case users occupy system resources
+
+<br />
+
 # Commands 
 
 ## make current tasks run in the daemon and users can do other tasks at the same time
@@ -248,6 +261,26 @@
 
 ```
 
+#### free 
+* check the memory
+
+```bash
+  free [-b|-k|-m|-g|-h] [-t] [-s N -c N]
+
+```
+* the output of free
+  ||Meaning|Note|
+  |:---:|:---|:---|
+  |total|total amount of memory||
+  |used|the amount of memory in use||
+  |free|the rest of memory can be used||
+  |shared/buffers/cached|in the part of the amount of memory in use. It is used for buffer and cache||
+  |available|||
+* the amount of cache is generates from read/write/execute files. The files will be cached by systems to speed I/O
+* it is normal that actual memory is run out of (because of cache), but swap can not be greater than 20%. If swap is higher, buy large actual memory 
+  * [clearing cache will free RAM](https://serverfault.com/a/597141), but it causes the kernel to look for files on the **disk** rather than in the cache which can cause performance issues.
+  * Normally the kernel will clear the cache when the available RAM is depleted. It frequently writes dirtied content to disk using pdflush.
+
 
 ### Manage processes
 * give a signal to manage processes
@@ -262,6 +295,7 @@
 #### kill -signal PID
 * pass the signal to processes
 * if `kill %<job number>`, see [remove jobs](README.md#remove-the-job-in-the-daemon)
+* is compared with `ps` and `pstree` to get PID  
 
 ```bash
   kill -signal PID
@@ -274,3 +308,31 @@
   # check if the process restarts
   tail -5 /var/log/messages
 ```
+
+
+#### killall
+* different from kill, killall requires the name of command instead of PID
+
+```bash
+  killall [-iIe] [command name]
+
+```
+
+### Priority
+#### nice
+* create a new job and assign the value of nice
+
+```bash
+  nice [-n number] command
+
+  nice -n -5 vim&
+
+```
+
+#### renice
+
+```bash
+  renice [number] PID
+
+```
+
