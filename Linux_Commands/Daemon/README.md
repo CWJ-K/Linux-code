@@ -138,3 +138,27 @@
     cat /etc/services
 
 ```
+
+### disable the internet service
+* internet service: the service with port
+* if the internet service is not essential, disable it
+```bash
+  # see the current internet service
+  netstat -tlunp
+
+  # check the specific service with the internet
+  systemctl list-units --all | grep <service>
+
+  # disable the services
+  systemctl stop <service>.service
+  systemctl stop <service>.socket
+  systemctl disable <service>.service <service>.socket
+
+
+
+  netstat -tlunp
+```
+
+## tty
+### getty
+* 
