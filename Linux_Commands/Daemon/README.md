@@ -205,3 +205,61 @@
     |OnCalendar|use real time to activate services|
     |Unit||
     |Persistent|whether OnCalendar continues to use|
+
+* the format of `timer`
+  * the timer is executed 2 hours after boot
+  * after boot of the first time, every 2 days runs the timers
+  ```bash
+    [Unit]
+    Description=backup my server timer
+
+    [Timer]
+    OnBootSec=2hrs
+    OnUnitActiveSec=2days
+
+    [Install]
+    WantedBy=multi-user.target
+  
+  ```
+
+#### OnCalendar
+  * format
+    * the smaller unit is written in front of the bigger unit
+    * the format of period
+      * us of usec
+      * ms of msec
+      * s, sec, second, seconds
+      * m, min, minute, minutes
+      * h, hr, hour, hours
+      * d, day, days
+      * w, week, weeks
+      * month, months
+      * y, year, years
+    * the format of the representation of time. If now: 2015-08-13 13:50:00:
+      > year-month-day hour-minute-second
+      * now	Thu 2015-08-13 13:50:00*
+      * today	Thu 2015-08-13 00:00:00*
+      * tomorrow	Thu 2015-08-14 00:00:00*
+      * hourly	*-*-* *:00:00*
+      * daily	*-*-* 00:00:00*
+      * weekly	Mon *-*-* 00:00:00*
+      * monthly	*-*-01 00:00:00*
+      * +3h10m	Thu 2015-08-13 17:00:00*
+      * 2015-08-16	Sun 2015-08-16 00:00:00*
+
+```bash
+  systemctl dameon-reload
+  systemctl enable backup.timer
+  systemctl restart backup.timer
+
+  ## only enable timer instead of service (to be executed)
+  systemctl list-unit-files | grep backup
+
+  # target manage timers
+  systemctl show timers.target
+
+  # the difference between the last execution time of timers.target
+  ## if OnCalendar: the difference between 1970-01-01 00:00:00
+  systemctl show backup.timer
+
+```
