@@ -10,6 +10,7 @@
 - [Commands](#commands)
   - [journalctl](#journalctl)
     - [track real-time messages](#track-real-time-messages)
+    - [store all logs even if reboot](#store-all-logs-even-if-reboot)
   - [logger](#logger)
 
 
@@ -26,6 +27,7 @@
   * `systemd-journald` records the current logs
     * sinces it uses memory to record logs
       * `/run/log` will be updated after restarting machines
+        * see [this part](README.md#store-all-logs-even-if-reboot) to  store all logs
   * `rsyslogd` records the previous logs after restarting machines
 
 <br />
@@ -56,6 +58,20 @@
 * create two terminals
   * one terminal: `journalctl -f`
   * the other terminal: type commands whose logs will be tracked 
+
+### store all logs even if reboot
+1. create a directory: `/var/log/journal`
+   1. modify permission
+  > after rebooting, the log registry will copy logs to the directory
+  > `/run/log` will not have logs since logs are all in `/var/log/journal`
+
+
+```bash
+    mkdir /var/log/journal
+    chown root:systemed-journal /var/log/journal
+    chmod 2775 /var/log/journal
+
+```
 
 
 ## logger
